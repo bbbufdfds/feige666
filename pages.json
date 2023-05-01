@@ -1,0 +1,180 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/tabBar/index",
+			"style": {
+				"navigationBarTitleText": "首页"
+			}
+		},
+		{
+			"path": "pages/tabBar/member",
+			"style": {
+				"navigationBarTitleText": "个人中心"
+			}
+		},
+		{
+		    "path" : "pages/tabBar/project",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "影视项目",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/tabBar/call",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "在线客服",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}, 
+		{
+		    "path" : "pages/tabBar/about",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "关于我们",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+			"path": "pages/auth/login",
+			"style": {
+				"navigationBarTitleText": "登录"
+			}
+		},
+		{
+			"path": "pages/auth/register",
+			"style": {
+				"navigationBarTitleText": "注册"
+			}
+		},
+		
+		{
+		    "path" : "pages/member/info",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "账号设置",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/member/coupon",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "优惠券",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/member/yuebao",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "余额宝",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/integral/mall",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "积分商城",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/finance/withdrawal",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "提现",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/finance/recharge",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "充值",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/finance/transfer",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "转账",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/common/drawPrize",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "抽奖",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		}
+    ],
+	"tabBar": {
+		"color": "#a5a5a4",
+		"selectedColor": "#fe8113",
+		"borderStyle": "black",
+		"backgroundColor": "#fff",
+		"list": [{
+				"pagePath": "pages/tabBar/index",
+				"text": "首页",
+				"iconPath": "static/image/tabar/home.png",
+				"selectedIconPath": "static/image/tabar/home1.png"
+			},
+			{
+				"pagePath": "pages/tabBar/project",
+				"text": "影视项目",
+				"iconPath": "static/image/tabar/movie.png",
+				"selectedIconPath": "static/image/tabar/movie1.png"
+			},
+			{
+				"pagePath": "pages/tabBar/member",
+				"text": "个人中心",
+				"iconPath": "static/image/tabar/my.png",
+				"selectedIconPath": "static/image/tabar/my1.png"
+			},
+			{
+				"pagePath": "pages/tabBar/about",
+				"text": "关于我们",
+				"iconPath": "static/image/tabar/about.png",
+				"selectedIconPath": "static/image/tabar/about1.png"
+			},
+			{
+				"pagePath": "pages/tabBar/call",
+				"text": "在线客服",
+				"iconPath": "static/image/tabar/tel.png",
+				"selectedIconPath": "static/image/tabar/tel1.png"
+			}
+		]
+	},
+	"globalStyle": {
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#fe8113",
+		"backgroundColor": "#fe8113",
+		"navigationStyle": "custom"
+	},
+	"uniIdRouter": {}
+}
