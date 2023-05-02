@@ -42,7 +42,6 @@
 	
 	// 顶部
 	.nav{
-		background-color: #000000;
 		height: var(--status-bar-height);// --status-bar-height系统状态栏高度
 	}
 	

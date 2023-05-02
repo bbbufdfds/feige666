@@ -192,6 +192,9 @@
 </script>
 
 <style lang="scss">
+	.nav{
+		background-color: #ff7949;
+	}
 	.container{
 		.header{
 			background-color: #ff7949;
