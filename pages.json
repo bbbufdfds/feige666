@@ -252,6 +252,7 @@
 	},
 	"globalStyle": {
 		"navigationBarTitleText": "uni-app",
+		"navigationBarTextStyle": "black",
 		"navigationBarBackgroundColor": "#fe8113",
 		"backgroundColor": "#fe8113",
 		"navigationStyle": "custom"
