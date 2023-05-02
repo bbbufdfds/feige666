@@ -2,9 +2,12 @@
 	export default {
 		onLaunch: function(options) {
 			if(!this.$store.state.user.hasLogin){
-				uni.reLaunch({
-					url: "/pages/auth/login",
-				})
+				
+				if("pages/tabBar/index".indexOf(options.path) == -1){
+					uni.reLaunch({
+						url: "/pages/auth/login",
+					})
+				}
 			}else{
 				let paths = [
 					"pages/auth/login",
