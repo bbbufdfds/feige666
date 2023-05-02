@@ -42,6 +42,7 @@ mutations = {
 		state.info = {};
 		state.hasLogin = false;
 		removeToken();
+		uni.removeStorageSync('userInfo')
 	}
 }
 , actions = {

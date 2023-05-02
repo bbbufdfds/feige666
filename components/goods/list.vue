@@ -48,9 +48,9 @@
 							</view>
 						</view>
 					</view>
-					<view class="good-submit">
+					<navigator url="/pages/goods/detail" class="good-submit">
 						立即投资
-					</view>
+					</navigator>
 				</view>
 			</view>
 		</view>

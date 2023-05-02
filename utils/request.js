@@ -18,6 +18,7 @@ function service(options = {}) {
 				
 				if (res.data.status === 401) {
 					removeToken()
+					uni.removeStorageSync('userInfo')
 					uni.reLaunch({
 						url: '/pages/auth/login'
 					})

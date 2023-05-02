@@ -1,5 +1,5 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [
 		{
 			"path": "pages/tabBar/index",
 			"style": {
@@ -78,6 +78,16 @@
 		    "style" :                                                                                    
 		    {
 		        "navigationBarTitleText": "余额宝",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/goods/detail",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "立即投资",
 				"navigationStyle": "default",
 		        "enablePullDownRefresh": false
 		    }

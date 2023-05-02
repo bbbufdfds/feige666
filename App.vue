@@ -33,4 +33,7 @@
 	.viewFlex{
 		display: flex;
 	}
+	.flag{
+		color: #fe8113;
+	}
 </style>
