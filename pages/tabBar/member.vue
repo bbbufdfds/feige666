@@ -1,95 +1,98 @@
 <template>
-	<view class="container">
-		<view class="header">
-			<view class="userInfo">
-				<view class="userInfo-info viewFlex">
-					<view class="userInfo-info-item">
-						{{user.info.phone}}
+	<view class="">
+		<view class="nav"></view>
+		<view class="container">
+			<view class="header">
+				<view class="userInfo">
+					<view class="userInfo-info viewFlex">
+						<view class="userInfo-info-item">
+							{{user.info.phone}}
+						</view>
+						<view class="userInfo-info-item">
+							团长
+						</view>
 					</view>
-					<view class="userInfo-info-item">
-						团长
+					<view>等级</view>
+				</view>
+				<view class="priceInfo viewFlex">
+					<view class="priceInfo-item">
+						<view class="priceSize">
+							38.00
+						</view>
+						<view class="">
+							账户余额
+						</view>
+					</view>
+					<view class="priceInfo-item right">
+						<view class="">
+							待投资金额：38.00
+						</view>
+						<view class="" >
+							可提现金额：00.00
+						</view>
 					</view>
 				</view>
-				<view>等级</view>
-			</view>
-			<view class="priceInfo viewFlex">
-				<view class="priceInfo-item">
-					<view class="priceSize">
-						38.00
+				<view class="priceUl viewFlex">
+					<view class="priceUl-li">
+						<view class="">
+							0
+						</view>
+						<view class="">
+							待收本金(元)
+						</view>
 					</view>
-					<view class="">
-						账户余额
+					<view class="priceUl-li">
+						<view class="">
+							0
+						</view>
+						<view class="">
+							待收收益(元)
+						</view>
 					</view>
-				</view>
-				<view class="priceInfo-item right">
-					<view class="">
-						待投资金额：38.00
+					<view class="priceUl-li">
+						<view class="">
+							0
+						</view>
+						<view class="">
+							余额宝(元)
+						</view>
 					</view>
-					<view class="" >
-						可提现金额：00.00
-					</view>
-				</view>
-			</view>
-			<view class="priceUl viewFlex">
-				<view class="priceUl-li">
-					<view class="">
-						0
-					</view>
-					<view class="">
-						待收本金(元)
-					</view>
-				</view>
-				<view class="priceUl-li">
-					<view class="">
-						0
-					</view>
-					<view class="">
-						待收收益(元)
+					<view class="priceUl-li">
+						<view class="">
+							0
+						</view>
+						<view class="">
+							积分
+						</view>
 					</view>
 				</view>
-				<view class="priceUl-li">
-					<view class="">
-						0
-					</view>
-					<view class="">
-						余额宝(元)
-					</view>
-				</view>
-				<view class="priceUl-li">
-					<view class="">
-						0
-					</view>
-					<view class="">
-						积分
-					</view>
+				
+				<view class="btnInfo viewFlex">
+					<navigator class="btn" url="/pages/finance/withdrawal">
+						提现
+					</navigator> 
+					<view class="line"></view>
+					<navigator class="btn" url="/pages/finance/recharge">
+						充值
+					</navigator> 
 				</view>
 			</view>
 			
-			<view class="btnInfo viewFlex">
-				<navigator class="btn" url="/pages/finance/withdrawal">
-					提现
-				</navigator> 
-				<view class="line"></view>
-				<navigator class="btn" url="/pages/finance/recharge">
-					充值
-				</navigator> 
-			</view>
-		</view>
-		
-		<view class="content">
-			<view style="height: 90rpx;"></view>
-			<view class="list viewFlex">
-				<navigator :url="item.url" class="list-item viewFlex" v-for="(item, index) in btnList">
-					<view class="">
+			<view class="content">
+				<view style="height: 90rpx;"></view>
+				<view class="list viewFlex">
+					<navigator :url="item.url" class="list-item viewFlex" :class="(index+1)%3 == 0?'right-border-none':''" v-for="(item, index) in btnList">
 						<view class="">
-							<i class="iconfont" :style="'color:#' + item.color" :class="'icon-' +item.icon"></i>
+							<view class="">
+								<i class="iconfont" :style="'color:#' + item.color" :class="'icon-' +item.icon"></i>
+							</view>
+							<view class="">
+								{{item.title}}
+							</view>
 						</view>
-						<view class="">
-							{{item.title}}
-						</view>
-					</view>
-					<span class="notice" v-if="item.notice">1</span>
-				</navigator>
+						<span class="notice" v-if="item.notice">1</span>
+					</navigator>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -263,9 +266,9 @@
 				position: relative;
 				.iconfont{
 					font-size: 60rpx;
-					width: 100rpx;
-					height: 100rpx;
-					line-height: 100rpx;
+					width: 80rpx;
+					height: 80rpx;
+					line-height: 80rpx;
 					display: inline-block;
 				}
 				.notice{

@@ -40,6 +40,12 @@
 		color: #fe8113;
 	}
 	
+	// 顶部
+	.nav{
+		background-color: #000000;
+		height: var(--status-bar-height);// --status-bar-height系统状态栏高度
+	}
+	
 	
 	.table{
 		margin-top: 20rpx;

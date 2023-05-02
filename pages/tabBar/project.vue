@@ -1,7 +1,6 @@
 <template>
 	<view>
-		<view class="nav">
-		</view>
+		<view class="nav"></view>
 		<view class="container">
 			<goods-category @changeClassify="changeClassify"></goods-category>
 			
@@ -41,7 +40,6 @@
 		margin-top: 10rpx !important;
 	}
 	.nav{
-		background-color: #000000;
-		height: var(--status-bar-height);// --status-bar-height系统状态栏高度
+		background-color: #ffffff;
 	}
 </style>

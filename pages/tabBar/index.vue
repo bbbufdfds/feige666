@@ -1,45 +1,48 @@
 <template>
-	<view class="container">
-		<view class="welcome">
-			<view class="welcome_c">
-				<image mode="heightFix" src="../../static/img/icon/icon-1.png"></image>
-			</view>
-			<view class="welcome_c" style="margin-left:20rpx;">
-				欢迎来到邵氏兄弟
-			</view>
-		</view>
-		<view class="banner" v-if="imgList">
-			<carousel :img-list="imgList" url-key="thumb_url" @selected="selectedBanner" />
-		</view>
-		<view class="notice" v-if="notices">
-			<view class="notice-item notice_icon">
-				<image mode="heightFix" src="../../static/img/icon/icon-2.png"></image>
-			</view>
-			<view class="notice-item notice_text swiper">
-				<view>
-					<mosowe-swiper :lists="notices" :touchable="true" vertical swiperType="text" textKey="title"
-						:height="80" />
+	<view>
+		<view class="nav"></view>
+		<view class="container">
+			<view class="welcome">
+				<view class="welcome_c">
+					<image mode="heightFix" src="../../static/img/icon/icon-1.png"></image>
+				</view>
+				<view class="welcome_c" style="margin-left:20rpx;">
+					欢迎来到邵氏兄弟
 				</view>
 			</view>
-		</view>
-		<!-- 金刚区 start -->
-		<view class="button-list" v-if="buttonList">
-			<view class="button-list-item" v-for="(item, index) in buttonList" :key="index">
-				<view class="button-list-item_icon">
-					<image :src="item.thumb_url" mode="widthFix"></image>
+			<view class="banner" v-if="imgList">
+				<carousel :img-list="imgList" url-key="thumb_url" @selected="selectedBanner" />
+			</view>
+			<view class="notice" v-if="notices">
+				<view class="notice-item notice_icon">
+					<image mode="heightFix" src="../../static/img/icon/icon-2.png"></image>
 				</view>
-				<view class="button-list-item_text">
-					{{item.name}}
+				<view class="notice-item notice_text swiper">
+					<view>
+						<mosowe-swiper :lists="notices" :touchable="true" vertical swiperType="text" textKey="title"
+							:height="80" />
+					</view>
 				</view>
 			</view>
-		</view>
-		<view class="video" v-if="videoObj.open == 1">
-			<video  :src="videoObj.videourl"></video>
-		</view>
-
-		<goods-category @changeClassify="changeClassify"></goods-category>
+			<!-- 金刚区 start -->
+			<view class="button-list" v-if="buttonList">
+				<view class="button-list-item" v-for="(item, index) in buttonList" :key="index">
+					<view class="button-list-item_icon">
+						<image :src="item.thumb_url" mode="widthFix"></image>
+					</view>
+					<view class="button-list-item_text">
+						{{item.name}}
+					</view>
+				</view>
+			</view>
+			<view class="video" v-if="videoObj.open == 1">
+				<video  :src="videoObj.videourl"></video>
+			</view>
 		
-		<goods-list ref="goodsRef"></goods-list>
+			<goods-category @changeClassify="changeClassify"></goods-category>
+			
+			<goods-list ref="goodsRef"></goods-list>
+		</view>
 	</view>
 </template>
 
@@ -118,6 +121,9 @@
 	.container {
 		width: 95%;
 		margin: 0 auto;
+	}
+	.nav{
+		background-color: #ffffff;
 	}
 
 	.swiper {
