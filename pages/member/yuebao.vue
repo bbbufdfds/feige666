@@ -2,20 +2,20 @@
 	<view class="container">
 		<view class="header">
 			<view class="header-item">
-				啊大苏打
+				今日收益：{{data.Dayyuemoneys}}（元）
 			</view>
 			<view class="header-item">
-				啊大苏打
+				总金额：{{data.yuamount}}（元）
 			</view>
 		</view>
 		<view class="line"></view>
 		<view class="priceInfo viewFlex">
 			<view class="priceInfo-item">
 				<view class="text">
-					00
+					{{data.Allyuemoneys}}
 				</view>
-				<view class="text">
-					00
+				<view class="text bt">
+					累计收益(元)
 				</view>
 				<view class="btn">
 					转入
@@ -23,10 +23,18 @@
 			</view>
 			<view class="priceInfo-item">
 				<view class="text">
-					00
+					{{data.YuBaoLv}}
 				</view>
+				<view class="text bt">
+					万份收益(%)
+				</view>
+			</view>
+			<view class="priceInfo-item">
 				<view class="text">
-					00
+					{{data.day7}}
+				</view>
+				<view class="text bt">
+					七日年化(%)
 				</view>
 				<view class="btn right">
 					转出
@@ -34,54 +42,64 @@
 			</view>
 		</view>
 		<view class="line"></view>
-		<view class="table">
-			<view class="theader viewFlex">
-				<view class="">
-					序号
-				</view>
-				<view class="">
-					标题
-				</view>
-				<view class="">
-					金额
-				</view>
-				<view class="">
-					时间
-				</view>
-			</view>
-			<view class="tbody">
-				<block v-if="list.length > 0">
-					<view class="tbody-item viewFlex" v-for="(item, index) in list" >
-						<view class="">
-							序号
-						</view>
-						<view class="">
-							标题
-						</view>
-						<view class="">
-							金额
-						</view>
-						<view class="">
-							时间
-						</view>
-					</view>
-				</block>
-				<view class="empty" v-else>
-					暂无更多数据
-				</view>
-			</view>
-		</view>
-		
+		<Itable :column="column" :list="list" />
 	</view>
 </template>
 
 <script>
+	import { yuebao as yuebaoApi } from "@/api/user.js"
 	export default {
 		data() {
 			return {
 				list: [],
+				page: 1,
+				data:{},
+				column:[
+					{
+						title: "序号",
+						prop: "id",
+					},
+					{
+						title: "标题",
+						prop: "moneylog_type",
+					},
+					{
+						title: "金额",
+						prop: "moneylog_money",
+					},
+					{
+						title: "时间",
+						prop: "date",
+					}
+				]
 			}
 		},
+		onLoad() {
+			this.getList()
+		},
+		
+		onReachBottom() {
+			this.page = this.page + 1
+			this.getList()
+		},
+		methods:{
+			getList(){
+				let that = this
+				yuebaoApi({
+					page: this.page
+				}).then(res=>{
+					if(res.status == 0){
+						const { data } = res.data;
+						if(data.length > 0){
+							that.list = that.list.concat(data)
+						}else{
+							that.page = that.page - 1
+						}
+						that.data = res.show
+					}
+				})
+			}
+		}
 	}
 </script>
 
@@ -106,11 +124,14 @@
 		}
 		.priceInfo{
 			.priceInfo-item{
-				width: 50%;
+				flex: 1;
 				text-align: center;
 				.text{
 					font-weight: bold;
 					margin-bottom: 15rpx;
+				}
+				.bt{
+					font-weight: normal;
 				}
 			}
 			view{
@@ -119,7 +140,7 @@
 			.btn{
 				padding: 15rpx 0;
 				background-color: #5bc724;
-				width: 70%;
+				width: 80%;
 				margin: 0 auto;
 				color: #ffffff;
 				border-radius: 10rpx;
@@ -128,52 +149,6 @@
 				background-color: #f46c6c;
 			}
 		}
-		.table{
-			.theader, .tbody .tbody-item{
-				background-color: #1b2b42;
-				color: #90939d;
-				text-align: center;
-				view{
-					width: 25%;
-					position: relative;
-					height: 80rpx;
-					line-height: 80rpx;
-				}
-				view::before{
-					content: "";
-					position: absolute;
-					right: 0;
-					height: 100%;
-					border-right: 1rpx solid #ffffff;
-				}
-			}
-			.tbody .tbody-item{
-				background-color: #ffffff;
-				position: relative;
-				view::before{
-					content: "";
-					position: absolute;
-					right: 0;
-					top: 0;
-					bottom: 0;
-					left: 0;
-					height: 100%;
-					border: 1rpx solid #eeeeee;
-					border-right: 0;
-				}
-			}
-			.tbody .tbody-item::before{
-				content: "";
-				position: absolute;
-				right: 2rpx;
-				height: 100%;
-				border-right: 1rpx solid #eeeeee;
-			}
-			.empty{
-				margin-top: 40rpx;
-				text-align: center;
-				color: #acacac;
-			}
-		}
+		
 	}
 </style>

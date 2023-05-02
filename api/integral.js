@@ -7,3 +7,10 @@ export function jifen(data) {
 		data
 	})
 }
+
+export function exchangelog() {
+	return request({
+		url: 'exchangelog',
+		method: 'POST',
+	})
+}

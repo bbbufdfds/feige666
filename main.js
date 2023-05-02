@@ -6,6 +6,9 @@ import * as utils from '@/utils/utils.js'
 
 Vue.prototype.$utils = utils
 
+import Itable from "@/components/table/index.vue"
+Vue.component('Itable',Itable)
+
 // #ifndef VUE3
 import Vue from 'vue'
 Vue.config.productionTip = false

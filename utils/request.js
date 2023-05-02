@@ -7,7 +7,7 @@ function service(options = {}) {
 	if (getToken()) {
 		options.header = {
 			'content-type': 'application/json',
-			'Authorization': `${getToken()}`	// 这里是token(可自行修改)
+			'Authtoken': `${getToken()}`	// 这里是token(可自行修改)
 		};
 	}
 

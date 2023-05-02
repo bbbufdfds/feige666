@@ -22,3 +22,11 @@ export function captcha() {
 		method: 'GET',
 	})
 }
+
+export function yuebao(data) {
+	return request({
+		url: 'my/yuamount',
+		method: 'POST',
+		data
+	})
+}

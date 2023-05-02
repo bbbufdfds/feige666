@@ -48,7 +48,7 @@
 							</view>
 						</view>
 					</view>
-					<navigator url="/pages/goods/detail" class="good-submit">
+					<navigator :url="'/pages/goods/detail?id='+item.id" class="good-submit">
 						立即投资
 					</navigator>
 				</view>

@@ -84,6 +84,16 @@
 		    
 		},
 		{
+		    "path" : "pages/member/invite",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "邀请好友",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
 		    "path" : "pages/goods/detail",
 		    "style" :                                                                                    
 		    {
@@ -101,7 +111,15 @@
 				"navigationStyle": "default",
 		        "enablePullDownRefresh": false
 		    }
-		    
+		},
+		{
+		    "path" : "pages/integral/exchangelog",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "兑换记录",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
 		},
 		{
 		    "path" : "pages/finance/withdrawal",
@@ -133,6 +151,53 @@
 		    }
 		},
 		{
+		    "path" : "pages/finance/flowlog",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "资金流水",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/finance/incomelog",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "收益记录",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/finance/investlog",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "投资记录",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
+		},
+		{
+		    "path" : "pages/finance/withdrawallog",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "提现记录",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
+		    "path" : "pages/finance/rechargelog",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "充值记录",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
+		    
+		},
+		{
 		    "path" : "pages/common/drawPrize",
 		    "style" :                                                                                    
 		    {
@@ -140,7 +205,15 @@
 				"navigationStyle": "default",
 		        "enablePullDownRefresh": false
 		    }
-		    
+		},
+		{
+		    "path" : "pages/common/message",
+		    "style" :                                                                                    
+		    {
+		        "navigationBarTitleText": "站内信",
+				"navigationStyle": "default",
+		        "enablePullDownRefresh": false
+		    }
 		}
     ],
 	"tabBar": {

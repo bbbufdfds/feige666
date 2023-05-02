@@ -34,7 +34,7 @@
 						index: 2,
 					}
 				],
-				tabIndex: 1,
+				tabIndex: 0,
 			}
 		},
 		onLoad() {
