@@ -37,11 +37,11 @@
 				<view class="cell-box">
 					<span class="item-title" style="width: 65%;">投资金额:</span>
 					<view class="item-centent viewFlex price">
-						<view class="dec">
+						<view class="dec" @click="dec">
 							-
 						</view>
-						<input type="text">
-						<view class="inc">
+						<input type="text" v-model="data.price">
+						<view class="inc" @click="inc">
 							+
 						</view>
 					</view>
@@ -78,7 +78,9 @@
 	export default {
 		data() {
 			return {
-				data: {},
+				data: {
+					price: 0
+				},
 				coupon_1: [2, 3],
 				index_1: 0,
 				coupon_2: [2, 3],
@@ -88,6 +90,15 @@
 		methods: {
 			bindPickerChange(e) {
 				this[e.currentTarget.dataset.index] = e.detail.value
+			},
+			inc(){
+				this.data.price = this.data.price + 1
+			},
+			dec(){
+				this.data.price = this.data.price - 1
+			},
+			submit(){
+				
 			}
 		}
 	}

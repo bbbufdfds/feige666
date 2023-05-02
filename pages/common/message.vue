@@ -1,6 +1,33 @@
 <template>
 	<view class="container">
-		<Itable :column="column" :list="list" />
+		<view class="table">
+			<view class="theader viewFlex">
+				<view class="" v-for="(item, index) in column">
+					{{item}}
+				</view>
+			</view>
+			<view class="tbody">
+				<block v-if="list.length > 0">
+					<view class="tbody-item viewFlex" v-for="(item, index) in list" >
+						<view class="">
+							
+						</view>
+						<view class="">
+							
+						</view>
+						<view class="">
+							
+						</view>
+						<view class="" @click="remove(index, item)">
+							下载合同
+						</view>
+					</view>
+				</block>
+				<view class="empty" v-else>
+					暂无更多数据
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -13,22 +40,11 @@
 				page: 1,
 				data:{},
 				column:[
-					{
-						title: "标题",
-						prop: "id",
-					},
-					{
-						title: "时间",
-						prop: "moneylog_type",
-					},
-					{
-						title: "状态",
-						prop: "date",
-					},
-					{
-						title: "删除",
-						prop: "date",
-					}
+					"标题",
+					"时间",
+					"时间",
+					"状态",
+					"删除",
 				]
 			}
 		},
@@ -56,6 +72,9 @@
 						that.data = res.show
 					}
 				})
+			},
+			remove(index, item){
+				this.list.splice(index, 1)
 			}
 		}
 	}

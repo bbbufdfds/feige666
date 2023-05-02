@@ -1,6 +1,33 @@
 <template>
 	<view class="container">
-		<Itable :column="column" :list="list" />
+		<view class="table">
+			<view class="theader viewFlex">
+				<view class="" v-for="(item, index) in column">
+					{{item}}
+				</view>
+			</view>
+			<view class="tbody">
+				<block v-if="list.length > 0">
+					<view class="tbody-item viewFlex" v-for="(item, index) in list" >
+						<view class="">
+							
+						</view>
+						<view class="">
+							
+						</view>
+						<view class="">
+							
+						</view>
+						<view class="" @click="download(item)">
+							下载合同
+						</view>
+					</view>
+				</block>
+				<view class="empty" v-else>
+					暂无更多数据
+				</view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -13,22 +40,10 @@
 				page: 1,
 				data:{},
 				column:[
-					{
-						title: "投资产品",
-						prop: "id",
-					},
-					{
-						title: "投资状态",
-						prop: "moneylog_type",
-					},
-					{
-						title: "投资时间",
-						prop: "date",
-					},
-					{
-						title: "投资协议",
-						prop: "date",
-					}
+					"投资产品",
+					"投资状态",
+					"投资时间",
+					"协议",
 				]
 			}
 		},
@@ -56,7 +71,10 @@
 						that.data = res.show
 					}
 				})
-			}
+			},
+			download(item){
+				
+			},
 		}
 	}
 </script>
