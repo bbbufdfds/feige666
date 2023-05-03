@@ -25,7 +25,7 @@
 				<view class="cell-box">
 					<span class="item-title">起投金额:</span>
 					<view class="item-centent">
-						￥<text class="flag">{{data.remaining_balance}}</text>元
+						￥<text class="flag">{{data.start_balance}}</text>元
 					</view>
 				</view>
 				<view class="cell-box">
