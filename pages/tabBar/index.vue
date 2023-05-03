@@ -26,7 +26,7 @@
 			</view>
 			<!-- 金刚区 start -->
 			<view class="button-list" v-if="buttonList">
-				<view class="button-list-item" v-for="(item, index) in buttonList" :key="index">
+				<view class="button-list-item" v-for="(item, index) in buttonList" :key="index" @click="buttonClick(item)">
 					<view class="button-list-item_icon">
 						<image :src="item.thumb_url" mode="widthFix"></image>
 					</view>
@@ -42,6 +42,11 @@
 			<goods-category @changeClassify="changeClassify"></goods-category>
 			
 			<goods-list ref="goodsRef"></goods-list>
+			
+			<uni-popup ref="popup">
+				
+				<image :src="popupData.thumb_url" mode="widthFix"></image>
+			</uni-popup>
 		</view>
 	</view>
 </template>
@@ -65,14 +70,25 @@
 				imgList: [],
 				notices: [],
 				videoObj: "",
+				popupData:{}
 			}
 		},
 		onLoad() {
+			let that = this
 			this.banner()
 			this.menu()
 			this.video()
 			
 			this.placard()
+			
+			that.$nextTick(function(){
+				Api.homepopups().then(res=>{
+					if(res.data.open == "开启"){
+						that.popupData = that.$utils.handleFile(res.data.data, "thumb_url")
+						that.$refs.popup.open()
+					}
+				})
+			})
 			
 		},
 		methods: {
@@ -112,6 +128,17 @@
 			
 			selectedBanner(item, index) {
 				console.log('🥒', item, index)
+			},
+			buttonClick(item){
+				if(item.name == "每日签到"){
+					Api.qiandao().then(res=>{
+						uni.showToast({
+						    title: res.msg,
+						    icon: 'none',
+						    duration: 2000
+						})
+					})
+				}
 			}
 		}
 	}
@@ -125,7 +152,6 @@
 	.nav{
 		background-color: #ffffff;
 	}
-
 	.swiper {
 		height: 80rpx;
 		font-size: 28rpx;

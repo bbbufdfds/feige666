@@ -1,40 +1,43 @@
 <template>
-	<view class="container">
-		<form class="form" @submit="formSubmit" @reset="formReset">
-			<view class="title">用户注册</view>
-			<view class="loginform">
-				<view class="form-item">
-					<image src="@/static/image/reg-tel.png" class="img" />
-					<input type="text" class="input" placeholder="请输入手机号"
-						placeholder-style="font-size:30rpx;color:#B2B5BE" name="phone" value="" />
+	<view class="">
+		<view class="nav"></view>
+		<view class="container">
+			<form class="form" @submit="formSubmit" @reset="formReset">
+				<view class="title">用户注册</view>
+				<view class="loginform">
+					<view class="form-item">
+						<image src="@/static/image/reg-tel.png" class="img" />
+						<input type="text" class="input" placeholder="请输入手机号"
+							placeholder-style="font-size:30rpx;color:#B2B5BE" name="phone" value="" />
+					</view>
+					<view class="form-item">
+						<image src="@/static/image/reg-pwd.png" class="img" />
+						<input type="text" class="input" placeholder="登录密码6~18位字符"
+							placeholder-style="font-size:30rpx;color:#B2B5BE" name="password" value="" :password="true" />
+					</view>
+					<view class="form-item">
+						<image src="@/static/image/reg-pwd.png" class="img" />
+						<input type="text" class="input" placeholder="确认密码,两次密码输入必须一致"
+							placeholder-style="font-size:30rpx;color:#B2B5BE" name="pwdconfirm" value="" :password="true" />
+					</view>
+					<view class="form-item">
+						<image src="@/static/image/reg-tel.png" class="img" />
+						<input type="text" class="input" placeholder="邀请码不能为空"
+							placeholder-style="font-size:30rpx;color:#B2B5BE" name="yaoqingren" value="" />
+					</view>
+					<view class="form-item code">
+						<image src="@/static/image/reg-code.png" class="img" />
+						<input type="text" class="input" placeholder="请输入验证码"
+							placeholder-style="font-size:30rpx;color:#B2B5BE" name="captcha" value="" />
+							<view class="reg-code" @click="refreshCode">
+								<image :src="codeImage" mode=""></image>
+							</view>
+					</view>
+					<button class="form-btn" form-type="submit">注册</button>
+					<navigator url="login" class="form-btn form-btn2" >登录</navigator>
 				</view>
-				<view class="form-item">
-					<image src="@/static/image/reg-pwd.png" class="img" />
-					<input type="text" class="input" placeholder="登录密码6~18位字符"
-						placeholder-style="font-size:30rpx;color:#B2B5BE" name="password" value="" :password="true" />
-				</view>
-				<view class="form-item">
-					<image src="@/static/image/reg-pwd.png" class="img" />
-					<input type="text" class="input" placeholder="确认密码,两次密码输入必须一致"
-						placeholder-style="font-size:30rpx;color:#B2B5BE" name="pwdconfirm" value="" :password="true" />
-				</view>
-				<view class="form-item">
-					<image src="@/static/image/reg-tel.png" class="img" />
-					<input type="text" class="input" placeholder="邀请码不能为空"
-						placeholder-style="font-size:30rpx;color:#B2B5BE" name="yaoqingren" value="" />
-				</view>
-				<view class="form-item code">
-					<image src="@/static/image/reg-code.png" class="img" />
-					<input type="text" class="input" placeholder="请输入验证码"
-						placeholder-style="font-size:30rpx;color:#B2B5BE" name="captcha" value="" />
-						<view class="reg-code" @click="refreshCode">
-							<image :src="codeImage" mode=""></image>
-						</view>
-				</view>
-				<button class="form-btn" form-type="submit">注册</button>
-				<navigator url="login" class="form-btn form-btn2" >登录</navigator>
-			</view>
-		</form>
+			</form>
+		</view>
 	</view>
 </template>
 
@@ -129,10 +132,9 @@
 </script>
 
 <style lang="scss">
-	page {
+	page ,.nav{
 		background: #ffffff
 	}
-
 	.container {
 		width: 100%;
 	}

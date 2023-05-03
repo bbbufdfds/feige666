@@ -15,11 +15,15 @@
 				column:[
 					{
 						title: "说明",
-						prop: "id",
+						prop: "moneylog_notice",
 					},
 					{
 						title: "金额",
-						prop: "moneylog_type",
+						prop: "moneylog_money",
+						format: function(item){
+							let operator = item.operator == 1?"+":"-";
+							return `${operator}${item.moneylog_money}`
+						}
 					},
 					{
 						title: "时间",

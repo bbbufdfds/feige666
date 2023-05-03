@@ -1,25 +1,28 @@
 <template>
-	<view class="container">
-		<form class="form" @submit="formSubmit" @reset="formReset">
-			<view class="title">用户登录</view>
-			<view class="loginform">
-				<view class="form-item">
-					<image src="@/static/image/reg-tel.png" class="img" />
-					<input type="text" class="input" placeholder="请输入手机号"
-						placeholder-style="font-size:30rpx;color:#B2B5BE" name="phone" value="" />
+	<view class="">
+		<view class="nav"></view>
+		<view class="container">
+			<form class="form" @submit="formSubmit" @reset="formReset">
+				<view class="title">用户登录</view>
+				<view class="loginform">
+					<view class="form-item">
+						<image src="@/static/image/reg-tel.png" class="img" />
+						<input type="text" class="input" placeholder="请输入手机号"
+							placeholder-style="font-size:30rpx;color:#B2B5BE" name="phone" value="" />
+					</view>
+					<view class="form-item">
+						<image src="@/static/image/reg-pwd.png" class="img" />
+						<input type="text" class="input" placeholder="登录密码6~18位字符"
+							placeholder-style="font-size:30rpx;color:#B2B5BE" name="password" value="" :password="true" />
+					</view>
+					<view class="forget">
+						忘记密码？
+					</view>
+					<button class="form-btn" form-type="submit">登录</button>
+					<navigator url="register" class="form-btn form-btn2">注册</navigator>
 				</view>
-				<view class="form-item">
-					<image src="@/static/image/reg-pwd.png" class="img" />
-					<input type="text" class="input" placeholder="登录密码6~18位字符"
-						placeholder-style="font-size:30rpx;color:#B2B5BE" name="password" value="" :password="true" />
-				</view>
-				<view class="forget">
-					忘记密码？
-				</view>
-				<button class="form-btn" form-type="submit">登录</button>
-				<navigator url="register" class="form-btn form-btn2">注册</navigator>
-			</view>
-		</form>
+			</form>
+		</view>
 	</view>
 </template>
 
@@ -63,10 +66,9 @@
 </script>
 
 <style>
-	page {
+	page ,.nav{
 		background: #ffffff
 	}
-
 	.container {
 		width: 100%;
 	}

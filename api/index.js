@@ -7,6 +7,13 @@ export function banner() {
 	})
 }
 
+export function homepopups() {
+	return request({
+		url: 'homepopups',
+		method: 'GET',
+	})
+}
+
 export function menu() {
 	return request({
 		url: 'menu',
@@ -29,3 +36,9 @@ export function video() {
 	})
 }
 
+export function qiandao() {
+	return request({
+		url: 'my/qiandao',
+		method: 'POST',
+	})
+}

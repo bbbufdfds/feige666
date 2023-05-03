@@ -17,7 +17,7 @@
 				<view class="text bt">
 					累计收益(元)
 				</view>
-				<view class="btn">
+				<view class="btn" @click="click('+')">
 					转入
 				</view>
 			</view>
@@ -36,7 +36,7 @@
 				<view class="text bt">
 					七日年化(%)
 				</view>
-				<view class="btn right">
+				<view class="btn right" @click="click('-')">
 					转出
 				</view>
 			</view>
@@ -47,7 +47,7 @@
 </template>
 
 <script>
-	import { yuebao as yuebaoApi } from "@/api/user.js"
+	import { yuebao as yuebaoApi, yeboperation as yeboperationApi  } from "@/api/user.js"
 	export default {
 		data() {
 			return {
@@ -77,7 +77,6 @@
 		onLoad() {
 			this.getList()
 		},
-		
 		onReachBottom() {
 			this.page = this.page + 1
 			this.getList()
@@ -97,6 +96,54 @@
 						}
 						that.data = res.show
 					}
+				})
+			},
+			click(t){
+				let that = this
+				uni.showModal({
+					title: '金额',
+					confirmColor:'#3A3A3A',
+					cancelColor:'#999999',
+					confirmText:'提交',
+					editable:true,
+					content:'',
+					placeholderText:"请输入金额",
+					success: function (res) {
+						if(res.confirm){
+							if(t == "-"){
+								res.content = Number(res.content)
+								if(res.content > that.data.yuamount){
+									uni.showToast({
+										title: '转出金额不可大于总金额',
+										icon: 'error',
+									})
+									return;
+								}
+							}
+							if(res.content){
+								yeboperationApi({
+									act: t,
+									amount: res.content
+								}).then(res=>{
+									if(res.status == 0){
+										const { data } = res.data;
+										if(data.length > 0){
+											that.list = that.list.concat(data)
+										}else{
+											that.page = that.page - 1
+										}
+										that.data = res.show
+									}
+								})
+							}else{
+								uni.showToast({
+									title: '请输入金额',
+									icon: 'error',
+								})
+								return;
+							}
+						}
+					},
 				})
 			}
 		}

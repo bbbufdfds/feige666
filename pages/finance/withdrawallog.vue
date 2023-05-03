@@ -14,15 +14,22 @@
 				data:{},
 				column:[
 					{
-						title: "说明",
-						prop: "id",
+						title: "提现金额",
+						prop: "amount",
 					},
 					{
-						title: "金额",
-						prop: "moneylog_type",
+						title: "理由",
+						prop: "tishi",
 					},
 					{
-						title: "时间",
+						title: "提现状态",
+						prop: "status",
+						format: function(item){
+							return item.status == 1?"已通过":"驳回"
+						}
+					},
+					{
+						title: "提现时间",
 						prop: "date",
 					}
 				]

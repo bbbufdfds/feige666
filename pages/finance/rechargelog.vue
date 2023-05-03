@@ -14,16 +14,20 @@
 				data:{},
 				column:[
 					{
-						title: "说明",
-						prop: "id",
+						title: "订单号",
+						prop: "ordernumber",
 					},
 					{
-						title: "金额",
-						prop: "moneylog_type",
+						title: "充值金额",
+						prop: "amount",
 					},
 					{
-						title: "时间",
-						prop: "date",
+						title: "充值方式",
+						prop: "type",
+					},
+					{
+						title: "订单状态",
+						prop: "status",
 					}
 				]
 			}

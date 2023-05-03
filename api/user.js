@@ -30,3 +30,17 @@ export function yuebao(data) {
 		data
 	})
 }
+export function yeboperation(data) {
+	return request({
+		url: 'my/yeboperation',
+		method: 'POST',
+		data
+	})
+}
+export function addbank(data) {
+	return request({
+		url: 'my/addbank',
+		method: 'POST',
+		data
+	})
+}

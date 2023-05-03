@@ -2,82 +2,88 @@
 	<view class="container">
 		<form class="form" @submit="formSubmit" @reset="formReset">
 			<view class="cell-box">
-				<span class="item-title">提现时间:</span>
+				<span class="item-title">银行名称:</span>
 				<view class="item-centent">
-					10:00-22:00
+					<input type="number" class="weui-input" name="bankname" :value="data.bankname"
+						placeholder="请输入银行名称" maxlength="11"/>
 				</view>
 			</view>
 			<view class="cell-box">
-				<span class="item-title">提现金额(元):</span>
+				<span class="item-title">姓名:</span>
 				<view class="item-centent">
-					<input type="number" class="weui-input"  name="amount" :value="data.amount" placeholder="不能低于100元"
-						maxlength="11" />
+					<input type="number" class="weui-input"  name="bankrealname" :value="data.bankrealname"
+						placeholder="请输入姓名" maxlength="11"/>
 				</view>
 			</view>
 			<view class="cell-box">
-				<span class="item-title">可提现金额(元):</span>
+				<span class="item-title">卡号:</span>
 				<view class="item-centent">
-					666
+					<input type="number" class="weui-input"  name="bankcode" :value="data.bankcode"
+						placeholder="请输入卡号" maxlength="11"/>
 				</view>
 			</view>
 			<view class="cell-box">
-				<span class="item-title">交易密码:</span>
+				<span class="item-title">开户行:</span>
 				<view class="item-centent">
-					<input type="text" class="weui-input" name="data.paypwd" :value="data.paypwd" placeholder="请输入交易密码" />
+					<input type="text" class="weui-input" name="bankaddres" :value="data.bankaddres"
+						placeholder="请输入开户行" />
 				</view>
 			</view>
-			<button class="submit" form-type="submit">申请提现</button>
+			<button class="submit" form-type="submit">立即绑定</button>
 		</form>
 	</view>
 </template>
 
 <script>
-	import * as Api from "@/api/finance.js"
+	import * as Api from "@/api/user.js"
 	export default {
 		data() {
 			return {
-				data: {}
+				data:{}
 			}
 		},
 		onLoad() {
-			this.init()
 		},
 		methods: {
-			init() {
-				Api.bankcardbinding().then(res => {
-					if (res.status == 1) {
-						uni.navigateTo({
-							url: "/pages/member/bankcard"
-						})
-					}
-				})
-			},
-			formSubmit(e) {
+			formSubmit: function(e){
 				let that = this
 					, data = e.detail.value;
-				if (data.amount == '') {
+				
+				if (data.bankname == ''){
 					uni.showToast({
-						title: '请输入提现金额',
+						title: '请输入银行名称',
 						icon: 'error',
-					})
-					return;
+					})  
+				  return;
+				}	
+				if (data.bankrealname == ''){
+					uni.showToast({
+						title: '请输入姓名',
+						icon: 'error',
+					})  
+				  return;
 				}
-				if(data.amount < 100){
+				if (data.bankcode == ''){
 					uni.showToast({
-						title: '提现金额不能低于100',
+						title: '请输入卡号',
 						icon: 'error',
-					})
-					return;
+					})  
+				  return;
 				}
-				if (data.paypwd == '') {
+				if (data.bankaddres == ''){
 					uni.showToast({
-						title: '请输入交易密码',
+						title: '请输入密码',
 						icon: 'error',
-					})
-					return;
+					})  
+				  return;
 				}
 				
-				Api.withdraw(data).then(res=>{
+				uni.showLoading({
+					title: '提交中...',
+					mask: true
+				});
+				
+				Api.addbank(data).then(res=>{
 					uni.showToast({
 						title: res.msg,
 						icon: 'error',

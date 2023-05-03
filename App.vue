@@ -57,6 +57,9 @@
 				position: relative;
 				height: 80rpx;
 				line-height: 80rpx;
+				overflow: hidden;
+				padding: 5rpx;
+				font-size: 25rpx;
 			}
 			view::before{
 				content: "";
@@ -69,6 +72,7 @@
 		.tbody .tbody-item{
 			background-color: #ffffff;
 			position: relative;
+			border-bottom: 1rpx solid #eeeeee;
 			view::before{
 				content: "";
 				position: absolute;
@@ -93,5 +97,11 @@
 			text-align: center;
 			color: #acacac;
 		}
+	}
+	button::after {
+	  border: none;
+	}
+	button {
+	  border-radius:0;
 	}
 </style>

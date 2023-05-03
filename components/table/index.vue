@@ -1,15 +1,15 @@
 <template>
 	<view class="table">
 		<view class="theader viewFlex">
-			<view class="" v-for="(item, index) in column">
+			<view class="" v-for="(item, index) in columns">
 				{{item.title}}
 			</view>
 		</view>
 		<view class="tbody">
 			<block v-if="list.length > 0">
 				<view class="tbody-item viewFlex" v-for="(item, index) in list" >
-					<view class="" v-for="(cItem, cIndex) in column">
-						{{item[cItem.prop]}}
+					<view class="" v-for="(cItem, cIndex) in columns">
+						{{cItem.format(item)?cItem.format(item):item[cItem.prop]}}
 					</view>
 				</view>
 			</block>
@@ -36,6 +36,25 @@
 					return [];
 				}
 			},
+		},
+		data(){
+			return{
+				columns: []
+			}
+		},
+		watch:{
+			column:{
+				handler(newVal, oldVal) {
+					newVal.forEach(function(item){
+						if(!item.format){
+							item.format = function(){}
+						}
+					})
+					this.columns = newVal
+				},
+				deep: true,
+				immediate: true
+			}
 		}
 	}
 </script>

@@ -8,6 +8,14 @@ export function list(data) {
 	})
 }
 
+export function detail(data) {
+	return request({
+		url: 'my/productbuy',
+		method: 'POST',
+		data
+	})
+}
+
 export function classify() {
 	return request({
 		url: 'classify',

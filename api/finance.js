@@ -1,36 +1,57 @@
 import request from './../utils/request';
 
-export function flowlog() {
+export function flowlog(data) {
 	return request({
 		url: 'flowlog',
 		method: 'POST',
+		data
 	})
 }
 
-export function incomelog() {
+export function incomelog(data) {
 	return request({
-		url: 'incomelog',
+		url: 'my/shouyi',
 		method: 'POST',
+		data
 	})
 }
 
-export function investlog() {
+export function investlog(data) {
 	return request({
 		url: 'investlog',
 		method: 'POST',
+		data
 	})
 }
 
-export function rechargelog() {
+export function rechargelog(data) {
 	return request({
-		url: 'rechargelog',
+		url: 'my/recharges',
 		method: 'POST',
+		data
 	})
 }
 
-export function withdrawallog() {
+export function withdrawallog(data) {
 	return request({
-		url: 'withdrawallog',
+		url: 'my/withdraws',
 		method: 'POST',
+		data
+	})
+}
+
+export function bankcardbinding(data) {
+	return request({
+		url: 'my/bankcardbinding',
+		method: 'POST',
+		data
+	})
+}
+
+export function withdraw(data) {
+	return request({
+		url: 'my/withdraw',
+		method: 'POST',
+		data
 	})
 }

@@ -25,13 +25,13 @@
 				<view class="cell-box">
 					<span class="item-title">起投金额:</span>
 					<view class="item-centent">
-						￥<text class="flag">{{data.qtje}}</text>元
+						￥<text class="flag">{{data.remaining_balance}}</text>元
 					</view>
 				</view>
 				<view class="cell-box">
 					<span class="item-title">结息时间:</span>
 					<view class="item-centent">
-						满<text class="flag">{{data.qtje}}</text>自动结息
+						满<text class="flag">{{data.time}}</text>自动结息
 					</view>
 				</view>
 				<view class="cell-box">
@@ -40,7 +40,7 @@
 						<view class="dec" @click="dec">
 							-
 						</view>
-						<input type="text" v-model="data.price">
+						<input type="number" v-model="data.price">
 						<view class="inc" @click="inc">
 							+
 						</view>
@@ -50,7 +50,7 @@
 					<span class="item-title">加息券:</span>
 					<view class="item-centent">
 						<picker @change="bindPickerChange" data-index="index_1" :value="index_1" :range="coupon_1">
-							<view class="uni-input">{{coupon_1[index_1]}}</view>
+							<view class="uni-input" >{{coupon_1.length>0?coupon_1[index_1].name:"请选择"}}</view>
 						</picker>
 					</view>
 				</view>
@@ -58,14 +58,14 @@
 					<span class="item-title">现金券:</span>
 					<view class="item-centent">
 						<picker @change="bindPickerChange" data-index="index_2" :value="index_2" :range="coupon_2">
-							<view class="uni-input">{{coupon_2[index_2]}}</view>
+							<view class="uni-input" >{{coupon_2>0?coupon_2[index_2].name:"请选择"}}</view>
 						</picker>
 					</view>
 				</view>
 				<view class="cell-box">
 					<span class="item-title">支付密码:</span>
 					<view class="item-centent">
-						<input type="text" class="weui-input" v-model="data.password" placeholder="默认为登录密码" />
+						<input type="password" class="weui-input" v-model="data.password" placeholder="默认为登录密码" />
 					</view>
 				</view>
 			</view>
@@ -75,29 +75,72 @@
 </template>
 
 <script>
+	
+	import { detail } from "@/api/product.js"
 	export default {
 		data() {
 			return {
 				data: {
-					price: 0
+					remaining_balance:0,
+					start_balance:0,
+					price: 0,
+					time: "xx"
 				},
-				coupon_1: [2, 3],
+				coupon_1: [],
 				index_1: 0,
-				coupon_2: [2, 3],
+				coupon_2: [],
 				index_2: 0,
+				id: 0
 			}
 		},
+		onLoad(options) {
+			if(!options.id){
+				uni.switchTab({
+					url:"/pages/tabBar/index"
+				})
+				return
+			}
+			this.id = options.id
+			this.init()
+		},
 		methods: {
+			init(){
+				let that = this
+				detail({
+					id: this.id
+				}).then(res=>{
+					if(res.status == 0){
+						that.data = res.data
+						that.data.price = res.data.start_balance
+						that.coupon_1 = res.data.interest_coupon
+						that.coupon_2 = res.data.cash_coupon
+						console.log(res.data)
+					}
+				})
+			},
 			bindPickerChange(e) {
 				this[e.currentTarget.dataset.index] = e.detail.value
 			},
 			inc(){
 				this.data.price = this.data.price + 1
+				this.$forceUpdate()
 			},
 			dec(){
 				this.data.price = this.data.price - 1
+				this.$forceUpdate()
 			},
 			submit(){
+				let that= this
+					,data = this.data
+					
+				if(data.price > data.remaining_balance){
+					uni.showToast({
+						title: '不可大于项目可投金额',
+						icon: 'error',
+					})
+					return;
+				}
+				
 				
 			}
 		}
