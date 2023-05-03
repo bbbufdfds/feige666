@@ -46,6 +46,10 @@
 		methods:{
 			getList(){
 				let that = this
+				uni.showLoading({
+					title: '加载中...',
+					mask: true
+				});
 				withdrawallog({
 					page: this.page
 				}).then(res=>{

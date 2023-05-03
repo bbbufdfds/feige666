@@ -68,7 +68,7 @@
 				</view>
 				
 				<view class="btnInfo viewFlex">
-					<navigator class="btn" url="/pages/finance/withdrawal">
+					<navigator class="btn" :url="navBankcard?'/pages/finance/withdrawal':'/pages/member/bankcard'">
 						提现
 					</navigator> 
 					<view class="line"></view>
@@ -100,6 +100,7 @@
 
 <script>
 	import {mapState} from "vuex";
+	import { bankcardbinding } from "@/api/finance.js"
 	export default {
 		data(){
 			return{
@@ -177,11 +178,17 @@
 						color: "ff8053",
 						url: "/pages/integral/exchangelog",
 					}
-				]
+				],
+				navBankcard: true
 			}
 		},
 		onLoad() {
-
+			let that = this
+			bankcardbinding().then(res => {
+				if (res.status == 1) {
+					that.navBankcard = false
+				}
+			})
 		},
 		computed: { 
 		   ...mapState([ 

@@ -58,6 +58,10 @@
 		methods:{
 			getList(){
 				let that = this
+				uni.showLoading({
+					title: '加载中...',
+					mask: true
+				});
 				investlog({
 					page: this.page
 				}).then(res=>{

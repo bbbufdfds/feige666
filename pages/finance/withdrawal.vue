@@ -36,23 +36,37 @@
 	export default {
 		data() {
 			return {
-				data: {}
+				data: {},
+				navBank: false
 			}
 		},
 		onLoad() {
-			this.init()
+			this.loadbank()
 		},
 		methods: {
-			init() {
+			loadbank() {
+				let that = this
 				Api.bankcardbinding().then(res => {
 					if (res.status == 1) {
-						uni.navigateTo({
-							url: "/pages/member/bankcard"
-						})
+						that.navBank = true
 					}
 				})
 			},
 			formSubmit(e) {
+				
+				if(this.navBank){
+					uni.showToast({
+						title: '请绑定银行卡',
+						icon: 'error',
+					})
+					setTimeout(function(){
+						uni.navigateTo({
+							url: "/pages/member/bankcard"
+						})
+					},1000)
+					return
+				}
+				
 				let that = this
 					, data = e.detail.value;
 				if (data.amount == '') {
