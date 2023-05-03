@@ -44,8 +44,10 @@
 			<goods-list ref="goodsRef"></goods-list>
 			
 			<uni-popup ref="popup">
-				
 				<image :src="popupData.thumb_url" mode="widthFix"></image>
+				<view class="popup-close" @click="$refs.popup.close()">
+					✖
+				</view>
 			</uni-popup>
 		</view>
 	</view>
@@ -249,5 +251,18 @@
 		width: 100%;
 	}
 
+	.popup-close{
+		position: absolute;
+		top: 10rpx;
+		right: 10rpx;
+		border-radius: 50%;
+		width: 50rpx;
+		height: 50rpx;
+		line-height: 50rpx;
+		text-align: center;
+		background-color: #fe8113;
+		color: #ffffff;
+		font-size: 20rpx;
+	}
 
 </style>
