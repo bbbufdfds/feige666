@@ -63,7 +63,7 @@
 
 <style lang="scss">
 	.container{
-		width: 92%;
+		width: 95%;
 		margin: 0 auto;
 		
 	}
