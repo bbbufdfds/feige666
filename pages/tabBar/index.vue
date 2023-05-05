@@ -132,13 +132,10 @@
 				console.log('🥒', item, index)
 			},
 			buttonClick(item){
+				let that = this
 				if(item.name == "每日签到"){
 					Api.qiandao().then(res=>{
-						uni.showToast({
-						    title: res.msg,
-						    icon: 'none',
-						    duration: 2000
-						})
+						that.$utils.handleShowToast(res)  
 					})
 				}
 			}

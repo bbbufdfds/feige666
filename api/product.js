@@ -16,6 +16,16 @@ export function detail(data) {
 	})
 }
 
+export function pay(data) {
+	return request({
+		url: 'my/nowtomoney',
+		method: 'POST',
+		data
+	})
+}
+
+
+
 export function classify() {
 	return request({
 		url: 'classify',

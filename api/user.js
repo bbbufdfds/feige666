@@ -44,3 +44,27 @@ export function addbank(data) {
 		data
 	})
 }
+
+export function info(data) {
+	return request({
+		url: 'my/user',
+		method: 'POST',
+		data
+	})
+}
+
+export function coupon(data) {
+	return request({
+		url: 'my/coupon',
+		method: 'POST',
+		data
+	})
+}
+
+export function shiming(data) {
+	return request({
+		url: 'my/shiming',
+		method: 'POST',
+		data
+	})
+}

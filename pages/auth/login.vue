@@ -40,17 +40,17 @@
 				let that = this
 					, formdata = e.detail.value;
 				if (formdata.phone == ''){
-					uni.showToast({
-						title: '请输入手机号',
-						icon: 'error',
-					})  
+					that.$utils.handleShowToast({
+						msg:"请输入手机号",
+						status: 1
+					})
 				  return;
 				}
 				if (formdata.password == ''){
-					uni.showToast({
-						title: '请输入密码',
-						icon: 'error',
-					})  
+					that.$utils.handleShowToast({
+						msg:"请输入密码",
+						status: 1
+					}) 
 				  return;
 				}
 				

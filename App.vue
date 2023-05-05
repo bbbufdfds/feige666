@@ -104,4 +104,7 @@
 	button {
 	  border-radius:0;
 	}
+	uni-toast .uni-toast {
+	    font-size: 14px !important;
+	}
 </style>

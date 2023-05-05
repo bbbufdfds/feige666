@@ -1,6 +1,5 @@
 {
-	"pages": [
-		{
+	"pages": [{
 			"path": "pages/tabBar/index",
 			"style": {
 				"navigationBarTitleText": "首页",
@@ -15,31 +14,28 @@
 			}
 		},
 		{
-		    "path" : "pages/tabBar/project",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "影视项目",
-		        "enablePullDownRefresh": false,
+			"path": "pages/tabBar/project",
+			"style": {
+				"navigationBarTitleText": "影视项目",
+				"enablePullDownRefresh": false,
 				"navigationBarTextStyle": "black"
-		    }
+			}
 		},
 		{
-		    "path" : "pages/tabBar/call",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "在线客服",
+			"path": "pages/tabBar/call",
+			"style": {
+				"navigationBarTitleText": "在线客服",
 				"navigationStyle": "default",
-		        "enablePullDownRefresh": false
-		    }
-		    
-		}, 
+				"enablePullDownRefresh": false
+			}
+
+		},
 		{
-		    "path" : "pages/tabBar/about",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "关于我们",
-		        "enablePullDownRefresh": false
-		    }
+			"path": "pages/tabBar/about",
+			"style": {
+				"navigationBarTitleText": "关于我们",
+				"enablePullDownRefresh": false
+			}
 		},
 		{
 			"path": "pages/auth/login",
@@ -53,179 +49,188 @@
 				"navigationBarTitleText": "注册"
 			}
 		},
-		
+
 		{
-		    "path" : "pages/member/info",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "账号设置",
-		        "enablePullDownRefresh": false,
+			"path": "pages/member/info",
+			"style": {
+				"navigationBarTitleText": "账号设置",
+				"enablePullDownRefresh": false,
 				"navigationStyle": "default"
-		    }
-		    
+			}
+
 		},
 		{
-		    "path" : "pages/member/coupon",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "优惠券",
-				"navigationStyle": "default",
-		        "enablePullDownRefresh": false
-		    }
-		    
+			"path": "pages/member/realnameAuth",
+			"style": {
+				"navigationBarTitleText": "实名认证",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default"
+			}
+
 		},
 		{
-		    "path" : "pages/member/yuebao",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "余额宝",
-				"navigationStyle": "default",
-		        "enablePullDownRefresh": false
-		    }
-		    
+			"path": "pages/member/bankcardAuth",
+			"style": {
+				"navigationBarTitleText": "银行卡绑定",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default"
+			}
+
 		},
 		{
-		    "path" : "pages/member/invite",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "邀请好友",
+			"path": "pages/member/coupon",
+			"style": {
+				"navigationBarTitleText": "优惠券",
 				"navigationStyle": "default",
-		        "enablePullDownRefresh": false
-		    }
-		    
+				"enablePullDownRefresh": false
+			}
+
 		},
 		{
-		    "path" : "pages/member/bankcard",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "绑定银行卡",
+			"path": "pages/member/yuebao",
+			"style": {
+				"navigationBarTitleText": "余额宝",
 				"navigationStyle": "default",
-		        "enablePullDownRefresh": false
-		    }
+				"enablePullDownRefresh": false
+			}
+
 		},
 		{
-		    "path" : "pages/goods/detail",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "立即投资",
+			"path": "pages/member/invite",
+			"style": {
+				"navigationBarTitleText": "邀请好友",
 				"navigationStyle": "default",
-		        "enablePullDownRefresh": false
-		    }
-		    
+				"enablePullDownRefresh": false
+			}
+
 		},
 		{
-		    "path" : "pages/integral/mall",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "积分商城",
+			"path": "pages/goods/detail",
+			"style": {
+				"navigationBarTitleText": "立即投资",
 				"navigationStyle": "default",
-		        "enablePullDownRefresh": false
-		    }
+				"enablePullDownRefresh": false
+			}
+
 		},
 		{
-		    "path" : "pages/integral/exchangelog",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "兑换记录",
+			"path": "pages/integral/mall",
+			"style": {
+				"navigationBarTitleText": "积分商城",
 				"navigationStyle": "default",
-		        "enablePullDownRefresh": false
-		    }
+				"enablePullDownRefresh": false
+			}
 		},
 		{
-		    "path" : "pages/finance/withdrawal",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "提现",
+			"path": "pages/integral/exchangelog",
+			"style": {
+				"navigationBarTitleText": "兑换记录",
 				"navigationStyle": "default",
-		        "enablePullDownRefresh": false
-		    }
-		    
+				"enablePullDownRefresh": false
+			}
 		},
 		{
-		    "path" : "pages/finance/recharge",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "充值",
+			"path": "pages/finance/withdrawal",
+			"style": {
+				"navigationBarTitleText": "提现",
 				"navigationStyle": "default",
-		        "enablePullDownRefresh": false
-		    }
-		    
+				"enablePullDownRefresh": false
+			}
+
 		},
 		{
-		    "path" : "pages/finance/transfer",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "转账",
+			"path": "pages/finance/recharge",
+			"style": {
+				"navigationBarTitleText": "充值",
 				"navigationStyle": "default",
-		        "enablePullDownRefresh": false
-		    }
+				"enablePullDownRefresh": false
+			}
+
 		},
 		{
-		    "path" : "pages/finance/flowlog",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "资金流水",
+			"path": "pages/finance/transfer",
+			"style": {
+				"navigationBarTitleText": "转账",
 				"navigationStyle": "default",
-		        "enablePullDownRefresh": false
-		    }
+				"enablePullDownRefresh": false,
+				"app-plus": {
+					"titleNView": {
+						"buttons": [{
+							"color": "#ffffff",
+							"fontSize": "28rpx",
+							"text": "记录"
+						}]
+					}
+				}
+			}
 		},
 		{
-		    "path" : "pages/finance/incomelog",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "收益记录",
+			"path": "pages/finance/transferlog",
+			"style": {
+				"navigationBarTitleText": "转账记录",
 				"navigationStyle": "default",
-		        "enablePullDownRefresh": false
-		    }
+				"enablePullDownRefresh": false
+			}
 		},
 		{
-		    "path" : "pages/finance/investlog",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "投资记录",
+			"path": "pages/finance/flowlog",
+			"style": {
+				"navigationBarTitleText": "资金流水",
 				"navigationStyle": "default",
-		        "enablePullDownRefresh": false
-		    }
+				"enablePullDownRefresh": false
+			}
 		},
 		{
-		    "path" : "pages/finance/withdrawallog",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "提现记录",
+			"path": "pages/finance/incomelog",
+			"style": {
+				"navigationBarTitleText": "收益记录",
 				"navigationStyle": "default",
-		        "enablePullDownRefresh": false
-		    }
-		    
+				"enablePullDownRefresh": false
+			}
 		},
 		{
-		    "path" : "pages/finance/rechargelog",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "充值记录",
+			"path": "pages/finance/investlog",
+			"style": {
+				"navigationBarTitleText": "投资记录",
 				"navigationStyle": "default",
-		        "enablePullDownRefresh": false
-		    }
-		    
+				"enablePullDownRefresh": false
+			}
 		},
 		{
-		    "path" : "pages/common/drawPrize",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "抽奖",
+			"path": "pages/finance/withdrawallog",
+			"style": {
+				"navigationBarTitleText": "提现记录",
 				"navigationStyle": "default",
-		        "enablePullDownRefresh": false
-		    }
+				"enablePullDownRefresh": false
+			}
+
 		},
 		{
-		    "path" : "pages/common/message",
-		    "style" :                                                                                    
-		    {
-		        "navigationBarTitleText": "站内信",
+			"path": "pages/finance/rechargelog",
+			"style": {
+				"navigationBarTitleText": "充值记录",
 				"navigationStyle": "default",
-		        "enablePullDownRefresh": false
-		    }
+				"enablePullDownRefresh": false
+			}
+
+		},
+		{
+			"path": "pages/common/drawPrize",
+			"style": {
+				"navigationBarTitleText": "抽奖",
+				"navigationStyle": "default",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/common/message",
+			"style": {
+				"navigationBarTitleText": "站内信",
+				"navigationStyle": "default",
+				"enablePullDownRefresh": false
+			}
 		}
-    ],
+	],
 	"tabBar": {
 		"color": "#a5a5a4",
 		"selectedColor": "#fe8113",

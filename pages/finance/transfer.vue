@@ -9,14 +9,14 @@
 		<view class="cell-box">
 			<span class="item-title">收款账户:</span>
 			<view class="item-centent">
-				<input type="text" class="weui-input"  v-model="data.password"
+				<input type="text" class="weui-input"  v-model="data.phone"
 					placeholder="请输入收款账户" />
 			</view>
 		</view>
 		<view class="cell-box">
 			<span class="item-title">转账金额:</span>
 			<view class="item-centent">
-				<input type="text" class="weui-input"  v-model="data.password"
+				<input type="text" class="weui-input"  v-model="data.amount"
 					placeholder="请输入转账金额" />
 			</view>
 		</view>
@@ -30,6 +30,7 @@
 </template>
 
 <script>
+	import {transfer} from "@/api/finance.js"
 	export default {
 		data() {
 			return {
@@ -39,8 +40,39 @@
 		onLoad() {
 			
 		},
+		onNavigationBarButtonTap(e) {
+		    uni.navigateTo({
+		        url: "/pages/finance/transferlog"
+		    })
+		},
 		methods: {
-
+			submit(){
+				let that = this
+					, data = that.data
+				
+				if(!data.phone){
+					that.$utils.handleShowToast({
+						msg:"请输入收款账户",
+						status: 1
+					}) 
+					return
+				}
+				if(!data.amount){
+					that.$utils.handleShowToast({
+						msg:"请输入转账金额",
+						status: 1
+					}) 
+					return
+				}
+				
+				uni.showLoading({
+					title: '加载中...',
+					mask: true
+				});
+				transfer(data).then(res=>{
+					that.$utils.handleShowToast(res)
+				})
+			}
 		}
 	}
 </script>

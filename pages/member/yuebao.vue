@@ -117,10 +117,10 @@
 							if(t == "-"){
 								res.content = Number(res.content)
 								if(res.content > that.data.yuamount){
-									uni.showToast({
-										title: '转出金额不可大于总金额',
-										icon: 'error',
-									})
+									that.$utils.handleShowToast({
+										msg:"转出金额不可大于总金额",
+										status: 1
+									}) 
 									return;
 								}
 							}
@@ -140,10 +140,10 @@
 									}
 								})
 							}else{
-								uni.showToast({
-									title: '请输入金额',
-									icon: 'error',
-								})
+								that.$utils.handleShowToast({
+									msg:"请输入金额",
+									status: 1
+								}) 
 								return;
 							}
 						}

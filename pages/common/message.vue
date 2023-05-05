@@ -10,16 +10,16 @@
 				<block v-if="list.length > 0">
 					<view class="tbody-item viewFlex" v-for="(item, index) in list" >
 						<view class="">
-							
+							{{item.title}}
 						</view>
 						<view class="">
-							
+							{{item.date}}
 						</view>
 						<view class="">
-							
+							{{item.status == 1?"已读":"未读"}}
 						</view>
 						<view class="" @click="remove(index, item)">
-							下载合同
+							<a href="javascript:;">删除</a>
 						</view>
 					</view>
 				</block>
@@ -41,7 +41,6 @@
 				data:{},
 				column:[
 					"标题",
-					"时间",
 					"时间",
 					"状态",
 					"删除",

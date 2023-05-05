@@ -18,7 +18,7 @@ export function incomelog(data) {
 
 export function investlog(data) {
 	return request({
-		url: 'investlog',
+		url: 'my/invest',
 		method: 'POST',
 		data
 	})
@@ -51,6 +51,22 @@ export function bankcardbinding(data) {
 export function withdraw(data) {
 	return request({
 		url: 'my/withdraw',
+		method: 'POST',
+		data
+	})
+}
+
+export function transfer(data) {
+	return request({
+		url: 'my/transfer',
+		method: 'POST',
+		data
+	})
+}
+
+export function transferlog(data) {
+	return request({
+		url: 'my/transferlogs',
 		method: 'POST',
 		data
 	})

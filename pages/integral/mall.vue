@@ -82,7 +82,18 @@
 				})
 			},
 			itemClick(id){
-				console.log(id)
+				integralApi.jifenexchange({
+					productid: id
+				}).then(res=>{
+					if(res.status == 0){
+						const { data } = res.data;
+						if(data.length > 0){
+							that.list = that.list.concat(that.$utils.handleFile(data, "image"))
+						}else{
+							that.page = that.page - 1
+						}
+					}
+				})
 			}
 		}
 	}

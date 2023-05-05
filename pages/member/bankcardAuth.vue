@@ -50,30 +50,30 @@
 					, data = e.detail.value;
 				
 				if (data.bankname == ''){
-					uni.showToast({
-						title: '请输入银行名称',
-						icon: 'error',
-					})  
+					that.$utils.handleShowToast({
+						msg:"请输入银行名称",
+						status: 1
+					}) 
 				  return;
 				}	
 				if (data.bankrealname == ''){
-					uni.showToast({
-						title: '请输入姓名',
-						icon: 'error',
-					})  
+					that.$utils.handleShowToast({
+						msg:"请输入姓名",
+						status: 1
+					}) 
 				  return;
 				}
 				if (data.bankcode == ''){
-					uni.showToast({
-						title: '请输入卡号',
-						icon: 'error',
+					that.$utils.handleShowToast({
+						msg:"请输入卡号",
+						status: 1
 					})  
 				  return;
 				}
 				if (data.bankaddres == ''){
-					uni.showToast({
-						title: '请输入密码',
-						icon: 'error',
+					that.$utils.handleShowToast({
+						msg:"请输入密码",
+						status: 1
 					})  
 				  return;
 				}
@@ -84,10 +84,7 @@
 				});
 				
 				Api.addbank(data).then(res=>{
-					uni.showToast({
-						title: res.msg,
-						icon: 'error',
-					})  
+					that.$utils.handleShowToast(res)  
 					if(res.status == 0)
 						setTimeout(function(){
 							uni.navigateBack(1)

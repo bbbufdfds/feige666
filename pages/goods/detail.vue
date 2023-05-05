@@ -40,7 +40,7 @@
 						<view class="dec" @click="dec">
 							-
 						</view>
-						<input type="number" v-model="data.price">
+						<input type="number" v-model="price" @blur="priceBlur">
 						<view class="inc" @click="inc">
 							+
 						</view>
@@ -65,7 +65,7 @@
 				<view class="cell-box">
 					<span class="item-title">支付密码:</span>
 					<view class="item-centent">
-						<input type="password" class="weui-input" v-model="data.password" placeholder="默认为登录密码" />
+						<input type="pwdPay" class="weui-input" v-model="data.pwdPay" placeholder="默认为登录密码" />
 					</view>
 				</view>
 			</view>
@@ -76,16 +76,17 @@
 
 <script>
 	
-	import { detail } from "@/api/product.js"
+	import { detail, pay } from "@/api/product.js"
 	export default {
 		data() {
 			return {
 				data: {
 					remaining_balance:0,
 					start_balance:0,
-					price: 0,
-					time: "xx"
+					time: "xx",
+					pwdPay:""
 				},
+				price: 0,
 				coupon_1: [],
 				index_1: 0,
 				coupon_2: [],
@@ -111,7 +112,7 @@
 				}).then(res=>{
 					if(res.status == 0){
 						that.data = res.data
-						that.data.price = res.data.start_balance
+						that.price = res.data.start_balance
 						that.coupon_1 = res.data.interest_coupon
 						that.coupon_2 = res.data.cash_coupon
 						console.log(res.data)
@@ -122,26 +123,56 @@
 				this[e.currentTarget.dataset.index] = e.detail.value
 			},
 			inc(){
-				this.data.price = this.data.price + 1
-				this.$forceUpdate()
+				this.price = this.price + 1
+				this.verifyPrice()
 			},
 			dec(){
-				this.data.price = this.data.price - 1
-				this.$forceUpdate()
+				this.price = this.price - 1
+				this.verifyPrice()
 			},
 			submit(){
 				let that= this
 					,data = this.data
 					
-				if(data.price > data.remaining_balance){
-					uni.showToast({
-						title: '不可大于项目可投金额',
-						icon: 'error',
-					})
+				if(that.price > data.remaining_balance){
+					that.$utils.handleShowToast({
+						msg:"不可大于项目可投金额",
+						status: 1
+					}) 
 					return;
 				}
-				
-				
+				if(!data.pwdPay){
+					that.$utils.handleShowToast({
+						msg:"请输入支付密码",
+						status: 1
+					}) 
+					return;
+				}
+				pay({
+					idPay: that.id,
+					amountPay: that.price,
+					ratecoupon: that.coupon_1[that.index_1],
+					cashcoupon: that.coupon_2[that.index_2],
+					pwdPay: data.pwdPay,
+				}).then(res=>{
+					that.$utils.handleShowToast(res) 
+					if (res.status == 0) {
+						
+					}
+				})
+			},
+			verifyPrice(){
+				let data = this.data
+				if(this.price > data.remaining_balance){
+					this.price = data.remaining_balance
+				}
+				if(this.price < data.start_balance){
+					this.price = data.start_balance
+				}
+				this.$forceUpdate()
+			},
+			priceBlur(res){
+				this.verifyPrice()
 			}
 		}
 	}

@@ -9,16 +9,18 @@
 		<view class="cell-box">
 			<span class="item-title">实名认证:</span>
 			<view class="item-centent">
-				<span class="auth">已认证</span>
+				<navigator url="realnameAuth" class="auth">
+					已认证
+					<!-- <span :class="!data.back?'unauth':''">{{!data.back?'已认证':'已绑定'}}</span> -->
+				</navigator>
 			</view>
 		</view>
 		<view class="cell-box">
 			<span class="item-title">银行卡绑定:</span>
 			<view class="item-centent">
-				<navigator class="auth" url="bankcard" v-if="data.back">
-					已绑定
+				<navigator class="auth" url="bankcardAuth" >
+					<span :class="!data.back?'unauth':''">{{!data.back?'未绑定':'已绑定'}}</span>
 				</navigator>
-				<span v-else class="auth unauth">未绑定</span>
 			</view>
 		</view>
 		<view class="cell-box">
@@ -106,7 +108,6 @@
 				text-align: right;
 
 				.auth {
-					padding: 8rpx 13rpx;
 					color: #fe8113;
 					font-size: 25rpx;
 				}
@@ -114,6 +115,7 @@
 				.unauth {
 					color: #eaeaea;
 					border: 1rpx solid #eaeaea;
+					padding: 8rpx 13rpx;
 				}
 			}
 		}

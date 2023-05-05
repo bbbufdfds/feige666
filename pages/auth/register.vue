@@ -60,45 +60,45 @@
 				let that = this
 					, formdata = e.detail.value;
 				if (formdata.phone == ''){
-					uni.showToast({
-						title: '请输入手机号',
-						icon: 'error',
-					})  
+					that.$utils.handleShowToast({
+						msg:"请输入手机号",
+						status: 1
+					})
 				  return;
 				}
 				if (formdata.password == ''){
-					uni.showToast({
-						title: '请输入密码',
-						icon: 'error',
-					})  
+					that.$utils.handleShowToast({
+						msg:"请输入密码",
+						status: 1
+					})
 				  return;
 				}
 				if (formdata.pwdconfirm == ''){
-					uni.showToast({
-						title: '请输入确认密码',
-						icon: 'error',
-					})  
+					that.$utils.handleShowToast({
+						msg:"请输入确认密码",
+						status: 1
+					})
 				  return;
 				}
 				if (formdata.yaoqingren == ''){
-					uni.showToast({
-						title: '请输入邀请码',
-						icon: 'error',
-					})  
+					that.$utils.handleShowToast({
+						msg:"请输入邀请码",
+						status: 1
+					})
 				  return;
 				}
 				if (formdata.captcha == ''){
-					uni.showToast({
-						title: '请输入验证码',
-						icon: 'error',
-					})  
+					that.$utils.handleShowToast({
+						msg:"请输入验证码",
+						status: 1
+					})
 				  return;
 				}
 				if(formdata.pwdconfirm != formdata.password){
-					uni.showToast({
-						title: '两次密码不一致',
-						icon: 'error',
-					})  
+					that.$utils.handleShowToast({
+						msg:"两次密码不一致",
+						status: 1
+					})
 					return;	
 				}
 				
@@ -107,10 +107,7 @@
 					mask: true
 				});
 				register(formdata).then((res)=>{
-					uni.showToast({
-						title: res.msg,
-						duration:850
-					});
+					that.$utils.handleShowToast(res)
 					if(res.status == 0){
 						setTimeout(function(){
 							uni.navigateTo({

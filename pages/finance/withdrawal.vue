@@ -55,10 +55,10 @@
 			formSubmit(e) {
 				
 				if(this.navBank){
-					uni.showToast({
-						title: '请绑定银行卡',
-						icon: 'error',
-					})
+					that.$utils.handleShowToast({
+						msg:"请绑定银行卡",
+						status: 1
+					}) 
 					setTimeout(function(){
 						uni.navigateTo({
 							url: "/pages/member/bankcard"
@@ -70,32 +70,29 @@
 				let that = this
 					, data = e.detail.value;
 				if (data.amount == '') {
-					uni.showToast({
-						title: '请输入提现金额',
-						icon: 'error',
-					})
+					that.$utils.handleShowToast({
+						msg:"请输入提现金额",
+						status: 1
+					}) 
 					return;
 				}
 				if(data.amount < 100){
-					uni.showToast({
-						title: '提现金额不能低于100',
-						icon: 'error',
-					})
+					that.$utils.handleShowToast({
+						msg:"提现金额不能低于100",
+						status: 1
+					}) 
 					return;
 				}
 				if (data.paypwd == '') {
-					uni.showToast({
-						title: '请输入交易密码',
-						icon: 'error',
-					})
+					that.$utils.handleShowToast({
+						msg:"请输入交易密码",
+						status: 1
+					}) 
 					return;
 				}
 				
 				Api.withdraw(data).then(res=>{
-					uni.showToast({
-						title: res.msg,
-						icon: 'error',
-					})  
+					that.$utils.handleShowToast(res) 
 					if(res.status == 0)
 						setTimeout(function(){
 							uni.navigateBack(1)

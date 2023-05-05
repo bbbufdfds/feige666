@@ -9,7 +9,7 @@
 							{{user.info.phone}}
 						</view>
 						<view class="userInfo-info-item">
-							团长
+							{{infoData.Agent}}
 						</view>
 					</view>
 					<view>等级</view>
@@ -17,7 +17,7 @@
 				<view class="priceInfo viewFlex">
 					<view class="priceInfo-item">
 						<view class="priceSize">
-							38.00
+							{{infoData.Balance}}
 						</view>
 						<view class="">
 							账户余额
@@ -25,17 +25,17 @@
 					</view>
 					<view class="priceInfo-item right">
 						<view class="">
-							待投资金额：38.00
+							<!-- 待投资金额：{{infoData.Balance}} -->
 						</view>
 						<view class="" >
-							可提现金额：00.00
+							<!-- 可提现金额：{{infoData.Balance}} -->
 						</view>
 					</view>
 				</view>
 				<view class="priceUl viewFlex">
 					<view class="priceUl-li">
 						<view class="">
-							0
+							{{infoData.Amount_receive}}
 						</view>
 						<view class="">
 							待收本金(元)
@@ -43,7 +43,7 @@
 					</view>
 					<view class="priceUl-li">
 						<view class="">
-							0
+							{{infoData.Interest_received}}
 						</view>
 						<view class="">
 							待收收益(元)
@@ -51,7 +51,7 @@
 					</view>
 					<view class="priceUl-li">
 						<view class="">
-							0
+							{{infoData.Yuebao}}
 						</view>
 						<view class="">
 							余额宝(元)
@@ -59,7 +59,7 @@
 					</view>
 					<view class="priceUl-li">
 						<view class="">
-							0
+							{{infoData.Reputation_points}}
 						</view>
 						<view class="">
 							积分
@@ -68,7 +68,7 @@
 				</view>
 				
 				<view class="btnInfo viewFlex">
-					<navigator class="btn" :url="navBankcard?'/pages/finance/withdrawal':'/pages/member/bankcard'">
+					<navigator class="btn" :url="navBankcard?'/pages/finance/withdrawal':'/pages/member/bankcardAuth'">
 						提现
 					</navigator> 
 					<view class="line"></view>
@@ -101,6 +101,7 @@
 <script>
 	import {mapState} from "vuex";
 	import { bankcardbinding } from "@/api/finance.js"
+	import * as userApi from "@/api/user.js"
 	export default {
 		data(){
 			return{
@@ -179,7 +180,8 @@
 						url: "/pages/integral/exchangelog",
 					}
 				],
-				navBankcard: true
+				navBankcard: true,
+				infoData: {}
 			}
 		},
 		onLoad() {
@@ -189,12 +191,23 @@
 					that.navBankcard = false
 				}
 			})
+			that.info()
 		},
 		computed: { 
 		   ...mapState([ 
 				'user' 
 		   ]),
 		},
+		methods:{
+			info(){
+				let that = this
+				userApi.info().then(res=>{
+					if(res.status == 0){
+						that.infoData = res.data
+					}
+				})
+			}
+		}
 	}
 </script>
 
@@ -215,7 +228,7 @@
 			.priceInfo{
 				margin-bottom: 40rpx;
 				.priceSize{
-					font-size: 60rpx;
+					font-size: 50rpx;
 					font-weight: bold;
 				}
 				.priceInfo-item.right view{

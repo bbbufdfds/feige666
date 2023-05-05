@@ -17,6 +17,7 @@
 </template>
 
 <script>
+	import { coupon } from "@/api/user.js"
 	export default {
 		data(){
 			return{
@@ -34,17 +35,27 @@
 						index: 2,
 					}
 				],
+				list:[],
 				tabIndex: 0,
 			}
 		},
 		onLoad() {
-			
-			
+			this.getList()
 		},
 		methods:{
-			tabClick(index){
+			getList(){
 				let that = this
-				that.tabIndex = index
+				coupon({
+					pid: that.tabIndex + 1
+				}).then(res=>{
+					if(res.status == 0){
+						that.list = res.data
+					}
+				})
+			},
+			tabClick(index){
+				this.tabIndex = index
+				this.getList()
 			}
 		}
 	}
