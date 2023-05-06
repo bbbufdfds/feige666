@@ -11,16 +11,16 @@
 					</view>
 				</view>
 			</view>
-			<view class="header-item viewFlex">
+			<navigator url="exchangelog" class="header-item viewFlex">
 				<view class="">
 					<view class="icon">
 						<text class="iconfont icon-a-youhuiquankaquan "></text>
 					</view>
 					<view>
-						我的积分
+						我的订单
 					</view>
 				</view>
-			</view>
+			</navigator>
 		</view>
 		<view class="goods-list viewFlex">
 			<view class="goods" v-for="(item, index) in list">

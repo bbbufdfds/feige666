@@ -18,7 +18,7 @@ export function jifenexchange(data) {
 
 export function exchangelog() {
 	return request({
-		url: 'exchangelog',
+		url: 'my/jifenexchangelogs',
 		method: 'POST',
 	})
 }

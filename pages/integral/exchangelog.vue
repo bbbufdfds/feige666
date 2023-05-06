@@ -14,16 +14,23 @@
 				data:{},
 				column:[
 					{
-						title: "投资产品",
-						prop: "id",
+						title: "产品名称",
+						prop: "productname",
 					},
 					{
-						title: "投资状态",
-						prop: "moneylog_type",
+						title: "状态",
+						prop: "status",
+						format: function(item){
+							return item.status == 0?"等待处理":item.status == 1?"已通过":"驳回"
+						}
 					},
 					{
-						title: "投资时间",
-						prop: "date",
+						title: "数量",
+						prop: "number",
+					},
+					{
+						title: "兑换积分",
+						prop: "integral",
 					},
 					{
 						title: "投资协议",
