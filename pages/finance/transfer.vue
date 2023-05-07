@@ -3,20 +3,20 @@
 		<view class="cell-box">
 			<span class="item-title">账户余额:</span>
 			<view class="item-centent">
-				555
+				{{infoData.Balance}}
 			</view>
 		</view>
 		<view class="cell-box">
 			<span class="item-title">收款账户:</span>
 			<view class="item-centent">
-				<input type="text" class="weui-input"  v-model="data.phone"
+				<input type="number" class="weui-input"  v-model="data.phone"
 					placeholder="请输入收款账户" />
 			</view>
 		</view>
 		<view class="cell-box">
 			<span class="item-title">转账金额:</span>
 			<view class="item-centent">
-				<input type="text" class="weui-input"  v-model="data.amount"
+				<input type="number" class="weui-input" @blur="amountBlur" v-model="amount"
 					placeholder="请输入转账金额" />
 			</view>
 		</view>
@@ -31,14 +31,17 @@
 
 <script>
 	import {transfer} from "@/api/finance.js"
+	
 	export default {
 		data() {
 			return {
-				data:{}
+				data:{},
+				infoData:{},
+				amount: ""
 			}
 		},
 		onLoad() {
-			
+			this.init()
 		},
 		onNavigationBarButtonTap(e) {
 		    uni.navigateTo({
@@ -46,9 +49,18 @@
 		    })
 		},
 		methods: {
+			init(){
+				let that = this
+				that.$utils.handleUserInfo().then(res=>{
+					if(res.status == 0){
+						that.infoData = res.data
+					}
+				})
+			},
 			submit(){
 				let that = this
 					, data = that.data
+					, amount = Number(this.amount)
 				
 				if(!data.phone){
 					that.$utils.handleShowToast({
@@ -57,9 +69,16 @@
 					}) 
 					return
 				}
-				if(!data.amount){
+				if(!amount || amount < 0){
 					that.$utils.handleShowToast({
 						msg:"请输入转账金额",
+						status: 1
+					}) 
+					return
+				}
+				if(this.infoData.Balance < amount){
+					that.$utils.handleShowToast({
+						msg:"转账金额不可大于余额",
 						status: 1
 					}) 
 					return
@@ -69,9 +88,20 @@
 					title: '加载中...',
 					mask: true
 				});
+				data.amount = amount
 				transfer(data).then(res=>{
 					that.$utils.handleShowToast(res)
+					if (res.status == 0) {
+						that.$utils.handleNavigateTo("/pages/finance/transferlog")
+					}
 				})
+			},
+			amountBlur(){
+				if(this.infoData.Balance < this.amount){
+					console.log(123)
+					this.amount = this.infoData.Balance
+				}
+				this.$forceUpdate()
 			}
 		}
 	}

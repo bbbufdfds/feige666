@@ -1,71 +1,41 @@
 <template>
 	<view>
 		<view class="container">
-			<view class="header viewFlex">
-				<view class="header-item">
-					<view class="">
-						啊大苏打
-					</view>
-					<view class="">
-						啊大苏打
-					</view>
-				</view>
-				<view class="header-item">
-					<view class="">
-						啊大苏打
-					</view>
-					<view class="">
-						啊大苏打
-					</view>
-				</view>
-			</view>
-			<view class="line"></view>
-
 			<view class="box">
 				<view class="cell-box">
-					<span class="item-title">起投金额:</span>
+					<span class="item-title">商品名称:</span>
 					<view class="item-centent">
-						￥<text class="flag">{{data.start_balance}}</text>元
+						{{data.productname}}
 					</view>
 				</view>
 				<view class="cell-box">
-					<span class="item-title">结息时间:</span>
-					<view class="item-centent">
-						满<text class="flag">{{data.time}}</text>自动结息
-					</view>
-				</view>
-				<view class="cell-box">
-					<span class="item-title" style="width: 50%;">投资金额:</span>
-					<view class="item-centent viewFlex price" style="width: 50%;">
+					<span class="item-title" style="width: 65%;">兑换数量:</span>
+					<view class="item-centent viewFlex price">
 						<view class="dec" @click="dec">
 							-
 						</view>
-						<input type="number" v-model="price" @blur="priceBlur" style="width: 65%;">
+						<input type="number" v-model="number" @blur="numberBlur">
 						<view class="inc" @click="inc">
 							+
 						</view>
 					</view>
 				</view>
 				<view class="cell-box">
-					<span class="item-title">加息券:</span>
+					<span class="item-title">收件人名字:</span>
 					<view class="item-centent">
-						<picker @change="bindPickerChange" data-index="index_1" :value="index_1" :range="coupon_1">
-							<view class="uni-input" >{{coupon_1.length>0?coupon_1[index_1].name:"请选择"}}</view>
-						</picker>
+						<input type="text" class="weui-input" v-model="data.name" placeholder="请输入收件人名字" />
 					</view>
 				</view>
 				<view class="cell-box">
-					<span class="item-title">现金券:</span>
+					<span class="item-title">联系电话:</span>
 					<view class="item-centent">
-						<picker @change="bindPickerChange" data-index="index_2" :value="index_2" :range="coupon_2">
-							<view class="uni-input" >{{coupon_2>0?coupon_2[index_2].name:"请选择"}}</view>
-						</picker>
+						<input type="text" class="weui-input" v-model="data.phone" placeholder="请输入联系电话" />
 					</view>
 				</view>
 				<view class="cell-box">
-					<span class="item-title">支付密码:</span>
+					<span class="item-title">收货地址:</span>
 					<view class="item-centent">
-						<input type="password" class="weui-input" v-model="data.pwdPay" placeholder="默认为登录密码" />
+						<input type="text" class="weui-input" v-model="data.address" placeholder="请输入收货地址" />
 					</view>
 				</view>
 			</view>
@@ -75,31 +45,23 @@
 </template>
 
 <script>
-	
-	import { detail, pay } from "@/api/product.js"
+	import { detail, jifenexchange } from "@/api/integral.js";
 	export default {
 		data() {
 			return {
 				data: {
-					remaining_balance:0,
-					start_balance:0,
-					time: "xx",
-					pwdPay:""
+					productname: "",
+					name: "",
+					phone: "",
+					address: "",
 				},
-				price: 0,
-				coupon_1: [],
-				index_1: 0,
-				coupon_2: [],
-				index_2: 0,
-				id: 0,
-				decNum: 100,
-				incNum: 100,
+				number: 1
 			}
 		},
 		onLoad(options) {
 			if(!options.id){
-				uni.switchTab({
-					url:"/pages/tabBar/index"
+				uni.navigateTo({
+					url:"/pages/integral/mall"
 				})
 				return
 			}
@@ -114,62 +76,64 @@
 				}).then(res=>{
 					if(res.status == 0){
 						that.data = res.data
-						that.price = res.data.start_balance
-						that.coupon_1 = res.data.interest_coupon
-						that.coupon_2 = res.data.cash_coupon
-						console.log(res.data)
 					}
 				})
 			},
-			bindPickerChange(e) {
-				this[e.currentTarget.dataset.index] = e.detail.value
-			},
 			inc(){
-				this.price = this.price + this.incNum
+				this.number = this.number + 1
 				this.verifyPrice()
 			},
 			dec(){
-				this.price = this.price - this.decNum
+				this.number = this.number - 1
 				this.verifyPrice()
 			},
 			submit(){
 				let that= this
 					,data = this.data
 					
-				if(that.price > data.remaining_balance){
+				if(that.number > data.remaining_balance){
 					that.$utils.handleShowToast({
 						msg:"不可大于项目可投金额",
 						status: 1
 					}) 
 					return;
 				}
-				if(!data.pwdPay){
+				if(!data.name){
 					that.$utils.handleShowToast({
-						msg:"请输入支付密码",
+						msg:"请输入姓名",
 						status: 1
 					}) 
 					return;
 				}
-				pay({
-					idPay: that.id,
-					amountPay: that.price,
-					ratecoupon: that.coupon_1[that.index_1],
-					cashcoupon: that.coupon_2[that.index_2],
-					pwdPay: data.pwdPay,
-				}).then(res=>{
+				if(!data.phone){
+					that.$utils.handleShowToast({
+						msg:"请输入手机号",
+						status: 1
+					}) 
+					return;
+				}
+				if(!data.address){
+					that.$utils.handleShowToast({
+						msg:"请输入地址",
+						status: 1
+					}) 
+					return;
+				}
+				
+				jifenexchange(data).then(res=>{
 					that.$utils.handleShowToast(res) 
 					if (res.status == 0) {
-						that.$utils.handleNavigateTo("/pages/finance/investlog")
+						that.$utils.handleNavigateTo("/pages/integral/exchangelog")
 					}
 				})
 			},
 			verifyPrice(){
 				let data = this.data
-				if(this.price > data.remaining_balance){
-					this.price = data.remaining_balance
+				if(this.number > data.remaining_balance){
+					this.number = data.remaining_balance
 				}
-				if(this.price < data.start_balance){
-					this.price = data.start_balance
+				if(this.number < data.start_balance){
+					this.number = data.start_balance
 				}
 				this.$forceUpdate()
 			},

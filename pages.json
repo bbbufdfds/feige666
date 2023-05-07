@@ -122,6 +122,14 @@
 			}
 		},
 		{
+			"path": "pages/integral/detail",
+			"style": {
+				"navigationBarTitleText": "积分兑换",
+				"navigationStyle": "default",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
 			"path": "pages/integral/exchangelog",
 			"style": {
 				"navigationBarTitleText": "兑换记录",

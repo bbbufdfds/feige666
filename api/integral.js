@@ -8,6 +8,14 @@ export function jifen(data) {
 	})
 }
 
+export function detail(data) {
+	return request({
+		url: 'jifen',
+		method: 'POST',
+		data
+	})
+}
+
 export function jifenexchange(data) {
 	return request({
 		url: 'my/jifenexchange',

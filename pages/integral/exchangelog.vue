@@ -21,7 +21,7 @@
 						title: "状态",
 						prop: "status",
 						format: function(item){
-							return item.status == 0?"等待处理":item.status == 1?"已通过":"驳回"
+							return item.status == 0?"等待处理":item.status == 1?"兑换成功":"兑换失败"
 						}
 					},
 					{
@@ -33,7 +33,7 @@
 						prop: "integral",
 					},
 					{
-						title: "投资协议",
+						title: "兑换时间",
 						prop: "date",
 					}
 				]

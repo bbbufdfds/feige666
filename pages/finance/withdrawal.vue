@@ -17,13 +17,13 @@
 			<view class="cell-box">
 				<span class="item-title">可提现金额(元):</span>
 				<view class="item-centent">
-					666
+					{{infoData.Balance}}
 				</view>
 			</view>
 			<view class="cell-box">
 				<span class="item-title">交易密码:</span>
 				<view class="item-centent">
-					<input type="text" class="weui-input" name="data.paypwd" :value="data.paypwd" placeholder="请输入交易密码" />
+					<input type="password" class="weui-input" name="paypwd" :value="data.paypwd" placeholder="请输入交易密码" />
 				</view>
 			</view>
 			<button class="submit" form-type="submit">申请提现</button>
@@ -37,11 +37,13 @@
 		data() {
 			return {
 				data: {},
-				navBank: false
+				navBank: false,
+				infoData:{},
 			}
 		},
 		onLoad() {
 			this.loadbank()
+			this.init()
 		},
 		methods: {
 			loadbank() {
@@ -49,6 +51,14 @@
 				Api.bankcardbinding().then(res => {
 					if (res.status == 1) {
 						that.navBank = true
+					}
+				})
+			},
+			init(){
+				let that = this
+				that.$utils.handleUserInfo().then(res=>{
+					if(res.status == 0){
+						that.infoData = res.data
 					}
 				})
 			},
@@ -76,6 +86,16 @@
 					}) 
 					return;
 				}
+				
+				if(this.infoData.Balance < data.amount){
+					that.$utils.handleShowToast({
+						msg:"可提现金额不可大于余额",
+						status: 1
+					}) 
+					return
+				}
+				
+				
 				if(data.amount < 100){
 					that.$utils.handleShowToast({
 						msg:"提现金额不能低于100",
@@ -94,9 +114,7 @@
 				Api.withdraw(data).then(res=>{
 					that.$utils.handleShowToast(res) 
 					if(res.status == 0)
-						setTimeout(function(){
-							uni.navigateBack(1)
-						},1000)
+						that.$utils.handleNavigateTo("/pages/finance/withdrawallog")
 				})
 			}
 		}

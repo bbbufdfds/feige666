@@ -24,6 +24,14 @@ export function investlog(data) {
 	})
 }
 
+export function recharge(data) {
+	return request({
+		url: 'my/userrecharge',
+		method: 'POST',
+		data
+	})
+}
+
 export function rechargelog(data) {
 	return request({
 		url: 'my/recharges',

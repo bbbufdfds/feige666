@@ -71,6 +71,7 @@
 		onLoad() {
 
 		},
+		
 		methods: {
 			changPassword(t) {
 				this.passwordType = t

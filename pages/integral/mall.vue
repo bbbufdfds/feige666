@@ -41,9 +41,9 @@
 						</span>
 					</view>
 				</view>
-				<view class="btn maigin-top-15" @click="itemClick(item.id)">
+				<navigator class="btn maigin-top-15" :url="'detail?id=' + item.id">
 					立即兑换
-				</view>
+				</navigator>
 			</view>
 		</view>
 	</view>

@@ -9,14 +9,17 @@
 			<view class="tbody">
 				<block v-if="list.length > 0">
 					<view class="tbody-item viewFlex" v-for="(item, index) in list" >
-						<view class="">
+						<view class="" @click="viewClick(index, item)">
 							{{item.title}}
+							<text class="" v-if="item.show">
+								{{item.content}}
+							</text>
 						</view>
 						<view class="">
 							{{item.date}}
 						</view>
 						<view class="">
-							{{item.status == 1?"已读":"未读"}}
+							<text :class="item.status?'flag':''">{{item.status == 1?"已读":"未读"}}</text>
 						</view>
 						<view class="" @click="remove(index, item)">
 							<a href="javascript:;">删除</a>
@@ -32,7 +35,7 @@
 </template>
 
 <script>
-	import { message } from "@/api/common.js"
+	import { message, msgStatus, msgDel } from "@/api/common.js"
 	export default {
 		data() {
 			return {
@@ -63,17 +66,38 @@
 				}).then(res=>{
 					if(res.status == 0){
 						const { data } = res.data;
+						
 						if(data.length > 0){
+							data.forEach(function(item){
+								item.show = false
+							})
 							that.list = that.list.concat(data)
 						}else{
 							that.page = that.page - 1
 						}
-						that.data = res.show
 					}
 				})
 			},
 			remove(index, item){
-				this.list.splice(index, 1)
+				let that = this
+				msgDel({
+					id: item.id
+				}).then(res=>{
+					if(res.status == 0){
+						that.list.splice(index, 1)
+					}
+				})
+			},
+			viewClick(index, item){
+				let that = this
+				that.list[index].show = !that.list[index].show;
+				msgStatus({
+					id: item.id
+				}).then(res=>{
+					if(res.status == 0){
+						that.list[index].status = 1;
+					}
+				})
 			}
 		}
 	}
@@ -84,5 +108,14 @@
 		width: 92%;
 		margin: 0 auto;
 		
+	}
+	.table .tbody .tbody-item view{
+		height: auto;
+		line-height: inherit;
+		padding: 20rpx;
+		text{
+			margin-top: 20rpx;
+			display: inline-block;
+		}
 	}
 </style>

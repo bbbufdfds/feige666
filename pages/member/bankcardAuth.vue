@@ -4,14 +4,14 @@
 			<view class="cell-box">
 				<span class="item-title">银行名称:</span>
 				<view class="item-centent">
-					<input type="number" class="weui-input" name="bankname" :value="data.bankname"
+					<input type="text" class="weui-input" name="bankname" :value="data.bankname"
 						placeholder="请输入银行名称" maxlength="11"/>
 				</view>
 			</view>
 			<view class="cell-box">
 				<span class="item-title">姓名:</span>
 				<view class="item-centent">
-					<input type="number" class="weui-input"  name="bankrealname" :value="data.bankrealname"
+					<input type="text" class="weui-input"  name="bankrealname" :value="data.bankrealname"
 						placeholder="请输入姓名" maxlength="11"/>
 				</view>
 			</view>
@@ -25,7 +25,7 @@
 			<view class="cell-box">
 				<span class="item-title">开户行:</span>
 				<view class="item-centent">
-					<input type="text" class="weui-input" name="bankaddres" :value="data.bankaddres"
+					<input type="text" class="weui-input" name="bankaddress" :value="data.bankaddress"
 						placeholder="请输入开户行" />
 				</view>
 			</view>
@@ -70,7 +70,7 @@
 					})  
 				  return;
 				}
-				if (data.bankaddres == ''){
+				if (data.bankaddress == ''){
 					that.$utils.handleShowToast({
 						msg:"请输入密码",
 						status: 1

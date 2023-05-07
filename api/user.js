@@ -68,3 +68,10 @@ export function shiming(data) {
 		data
 	})
 }
+
+export function mymsg(data) {
+	return request({
+		url: 'my/mymsg',
+		method: 'POST',
+	})
+}

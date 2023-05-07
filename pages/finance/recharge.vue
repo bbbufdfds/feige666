@@ -9,12 +9,12 @@
 				{{user.info.phone}}
 			</view>
 		</view>
-		<view class="cell-box">
+		<!-- <view class="cell-box">
 			<span class="item-title">账户余额:</span>
 			<view class="item-centent">
 				6666
 			</view>
-		</view>
+		</view> -->
 		<view class="cell-box">
 			<span class="item-title" style="width: 20%;">温馨提示:</span>
 			<view class="item-centent" style="color: #c6c6c6;width: 80%;text-align: left;">
@@ -24,14 +24,14 @@
 		<view class="cell-box">
 			<span class="item-title">充值金额:</span>
 			<view class="item-centent">
-				<input type="text" class="weui-input"  v-model="data.password"
+				<input type="text" class="weui-input"  v-model="data.amount"
 					placeholder="请输入充值金额" />
 			</view>
 		</view>
 		<view class="cell-box">
 			<span class="item-title">汇款转账时间:</span>
 			<view class="item-centent">
-				6666
+				{{data.currentYMD}}
 			</view>
 		</view>
 		<view class="cell-box">
@@ -46,6 +46,7 @@
 </template>
 
 <script>
+	import * as Api from "@/api/finance.js"
 	import {mapState} from "vuex";
 	export default {
 		computed: {
@@ -55,14 +56,33 @@
 		},
 		data() {
 			return {
-				data:{}
+				data:{
+					currentYMD: this.$utils.handleCurrentYMD()
+				}
 			}
 		},
 		onLoad() {
 			
 		},
 		methods: {
-
+			submit(){
+				let that = this
+					, data = that.data
+				
+				if(!data.amount){
+					that.$utils.handleShowToast({
+						msg: "请输入充值金额",
+						status: 1,
+					})
+					return
+				}
+				
+				Api.recharge(that.data).then(res=>{
+					that.$utils.handleShowToast(res)
+					if(res.status == 0)
+						that.$utils.handleNavigateTo("/pages/finance/rechargelog")
+				})
+			}
 		}
 	}
 </script>

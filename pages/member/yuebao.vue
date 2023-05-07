@@ -129,15 +129,7 @@
 									act: t,
 									amount: res.content
 								}).then(res=>{
-									if(res.status == 0){
-										const { data } = res.data;
-										if(data.length > 0){
-											that.list = that.list.concat(data)
-										}else{
-											that.page = that.page - 1
-										}
-										that.data = res.show
-									}
+									that.$utils.handleShowToast(res) 
 								})
 							}else{
 								that.$utils.handleShowToast({

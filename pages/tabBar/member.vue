@@ -90,7 +90,7 @@
 								{{item.title}}
 							</view>
 						</view>
-						<span class="notice" v-if="item.notice">1</span>
+						<span class="notice" v-if="item.notice">{{notice}}</span>
 					</navigator>
 				</view>
 			</view>
@@ -181,8 +181,17 @@
 					}
 				],
 				navBankcard: true,
-				infoData: {}
+				infoData: {},
+				notice: 0
 			}
+		},
+		onShow() {
+			let that = this
+			userApi.mymsg().then(res=>{
+				if(res.status == 0){
+					that.notice = res.num
+				}
+			})
 		},
 		onLoad() {
 			let that = this
@@ -201,7 +210,7 @@
 		methods:{
 			info(){
 				let that = this
-				userApi.info().then(res=>{
+				that.$utils.handleUserInfo().then(res=>{
 					if(res.status == 0){
 						that.infoData = res.data
 					}
@@ -300,6 +309,8 @@
 					right: 20rpx;
 					width: 40rpx;
 					height: 40rpx;
+					line-height: 40rpx;
+					text-align: center;
 					background-color: red;
 					border-radius: 50%;
 					color: #ffffff;

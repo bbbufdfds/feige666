@@ -20,12 +20,15 @@
 					{
 						title: "理由",
 						prop: "tishi",
+						format: function(item){
+							return item.tishi || "无"
+						}
 					},
 					{
 						title: "提现状态",
 						prop: "status",
 						format: function(item){
-							return item.status == 1?"已通过":"驳回"
+							return item.status == -1 ?"驳回":item.status == 0?"审核中":"已通过"
 						}
 					},
 					{
