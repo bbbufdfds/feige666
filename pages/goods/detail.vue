@@ -49,16 +49,16 @@
 				<view class="cell-box">
 					<span class="item-title">加息券:</span>
 					<view class="item-centent">
-						<picker @change="bindPickerChange" data-index="index_1" :value="index_1" :range="coupon_1">
-							<view class="uni-input" >{{coupon_1.length>0?coupon_1[index_1].name:"请选择"}}</view>
+						<picker @change="bindPickerChange" data-index="index_1" range-key="name" :value="index_1" :range="coupon_1">
+							<view class="uni-input" >{{index_1>-1?coupon_1[index_1].name:"请选择"}}</view>
 						</picker>
 					</view>
 				</view>
 				<view class="cell-box">
 					<span class="item-title">现金券:</span>
 					<view class="item-centent">
-						<picker @change="bindPickerChange" data-index="index_2" :value="index_2" :range="coupon_2">
-							<view class="uni-input" >{{coupon_2>0?coupon_2[index_2].name:"请选择"}}</view>
+						<picker @change="bindPickerChange" data-index="index_2" range-key="name" :value="index_2" :range="coupon_2">
+							<view class="uni-input" >{{index_2>-1?coupon_2[index_2].name:"请选择"}}</view>
 						</picker>
 					</view>
 				</view>
@@ -88,9 +88,9 @@
 				},
 				price: 0,
 				coupon_1: [],
-				index_1: 0,
+				index_1: -1,
 				coupon_2: [],
-				index_2: 0,
+				index_2: -1,
 				id: 0,
 				decNum: 100,
 				incNum: 100,
@@ -117,7 +117,7 @@
 						that.price = res.data.start_balance
 						that.coupon_1 = res.data.interest_coupon
 						that.coupon_2 = res.data.cash_coupon
-						console.log(res.data)
+						// console.log(res.data.cash_coupon)
 					}
 				})
 			},
@@ -153,8 +153,8 @@
 				pay({
 					idPay: that.id,
 					amountPay: that.price,
-					ratecoupon: that.coupon_1[that.index_1],
-					cashcoupon: that.coupon_2[that.index_2],
+					ratecoupon: that.coupon_1[that.index_1].id,
+					cashcoupon: that.coupon_2[that.index_2].id,
 					pwdPay: data.pwdPay,
 				}).then(res=>{
 					that.$utils.handleShowToast(res) 

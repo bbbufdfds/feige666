@@ -28,6 +28,9 @@
 					{
 						title: "订单状态",
 						prop: "status",
+						format: function(item){
+							return item.status == 0?"未支付":item.status == 1?"已支付":"已取消"
+						}
 					}
 				]
 			}

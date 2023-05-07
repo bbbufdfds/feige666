@@ -94,6 +94,10 @@
 					</navigator>
 				</view>
 			</view>
+			
+			<view class="logout" @click="logout">
+				退出
+			</view>
 		</view>
 	</view>
 </template>
@@ -215,7 +219,11 @@
 						that.infoData = res.data
 					}
 				})
-			}
+			},
+			logout(){
+				let that = this
+				that.$store.commit("user/logout")
+			},
 		}
 	}
 </script>
@@ -320,5 +328,13 @@
 				border-right: 0;
 			}
 		}
+	}
+	.logout{
+		margin-top: 50rpx;
+		width: 100%;
+		text-align: center;
+		background-color: #fe8113;
+		color: #ffffff;
+		padding: 20rpx;
 	}
 </style>

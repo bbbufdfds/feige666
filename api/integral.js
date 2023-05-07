@@ -10,7 +10,7 @@ export function jifen(data) {
 
 export function detail(data) {
 	return request({
-		url: 'jifen',
+		url: 'my/jifendetails',
 		method: 'POST',
 		data
 	})

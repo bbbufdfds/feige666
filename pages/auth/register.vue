@@ -30,7 +30,7 @@
 						<input type="text" class="input" placeholder="请输入验证码"
 							placeholder-style="font-size:30rpx;color:#B2B5BE" name="captcha" value="" />
 							<view class="reg-code" @click="refreshCode">
-								<image :src="codeImage" mode=""></image>
+								<image :src="codeObj.img" mode=""></image>
 							</view>
 					</view>
 					<button class="form-btn" form-type="submit">注册</button>
@@ -46,7 +46,7 @@
 	export default {
 		data() {
 			return {
-				codeImage: ""
+				codeObj: ""
 			};
 		},
 
@@ -106,6 +106,8 @@
 					title: '提交中...',
 					mask: true
 				});
+				formdata.captcha_key = that.codeObj.key
+				
 				register(formdata).then((res)=>{
 					that.$utils.handleShowToast(res)
 					if(res.status == 0){
@@ -121,7 +123,7 @@
 			refreshCode(){
 				let that = this
 				captcha().then(res=>{
-					that.codeImage = res.data.url
+					that.codeObj = res.data.url
 				})
 			}
 		}

@@ -5,7 +5,7 @@
 				<view class="cell-box">
 					<span class="item-title">商品名称:</span>
 					<view class="item-centent">
-						{{data.productname}}
+						{{data.title}}
 					</view>
 				</view>
 				<view class="cell-box">
@@ -18,6 +18,12 @@
 						<view class="inc" @click="inc">
 							+
 						</view>
+					</view>
+				</view>
+				<view class="cell-box">
+					<span class="item-title" style="width: 65%;">所需积分:</span>
+					<view class="item-centent">
+						{{data.integral * number}}
 					</view>
 				</view>
 				<view class="cell-box">
@@ -45,12 +51,14 @@
 </template>
 
 <script>
-	import { detail, jifenexchange } from "@/api/integral.js";
+	import { detail, jifenexchange} from "@/api/integral.js";
 	export default {
 		data() {
 			return {
 				data: {
-					productname: "",
+					title: "",
+					integral: "",
+					userintegral: "",
 					name: "",
 					phone: "",
 					address: "",
@@ -81,23 +89,18 @@
 			},
 			inc(){
 				this.number = this.number + 1
-				this.verifyPrice()
 			},
 			dec(){
-				this.number = this.number - 1
-				this.verifyPrice()
+				let number = this.number - 1
+				if(this.number < 2){
+					number = 1
+				}
+				this.number = number
 			},
 			submit(){
 				let that= this
 					,data = this.data
 					
-				if(that.number > data.remaining_balance){
-					that.$utils.handleShowToast({
-						msg:"不可大于项目可投金额",
-						status: 1
-					}) 
-					return;
-				}
 				if(!data.name){
 					that.$utils.handleShowToast({
 						msg:"请输入姓名",
@@ -119,7 +122,14 @@
 					}) 
 					return;
 				}
-				
+				if(data.integral * that.number > data.userintegral){
+					that.$utils.handleShowToast({
+						msg:"积分不足",
+						status: 1
+					}) 
+					return;
+				}
+				data.number = that.number
 				jifenexchange(data).then(res=>{
 					that.$utils.handleShowToast(res) 
 					if (res.status == 0) {
@@ -127,19 +137,13 @@
 					}
 				})
 			},
-			verifyPrice(){
-				let data = this.data
-				if(this.number > data.remaining_balance){
-					this.number = data.remaining_balance
-				}
-				if(this.number < data.start_balance){
-					this.number = data.start_balance
+			numberBlur(res){
+				console.log(res)
+				if(this.number < 0){
+					this.number = 1
 				}
 				this.$forceUpdate()
 			},
-			priceBlur(res){
-				this.verifyPrice()
-			}
 		}
 	}
 </script>

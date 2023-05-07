@@ -1,4 +1,4 @@
-import { login } from '../../api/user';
+import { login, logout } from '../../api/user';
 import { setToken , getToken, removeToken} from '../../utils/auth';
 let infoHistory = uni.getStorageSync('userInfo') || {};
 
@@ -19,7 +19,11 @@ mutations = {
 		login(info).then(response => {
 			if(response.status == 0){
 				const { data } = response
-					, info = {phone: data.phone};
+					, info = {
+						phone: data.phone,
+						isrealname: data.isrealname,
+						isbank: data.isbank,
+					};
 				state.hasLogin = true;
 				state.info = info;
 				setToken(data.token)
@@ -39,10 +43,18 @@ mutations = {
 		})
 	},
 	logout(state) {
-		state.info = {};
-		state.hasLogin = false;
-		removeToken();
-		uni.removeStorageSync('userInfo')
+		logout().then(response => {
+			state.info = {};
+			state.hasLogin = false;
+			removeToken();
+			uni.removeStorageSync('userInfo')
+			uni.reLaunch({
+				url: "/pages/tabBar/index",
+			})
+		}).catch(error => {
+		    console.log(error)
+		})
+		
 	}
 }
 , actions = {

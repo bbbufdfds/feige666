@@ -22,7 +22,7 @@
 						prop: "moneylog_money",
 						format: function(item){
 							let operator = item.operator == 1?"+":"-";
-							return `${operator}${item.moneylog_money}`
+							return `<text style="color:${item.operator==1?'red':'green'}">${operator}${item.moneylog_money}</text>`
 						}
 					},
 						

@@ -8,6 +8,13 @@ export function login(data) {
 	})
 }
 
+export function logout() {
+	return request({
+		url: 'my/logout',
+		method: 'POST'
+	})
+}
+
 export function register(data) {
 	return request({
 		url: 'register',
@@ -73,5 +80,17 @@ export function mymsg(data) {
 	return request({
 		url: 'my/mymsg',
 		method: 'POST',
+	})
+}
+
+export function changePassword(data) {
+	let url = "my/changePassword"
+	if(data.passwordType == 2){
+		url = "my/jyPassword"
+	}
+	return request({
+		url: url,
+		method: 'POST',
+		data
 	})
 }

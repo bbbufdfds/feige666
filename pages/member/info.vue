@@ -10,8 +10,7 @@
 			<span class="item-title">实名认证:</span>
 			<view class="item-centent">
 				<navigator url="realnameAuth" class="auth">
-					已认证
-					<!-- <span :class="!data.back?'unauth':''">{{!data.back?'已认证':'已绑定'}}</span> -->
+					<span :class="!user.info.isrealname?'unauth':''">{{!user.info.isrealname?'未实名':'已实名'}}</span>
 				</navigator>
 			</view>
 		</view>
@@ -19,35 +18,23 @@
 			<span class="item-title">银行卡绑定:</span>
 			<view class="item-centent">
 				<navigator class="auth" url="bankcardAuth" >
-					<span :class="!data.back?'unauth':''">{{!data.back?'未绑定':'已绑定'}}</span>
+					<span :class="!user.info.isbank?'unauth':''">{{!user.info.isbank?'未绑定':'已绑定'}}</span>
 				</navigator>
 			</view>
 		</view>
 		<view class="cell-box">
 			<span class="item-title">修改登录密码:</span>
-			<view class="item-centent" @click="changPassword(1)">
+			<navigator class="item-centent" url="changePassword?passwordType=1">
 				<i class="iconfont icon-jinrujiantou"></i>
-			</view>
+			</navigator>
 		</view>
 		<view class="cell-box">
 			<span class="item-title">修改支付密码:</span>
-			<view class="item-centent" @click="changPassword(2)">
+			<navigator class="item-centent" url="changePassword?passwordType=2">
 				<i class="iconfont icon-jinrujiantou"></i>
-			</view>
+			</navigator>
 		</view>
 
-		<uni-popup ref="popup" position="center">
-			<view class="popup-container">
-				<view class="">
-					修改{{passwordType == 1?"登录":"支付"}}密码
-				</view>
-				<input class="password-input" type="password" v-model="password" placeholder="请输入密码">
-				<view class="viewFlex">
-					<view class="confirm-button button" @click="confirm">确定</view>
-					<view class="cancel-button button" @click="cancel">取消</view>
-				</view>
-			</view>
-		</uni-popup>
 	</view>
 </template>
 
@@ -122,32 +109,4 @@
 		}
 	}
 
-	.popup-container {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		padding: 20px;
-		background-color: #fff;
-		border-radius: 10rpx;
-		width: 60vw;
-
-		.password-input {
-			width: 80%;
-			margin: 30rpx 0;
-		}
-		.button{
-			padding: 8rpx 20rpx;
-			border-radius: 10rpx;
-		}
-		.confirm-button {
-			background-color: #fe8113;
-			color: #fff;
-		}
-
-		.cancel-button {
-			background-color: #fff;
-			color: #000000;
-			margin-left: 20rpx;
-		}
-	}
 </style>

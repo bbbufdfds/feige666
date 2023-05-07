@@ -9,7 +9,7 @@
 			<block v-if="list.length > 0">
 				<view class="tbody-item viewFlex" v-for="(item, index) in list" >
 					<view class="" v-for="(cItem, cIndex) in columns">
-						{{cItem.format(item)?cItem.format(item):item[cItem.prop]}}
+						<text v-html="cItem.format(item)?cItem.format(item):item[cItem.prop]"></text>
 					</view>
 				</view>
 			</block>

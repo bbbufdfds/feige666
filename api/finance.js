@@ -2,7 +2,7 @@ import request from './../utils/request';
 
 export function flowlog(data) {
 	return request({
-		url: 'flowlog',
+		url: 'my/flowlog',
 		method: 'POST',
 		data
 	})

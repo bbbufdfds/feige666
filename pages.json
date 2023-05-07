@@ -69,6 +69,15 @@
 
 		},
 		{
+			"path": "pages/member/changePassword",
+			"style": {
+				"navigationBarTitleText": "更改密码",
+				"enablePullDownRefresh": false,
+				"navigationStyle": "default"
+			}
+		
+		},
+		{
 			"path": "pages/member/bankcardAuth",
 			"style": {
 				"navigationBarTitleText": "银行卡绑定",
