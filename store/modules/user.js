@@ -15,6 +15,11 @@ getters = {
 	}
 },
 mutations = {
+	changeData(state, info) {
+		let data = Object.assign(infoHistory, info)
+		uni.setStorageSync('userInfo', data)
+		state.info = data;
+	}, 
 	login(state, info) { 
 		login(info).then(response => {
 			if(response.status == 0){

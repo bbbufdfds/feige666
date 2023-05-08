@@ -48,9 +48,9 @@
 							</view>
 						</view>
 					</view>
-					<navigator :url="'/pages/goods/detail?id='+item.id" class="good-submit">
+					<view @click="nav('/pages/goods/detail?id='+item.id)" class="good-submit">
 						立即投资
-					</navigator>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -90,6 +90,12 @@
 					uni.hideLoading()
 				})
 			},
+			nav(url){
+				this.$utils.handleVerifyPath({
+					url: url,
+					isrealname: true
+				});
+			}
 		}
 	}
 </script>

@@ -52,7 +52,7 @@ export function handleUserInfo(url) {
 export function handleVerifyPath(obj) {
 	let infoHistory = uni.getStorageSync('userInfo') || {}
 		, verify = true
-		, url = obj.path
+		, url = obj.url
 		, redirect = "/pages/member/realnameAuth"
 	if(obj.isrealname){
 		if(infoHistory.isrealname == 0){

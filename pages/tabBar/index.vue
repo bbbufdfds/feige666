@@ -124,17 +124,21 @@
 					{
 						name: "充值",
 						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
-						url: "/pages/finance/recharge"
+						url: "/pages/finance/recharge",
+						isrealname: true,
 					},
 					{
 						name: "提现",
 						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
-						url: "/pages/finance/withdrawal"
+						url: "/pages/finance/withdrawal",
+						isrealname: true,
+						isbank: true
 					},
 					{
 						name: "余额宝",
 						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
-						url: "/pages/member/yuebao"
+						url: "/pages/member/yuebao",
+						isrealname: true,
 					},
 					{
 						name: "APP下载",
@@ -193,22 +197,7 @@
 							url: item.url
 						})
 					}else{
-						if(["充值", "余额宝"].indexOf(item.name) > -1){
-							this.$utils.handleVerifyPath({
-								isrealname: true,
-								path: "/pages/finance/recharge",
-							});
-						}else if(item.name == "提现"){
-							this.$utils.handleVerifyPath({
-								isrealname: true,
-								isbank: true,
-								path: "/pages/finance/withdrawal",
-							});
-						}else{
-							uni.navigateTo({
-								url: item.url
-							})
-						}
+						this.$utils.handleVerifyPath(item);
 					}
 				}else{
 					if(item.name == "每日签到"){

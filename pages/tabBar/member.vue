@@ -69,20 +69,20 @@
 				</view>
 				
 				<view class="btnInfo viewFlex">
-					<navigator hover-class="none" class="btn" :url="navBankcard?'/pages/finance/withdrawal':'/pages/member/bankcardAuth'">
+					<view class="btn" @click="navClick_1(1)">
 						提现
-					</navigator> 
+					</view> 
 					<view class="line"></view>
-					<navigator hover-class="none" class="btn" url="/pages/finance/recharge">
+					<view class="btn" @click="navClick_1(2)">
 						充值
-					</navigator> 
+					</view> 
 				</view>
 			</view>
 			
 			<view class="content">
 				<view style="height: 90rpx;"></view>
 				<view class="list viewFlex">
-					<navigator hover-class="none" :url="item.url" class="list-item viewFlex" :class="(index+1)%3 == 0?'right-border-none':''" v-for="(item, index) in btnList">
+					<view @click="navClick(item)" class="list-item viewFlex" :class="(index+1)%3 == 0?'right-border-none':''" v-for="(item, index) in btnList">
 						<view class="">
 							<view class="">
 								<i class="iconfont" :style="'color:#' + item.color" :class="'icon-' +item.icon"></i>
@@ -92,7 +92,7 @@
 							</view>
 						</view>
 						<span class="notice" v-if="item.notice">{{notice}}</span>
-					</navigator>
+					</view>
 				</view>
 			</view>
 			
@@ -116,12 +116,15 @@
 						icon: "yinhangqia",
 						color: "53aaed",
 						url: "/pages/finance/transfer",
+						isrealname: true,
+						isbank: true,
 					},
 					{
 						title: "余额宝",
 						icon: "qiandai",
 						color: "fcb848",
 						url: "/pages/member/yuebao",
+						isrealname: true,
 					},
 					{
 						title: "优惠券",
@@ -224,6 +227,21 @@
 			logout(){
 				let that = this
 				that.$store.commit("user/logout")
+			},
+			navClick_1(t){
+				let item = {}
+				if(t == 1){
+					item.url= "/pages/finance/withdrawal"
+					item.isrealname = true
+					item.isbank = true
+				}else{
+					item.url = "/pages/finance/recharge"
+					item.isrealname = true
+				}
+				this.navClick(item)
+			},
+			navClick(item){
+				this.$utils.handleVerifyPath(item);
 			},
 		}
 	}

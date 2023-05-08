@@ -54,6 +54,7 @@
 				shiming(this.data).then(res=>{
 					that.$utils.handleShowToast(res) 
 					if(res.status == 0){
+						that.$store.commit("user/changeData",{isrealname:1})
 						setTimeout(function(){
 							uni.navigateBack(1)
 						},1000)
