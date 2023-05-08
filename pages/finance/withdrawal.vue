@@ -11,7 +11,7 @@
 				<span class="item-title">提现金额(元):</span>
 				<view class="item-centent">
 					<input type="number" class="weui-input"  name="amount" :value="data.amount" placeholder="不能低于100元"
-						maxlength="11" />
+						maxlength="6" />
 				</view>
 			</view>
 			<view class="cell-box">
@@ -23,7 +23,7 @@
 			<view class="cell-box">
 				<span class="item-title">交易密码:</span>
 				<view class="item-centent">
-					<input type="password" class="weui-input" name="paypwd" :value="data.paypwd" placeholder="请输入交易密码" />
+					<input type="password" maxlength="11" class="weui-input" name="paypwd" :value="data.paypwd" placeholder="请输入交易密码" />
 				</view>
 			</view>
 			<button class="submit" form-type="submit">申请提现</button>

@@ -1,15 +1,21 @@
 <script>
 	export default {
 		onLaunch: function(options) {
+			let paths
 			if(!this.$store.state.user.hasLogin){
-				
-				if("pages/tabBar/index".indexOf(options.path) == -1){
+				// 无需验证登录的页面
+				paths = [
+					"pages/tabBar/index",
+					"pages/news/list",
+					"pages/news/detail",
+				];
+				if(paths.indexOf(options.path) == -1){
 					uni.reLaunch({
 						url: "/pages/auth/login",
 					})
 				}
 			}else{
-				let paths = [
+				paths = [
 					"pages/auth/login",
 					"pages/auth/register",
 				];
@@ -32,6 +38,7 @@
 
 <style lang="scss">
 	@import url("static/iconfont/iconfont.css");
+	@import url("/components/u-parse/u-parse.css");
 	/*每个页面公共css */
 	.viewFlex{
 		display: flex;
@@ -43,6 +50,17 @@
 	// 顶部
 	.nav{
 		height: var(--status-bar-height);// --status-bar-height系统状态栏高度
+	}
+	
+	/deep/ .wxParse{
+		margin: 10px auto;
+		width: 95vw;
+		border-radius: 10px;
+	}
+	/deep/ .first{
+		text-align: center;
+		padding-bottom: 5px;
+		border-bottom: 1px solid #E0E0E0;
 	}
 	
 	

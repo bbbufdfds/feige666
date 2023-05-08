@@ -29,19 +29,19 @@
 				<view class="cell-box">
 					<span class="item-title">收件人名字:</span>
 					<view class="item-centent">
-						<input type="text" class="weui-input" v-model="data.name" placeholder="请输入收件人名字" />
+						<input type="text" maxlength="5" class="weui-input" v-model="data.name" placeholder="请输入收件人名字" />
 					</view>
 				</view>
 				<view class="cell-box">
 					<span class="item-title">联系电话:</span>
 					<view class="item-centent">
-						<input type="text" class="weui-input" v-model="data.phone" placeholder="请输入联系电话" />
+						<input type="text" maxlength="11" class="weui-input" v-model="data.phone" placeholder="请输入联系电话" />
 					</view>
 				</view>
 				<view class="cell-box">
 					<span class="item-title">收货地址:</span>
 					<view class="item-centent">
-						<input type="text" class="weui-input" v-model="data.address" placeholder="请输入收货地址" />
+						<input type="text" maxlength="11" class="weui-input" v-model="data.address" placeholder="请输入收货地址" />
 					</view>
 				</view>
 			</view>

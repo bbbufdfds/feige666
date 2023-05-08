@@ -25,7 +25,7 @@
 				</view>
 			</view>
 			<!-- 金刚区 start -->
-			<view class="button-list" v-if="buttonList">
+			<view class="button-list" v-if="buttonList.length > 0">
 				<view class="button-list-item" v-for="(item, index) in buttonList" :key="index" @click="buttonClick(item)">
 					<view class="button-list-item_icon">
 						<image :src="item.thumb_url" mode="widthFix"></image>
@@ -58,14 +58,12 @@
 	import goodsCategory from '@/components/goods/category.vue'
 	import goodsList from '@/components/goods/list.vue'
 	import * as Api from "@/api/index.js"
-
 	export default {
 		components: {
 			carousel,
 			goodsList,
 			goodsCategory
 		},
-
 		data() {
 			return {
 				buttonList: [],
@@ -75,10 +73,12 @@
 				popupData:{}
 			}
 		},
+		mounted() {
+			this.menu()
+		},
 		onLoad() {
 			let that = this
 			this.banner()
-			this.menu()
 			this.video()
 			
 			this.placard()
@@ -110,10 +110,64 @@
 			},
 			menu(){
 				let that = this
-				Api.menu().then(res=>{
-					if(res.status == 0)
-						that.buttonList = that.$utils.handleFile(res.data, "thumb_url")
-				})
+				
+				let buttonList = [
+					{
+						name: "每日签到",
+						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
+					},
+					{
+						name: "邀请好友",
+						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
+						url: "/pages/common/inviteFriends"
+					},
+					{
+						name: "充值",
+						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
+						url: "/pages/finance/recharge"
+					},
+					{
+						name: "提现",
+						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
+						url: "/pages/finance/withdrawal"
+					},
+					{
+						name: "余额宝",
+						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
+						url: "/pages/member/yuebao"
+					},
+					{
+						name: "APP下载",
+						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
+					},
+					{
+						name: "在线客服",
+						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
+						url: "/pages/tabBar/call",
+						switch: true,
+					},
+					{
+						name: "幸运大转盘",
+						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
+						url: "/pages/common/drawPrize"
+					},
+					{
+						name: "积分商城",
+						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
+						url: "/pages/integral/mall"
+					},
+					{
+						name: "新闻中心",
+						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
+						url: "/pages/news/list"
+					}
+				];
+				that.buttonList = buttonList
+				
+				// Api.menu().then(res=>{
+				// 	if(res.status == 0)
+				// 		that.buttonList = that.$utils.handleFile(res.data, "thumb_url")
+				// })
 			},
 			
 			video(){
@@ -133,10 +187,35 @@
 			},
 			buttonClick(item){
 				let that = this
-				if(item.name == "每日签到"){
-					Api.qiandao().then(res=>{
-						that.$utils.handleShowToast(res)  
-					})
+				if(item.url){
+					if(item.switch){
+						uni.switchTab({
+							url: item.url
+						})
+					}else{
+						if(["充值", "余额宝"].indexOf(item.name) > -1){
+							this.$utils.handleVerifyPath({
+								isrealname: true,
+								path: "/pages/finance/recharge",
+							});
+						}else if(item.name == "提现"){
+							this.$utils.handleVerifyPath({
+								isrealname: true,
+								isbank: true,
+								path: "/pages/finance/withdrawal",
+							});
+						}else{
+							uni.navigateTo({
+								url: item.url
+							})
+						}
+					}
+				}else{
+					if(item.name == "每日签到"){
+						Api.qiandao().then(res=>{
+							that.$utils.handleShowToast(res)  
+						})
+					}
 				}
 			}
 		}
@@ -215,16 +294,14 @@
 
 
 	.button-list {
-		height: 350rpx;
 		margin: 16rpx auto 0;
-		/* width: 696rpx; */
 		display: -webkit-flex;
 		flex-flow: row wrap;
+		width: 100%;
 	}
 
 	.button-list-item {
-		height: 50%;
-		width: 20%;
+		min-width: 20%;
 	}
 
 	.button-list-item_text {

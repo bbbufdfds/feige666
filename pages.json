@@ -229,7 +229,14 @@
 				"navigationStyle": "default",
 				"enablePullDownRefresh": false
 			}
-
+		},
+		{
+			"path": "pages/finance/investAgreement",
+			"style": {
+				"navigationBarTitleText": "投资协议",
+				"navigationStyle": "default",
+				"enablePullDownRefresh": false
+			}
 		},
 		{
 			"path": "pages/common/drawPrize",
@@ -243,6 +250,30 @@
 			"path": "pages/common/message",
 			"style": {
 				"navigationBarTitleText": "站内信",
+				"navigationStyle": "default",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/common/inviteFriends",
+			"style": {
+				"navigationBarTitleText": "邀请好友",
+				"navigationStyle": "default",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/news/list",
+			"style": {
+				"navigationBarTitleText": "新闻列表",
+				"navigationStyle": "default",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
+			"path": "pages/news/detail",
+			"style": {
+				"navigationBarTitleText": "新闻详情",
 				"navigationStyle": "default",
 				"enablePullDownRefresh": false
 			}

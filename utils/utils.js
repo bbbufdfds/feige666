@@ -48,3 +48,27 @@ export function handleNavigateTo(url) {
 export function handleUserInfo(url) {
 	return userApi.info()
 }
+
+export function handleVerifyPath(obj) {
+	let infoHistory = uni.getStorageSync('userInfo') || {}
+		, verify = true
+		, url = obj.path
+		, redirect = "/pages/member/realnameAuth"
+	if(obj.isrealname){
+		if(infoHistory.isrealname == 0){
+			verify = false
+		}
+	}
+	if(obj.isbank){
+		if(infoHistory.isbank == 0){
+			verify = false
+		}
+		redirect = "/pages/member/bankcardAuth"
+	}
+	if(!verify){
+		url = redirect
+	}
+	uni.navigateTo({
+		url: url
+	})
+}

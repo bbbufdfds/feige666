@@ -19,7 +19,7 @@
 							{{item.date}}
 						</view>
 						<view class="" @click="download(item)">
-							下载合同
+							<a href="javascript:;">下载合同</a>
 						</view>
 					</view>
 				</block>
@@ -33,7 +33,7 @@
 
 <script>
 	import {
-		investlog
+		investlog,
 	} from "@/api/finance.js"
 	export default {
 		data() {
@@ -78,41 +78,44 @@
 				})
 			},
 			download(item) {
-				uni.downloadFile({
-					url: item.url, //下载地址，后端接口获取的链接
-					success: (data) => {
-						console.log(data.tempFilePath)
-						console.log(JSON.stringify(data))
-						if (data.statusCode === 200) {
-							uni.saveFile({ //文件保存到本地
-								tempFilePath: data.tempFilePath, //临时路径
-								success: function(res) {
-									console.log("下载成功" + res.savedFilePath)
-									console.log(JSON.stringify(res))
-									that.$utils.handleShowToast({
-										msg:"文件已保存",
-										status: 0
-									}) 
-									uni.openDocument({
-										fileType: 'docx',
-										filePath: res.savedFilePath,
-										success: function(res) {
-											console.log('打开文档成功');
-										}
-									});
-								}
-							});
-						}
-					},
-					fail: (err) => {
-						console.log(err);
-						uni.showToast({
-							icon: 'none',
-							mask: true,
-							title: '失败请重新下载',
-						});
-					},
-				});
+				uni.navigateTo({
+					url: "investAgreement?id=" + item.id
+				})
+				// uni.downloadFile({
+				// 	url: item.url, //下载地址，后端接口获取的链接
+				// 	success: (data) => {
+				// 		console.log(data.tempFilePath)
+				// 		console.log(JSON.stringify(data))
+				// 		if (data.statusCode === 200) {
+				// 			uni.saveFile({ //文件保存到本地
+				// 				tempFilePath: data.tempFilePath, //临时路径
+				// 				success: function(res) {
+				// 					console.log("下载成功" + res.savedFilePath)
+				// 					console.log(JSON.stringify(res))
+				// 					that.$utils.handleShowToast({
+				// 						msg:"文件已保存",
+				// 						status: 0
+				// 					}) 
+				// 					uni.openDocument({
+				// 						fileType: 'docx',
+				// 						filePath: res.savedFilePath,
+				// 						success: function(res) {
+				// 							console.log('打开文档成功');
+				// 						}
+				// 					});
+				// 				}
+				// 			});
+				// 		}
+				// 	},
+				// 	fail: (err) => {
+				// 		console.log(err);
+				// 		uni.showToast({
+				// 			icon: 'none',
+				// 			mask: true,
+				// 			title: '失败请重新下载',
+				// 		});
+				// 	},
+				// });
 			},
 		}
 	}

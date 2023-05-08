@@ -1,9 +1,10 @@
 import request from './../utils/request';
 
-export function message() {
+export function message(data) {
 	return request({
 		url: 'my/msglist',
 		method: 'POST',
+		data
 	})
 }
 

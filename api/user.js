@@ -94,3 +94,11 @@ export function changePassword(data) {
 		data
 	})
 }
+
+export function bankcardDetail(data) {
+	return request({
+		url: 'my/bankcarddetail',
+		method: 'POST',
+		data
+	})
+}

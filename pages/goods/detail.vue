@@ -4,18 +4,18 @@
 			<view class="header viewFlex">
 				<view class="header-item">
 					<view class="">
-						啊大苏打
+						￥{{data.user_balance}}
 					</view>
 					<view class="">
-						啊大苏打
+						账户可用余额(元)
 					</view>
 				</view>
 				<view class="header-item">
 					<view class="">
-						啊大苏打
+						￥{{data.remaining_balance}}
 					</view>
 					<view class="">
-						啊大苏打
+						项目可投金额(元)
 					</view>
 				</view>
 			</view>
@@ -150,13 +150,19 @@
 					}) 
 					return;
 				}
-				pay({
+				
+				let field = {
 					idPay: that.id,
 					amountPay: that.price,
-					ratecoupon: that.coupon_1[that.index_1].id,
-					cashcoupon: that.coupon_2[that.index_2].id,
 					pwdPay: data.pwdPay,
-				}).then(res=>{
+				}
+				if(that.index_1 > -1){
+					field.ratecoupon = that.coupon_1[that.index_1].id
+				}
+				if(that.index_2 > -1){
+					field.cashcoupon = that.coupon_2[that.index_2].id
+				}
+				pay(field).then(res=>{
 					that.$utils.handleShowToast(res) 
 					if (res.status == 0) {
 						that.$utils.handleNavigateTo("/pages/finance/investlog")
@@ -211,7 +217,7 @@
 		.cell-box {
 			display: flex;
 			align-items: center;
-			padding: 25rpx 32rpx;
+			padding: 25rpx 0;
 			box-sizing: border-box;
 			background-color: #fff;
 			border-bottom: 1px solid #f8f8f8;

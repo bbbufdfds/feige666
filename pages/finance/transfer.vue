@@ -17,7 +17,7 @@
 			<span class="item-title">转账金额:</span>
 			<view class="item-centent">
 				<input type="number" class="weui-input" @blur="amountBlur" v-model="amount"
-					placeholder="请输入转账金额" />
+					placeholder="请输入转账金额" maxlength="6"/>
 			</view>
 		</view>
 		<view class="notice">

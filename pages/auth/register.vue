@@ -8,27 +8,27 @@
 					<view class="form-item">
 						<image src="@/static/image/reg-tel.png" class="img" />
 						<input type="text" class="input" placeholder="请输入手机号"
-							placeholder-style="font-size:30rpx;color:#B2B5BE" name="phone" value="" />
+							placeholder-style="font-size:30rpx;color:#B2B5BE" name="phone"  maxlength="11" value="" />
 					</view>
 					<view class="form-item">
 						<image src="@/static/image/reg-pwd.png" class="img" />
 						<input type="text" class="input" placeholder="登录密码6~18位字符"
-							placeholder-style="font-size:30rpx;color:#B2B5BE" name="password" value="" :password="true" />
+							placeholder-style="font-size:30rpx;color:#B2B5BE" name="password" value=""  maxlength="18" :password="true" />
 					</view>
 					<view class="form-item">
 						<image src="@/static/image/reg-pwd.png" class="img" />
 						<input type="text" class="input" placeholder="确认密码,两次密码输入必须一致"
-							placeholder-style="font-size:30rpx;color:#B2B5BE" name="pwdconfirm" value="" :password="true" />
+							placeholder-style="font-size:30rpx;color:#B2B5BE" name="pwdconfirm" value="" maxlength="18" :password="true" />
 					</view>
 					<view class="form-item">
 						<image src="@/static/image/reg-tel.png" class="img" />
 						<input type="text" class="input" placeholder="邀请码不能为空"
-							placeholder-style="font-size:30rpx;color:#B2B5BE" name="yaoqingren" value="" />
+							placeholder-style="font-size:30rpx;color:#B2B5BE" name="yaoqingren" maxlength="8" value="" />
 					</view>
 					<view class="form-item code">
 						<image src="@/static/image/reg-code.png" class="img" />
 						<input type="text" class="input" placeholder="请输入验证码"
-							placeholder-style="font-size:30rpx;color:#B2B5BE" name="captcha" value="" />
+							placeholder-style="font-size:30rpx;color:#B2B5BE" name="captcha" maxlength="4" value="" />
 							<view class="reg-code" @click="refreshCode">
 								<image :src="codeObj.img" mode=""></image>
 							</view>

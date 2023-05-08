@@ -4,17 +4,17 @@
 			<span class="item-title">姓名:</span>
 			<view class="item-centent">
 				<input type="text" class="weui-input"  v-model="data.realname"
-					placeholder="请输入姓名" />
+					placeholder="请输入姓名" maxlength="5"/>
 			</view>
 		</view>
 		<view class="cell-box">
 			<span class="item-title">身份证号:</span>
 			<view class="item-centent">
 				<input type="text" class="weui-input"  v-model="data.card"
-					placeholder="请输入身份证号" />
+					placeholder="请输入身份证号" maxlength="16"/>
 			</view>
 		</view>
-		<view class="submit" @click="submit">确定修改</view>
+		<view v-if="!user.info.isrealname" class="submit" @click="submit">确定修改</view>
 	</view>
 </template>
 

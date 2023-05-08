@@ -8,16 +8,16 @@
 					<view class="form-item">
 						<image src="@/static/image/reg-tel.png" class="img" />
 						<input type="text" class="input" placeholder="请输入手机号"
-							placeholder-style="font-size:30rpx;color:#B2B5BE" name="phone" value="" />
+							placeholder-style="font-size:30rpx;color:#B2B5BE" name="phone" value="" maxlength="11" />
 					</view>
 					<view class="form-item">
 						<image src="@/static/image/reg-pwd.png" class="img" />
 						<input type="text" class="input" placeholder="登录密码6~18位字符"
-							placeholder-style="font-size:30rpx;color:#B2B5BE" name="password" value="" :password="true" />
+							placeholder-style="font-size:30rpx;color:#B2B5BE" name="password" value="" maxlength="18" :password="true" />
 					</view>
-					<view class="forget">
+					<!-- <view class="forget">
 						忘记密码？
-					</view>
+					</view> -->
 					<button class="form-btn" form-type="submit">登录</button>
 					<navigator url="register" class="form-btn form-btn2">注册</navigator>
 				</view>

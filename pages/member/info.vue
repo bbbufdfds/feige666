@@ -9,15 +9,18 @@
 		<view class="cell-box">
 			<span class="item-title">实名认证:</span>
 			<view class="item-centent">
-				<navigator url="realnameAuth" class="auth">
-					<span :class="!user.info.isrealname?'unauth':''">{{!user.info.isrealname?'未实名':'已实名'}}</span>
+				<navigator url="realnameAuth" hover-class="none" class="auth" v-if="!user.info.isrealname">
+					<span class="unauth">未实名</span>
 				</navigator>
+				<span url="realnameAuth" class="auth" v-else>
+					已实名
+				</span>
 			</view>
 		</view>
 		<view class="cell-box">
 			<span class="item-title">银行卡绑定:</span>
 			<view class="item-centent">
-				<navigator class="auth" url="bankcardAuth" >
+				<navigator hover-class="none" class="auth" url="bankcardAuth" >
 					<span :class="!user.info.isbank?'unauth':''">{{!user.info.isbank?'未绑定':'已绑定'}}</span>
 				</navigator>
 			</view>

@@ -12,30 +12,31 @@
 				<span class="item-title">姓名:</span>
 				<view class="item-centent">
 					<input type="text" class="weui-input"  name="bankrealname" :value="data.bankrealname"
-						placeholder="请输入姓名" maxlength="11"/>
+						placeholder="请输入姓名" maxlength="5"/>
 				</view>
 			</view>
 			<view class="cell-box">
 				<span class="item-title">卡号:</span>
 				<view class="item-centent">
 					<input type="number" class="weui-input"  name="bankcode" :value="data.bankcode"
-						placeholder="请输入卡号" maxlength="11"/>
+						placeholder="请输入卡号" maxlength="30"/>
 				</view>
 			</view>
 			<view class="cell-box">
 				<span class="item-title">开户行:</span>
 				<view class="item-centent">
 					<input type="text" class="weui-input" name="bankaddress" :value="data.bankaddress"
-						placeholder="请输入开户行" />
+						placeholder="请输入开户行" maxlength="11"/>
 				</view>
 			</view>
-			<button class="submit" form-type="submit">立即绑定</button>
+			<button class="submit" form-type="submit">{{user.info.isbank?"更换":"立即"}}绑定</button>
 		</form>
 	</view>
 </template>
 
 <script>
 	import * as Api from "@/api/user.js"
+	import {mapState} from "vuex";
 	export default {
 		data() {
 			return {
@@ -43,8 +44,21 @@
 			}
 		},
 		onLoad() {
+			this.init()
+		},
+		computed: {
+		   ...mapState([ 
+				'user' 
+		   ]),
 		},
 		methods: {
+			init(){
+				let that = this
+				Api.bankcardDetail().then(res=>{
+					if(res.status == 0)
+						that.data = res.data
+				})
+			},
 			formSubmit: function(e){
 				let that = this
 					, data = e.detail.value;

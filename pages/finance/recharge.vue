@@ -25,7 +25,7 @@
 			<span class="item-title">充值金额:</span>
 			<view class="item-centent">
 				<input type="text" class="weui-input"  v-model="data.amount"
-					placeholder="请输入充值金额" />
+					placeholder="请输入充值金额" maxlength="6" />
 			</view>
 		</view>
 		<view class="cell-box">
@@ -38,7 +38,7 @@
 			<span class="item-title">兑换码:</span>
 			<view class="item-centent">
 				<input type="text" class="weui-input"  v-model="data.password"
-					placeholder="请输入兑换码(非必填)" />
+					placeholder="请输入兑换码(非必填)" maxlength="6" />
 			</view>
 		</view>
 		<view class="submit" @click="submit">确定提交</view>

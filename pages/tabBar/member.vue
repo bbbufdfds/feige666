@@ -14,7 +14,8 @@
 					</view>
 					<view>等级</view>
 				</view>
-				<view class="priceInfo viewFlex">
+				<!-- viewFlex -->
+				<view class="priceInfo ">
 					<view class="priceInfo-item">
 						<view class="priceSize">
 							{{infoData.Balance}}
@@ -62,17 +63,17 @@
 							{{infoData.Reputation_points}}
 						</view>
 						<view class="">
-							积分
+							荣誉积分
 						</view>
 					</view>
 				</view>
 				
 				<view class="btnInfo viewFlex">
-					<navigator class="btn" :url="navBankcard?'/pages/finance/withdrawal':'/pages/member/bankcardAuth'">
+					<navigator hover-class="none" class="btn" :url="navBankcard?'/pages/finance/withdrawal':'/pages/member/bankcardAuth'">
 						提现
 					</navigator> 
 					<view class="line"></view>
-					<navigator class="btn" url="/pages/finance/recharge">
+					<navigator hover-class="none" class="btn" url="/pages/finance/recharge">
 						充值
 					</navigator> 
 				</view>
@@ -81,7 +82,7 @@
 			<view class="content">
 				<view style="height: 90rpx;"></view>
 				<view class="list viewFlex">
-					<navigator :url="item.url" class="list-item viewFlex" :class="(index+1)%3 == 0?'right-border-none':''" v-for="(item, index) in btnList">
+					<navigator hover-class="none" :url="item.url" class="list-item viewFlex" :class="(index+1)%3 == 0?'right-border-none':''" v-for="(item, index) in btnList">
 						<view class="">
 							<view class="">
 								<i class="iconfont" :style="'color:#' + item.color" :class="'icon-' +item.icon"></i>
@@ -263,8 +264,13 @@
 		.priceUl{
 			text-align: center;
 			.priceUl-li{
-				flex: 1;
+				width: 25%;
 				font-size: 28rpx;
+				view{
+					overflow: hidden;
+					white-space: nowrap;
+					text-overflow: ellipsis;
+				}
 			}
 		}
 		.btnInfo{

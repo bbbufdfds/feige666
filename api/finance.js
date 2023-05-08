@@ -79,3 +79,11 @@ export function transferlog(data) {
 		data
 	})
 }
+
+export function agreement(data) {
+	return request({
+		url: 'my/agreement',
+		method: 'POST',
+		data
+	})
+}
