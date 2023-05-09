@@ -5,7 +5,7 @@
 </template>
 
 <script>
-	import * as Api from "@/api/news.js"
+	import * as Api from "@/api/common.js"
 	import uParse from '@/components/u-parse/u-parse.vue'
 	export default {
 		data() {
@@ -21,8 +21,8 @@
 		methods:{
 			detail(){
 				let that = this
-				Api.detail({
-					newid: this.id
+				Api.aboutDetail({
+					aboutid: this.id
 				}).then(res=>{
 					if(res.status == 0){
 						that.data = res.data

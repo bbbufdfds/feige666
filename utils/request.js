@@ -4,11 +4,15 @@ import env from '../utils/env';
 function service(options = {}) {
 	options.url = `${env.baseUrl}${options.url}`;
 	// 判断本地是否存在token，如果存在则带上请求头
+	let header = options.header
 	if (getToken()) {
 		options.header = {
 			'content-type': 'application/json',
 			'Authtoken': `${getToken()}`	// 这里是token(可自行修改)
 		};
+	}
+	if(header){
+		Object.assign(options.header, header)
 	}
 
 	return new Promise((resolved, rejected) => {

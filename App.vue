@@ -8,6 +8,8 @@
 					"pages/tabBar/index",
 					"pages/news/list",
 					"pages/news/detail",
+					"pages/common/aboutDetail",
+					"pages/tabBar/about",
 				];
 				if(paths.indexOf(options.path) == -1){
 					uni.reLaunch({

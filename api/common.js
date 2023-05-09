@@ -30,3 +30,18 @@ export function kefu() {
 		method: 'POST',
 	})
 }
+
+export function aboutList() {
+	return request({
+		url: 'about',
+		method: 'POST',
+	})
+}
+
+export function aboutDetail(data) {
+	return request({
+		url: 'aboutdetail',
+		method: 'POST',
+		data
+	})
+}

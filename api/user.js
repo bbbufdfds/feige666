@@ -102,3 +102,10 @@ export function bankcardDetail(data) {
 		data
 	})
 }
+
+export function qrcode() {
+	return request({
+		url: 'my/qrcode',
+		method: 'POST',
+	})
+}
