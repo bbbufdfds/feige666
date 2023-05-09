@@ -44,12 +44,14 @@
 						msg:"请输入姓名",
 						status: 1
 					}) 
+					return
 				}
 				if(!data.card){
 					that.$utils.handleShowToast({
 						msg:"请输入身份证号",
 						status: 1
 					}) 
+					return
 				}
 				shiming(this.data).then(res=>{
 					that.$utils.handleShowToast(res) 

@@ -179,12 +179,13 @@ function strDiscode(str) {
   str = strOtherDiscode(str);
   return str;
 }
-
+import env from "@/utils/env.js"
+let h = env.parseHttp?"http":"https"
 function urlToHttpUrl(url, domain) {
   if (/^\/\//.test(url)) {
-    return `https:${url}`;
+    return `${h}:${url}`;
   } else if (/^\//.test(url)) {
-    return `https://${domain}${url}`;
+    return `${h}://${domain}${url}`;
   }
   return url;
 }

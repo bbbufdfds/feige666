@@ -18,7 +18,7 @@
 <script>
 import HtmlToJson from './libs/html2json';
 import wxParseTemplate from './components/wxParseTemplate0';
-
+import env from "@/utils/env.js"
 export default {
   name: 'wxParse',
   props: {
@@ -62,7 +62,7 @@ export default {
           mode: 'aspectFit',
           padding: 0,
           lazyLoad: false,
-          domain: '',
+          domain: env.parseUrl,
         };
       },
     },
