@@ -45,3 +45,10 @@ export function aboutDetail(data) {
 		data
 	})
 }
+export function prizeList(data) {
+	return request({
+		url: 'my/wheellist',
+		method: 'POST',
+		data
+	})
+}
