@@ -109,3 +109,11 @@ export function qrcode() {
 		method: 'POST',
 	})
 }
+
+export function invitelist(data) {
+	return request({
+		url: 'my/invitelist',
+		method: 'POST',
+		data
+	})
+}

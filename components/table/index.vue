@@ -1,14 +1,14 @@
 <template>
 	<view class="table">
 		<view class="theader viewFlex">
-			<view class="" v-for="(item, index) in columns">
+			<view class="" v-for="(item, index) in columns" :key="index">
 				{{item.title}}
 			</view>
 		</view>
 		<view class="tbody">
 			<block v-if="list.length > 0">
-				<view class="tbody-item viewFlex" v-for="(item, index) in list" >
-					<view class="" v-for="(cItem, cIndex) in columns">
+				<view class="tbody-item viewFlex" v-for="(item, index) in list"  :key="index">
+					<view class="" v-for="(cItem, cIndex) in columns"  :key="cIndex">
 						<text v-html="cItem.format(item)?cItem.format(item):item[cItem.prop]"></text>
 					</view>
 				</view>

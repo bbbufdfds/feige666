@@ -17,6 +17,7 @@
 
 <script>
 	import env from "@/utils/env.js"
+	import { invitelist } from "@/api/user.js"
 	export default {
 		data() {
 			return {
@@ -25,23 +26,49 @@
 				page: 1,
 				column:[
 					{
-						title: "说明",
-						prop: "moneylog_notice",
+						title: "手机号",
+						prop: "username",
 					},
 					{
-						title: "金额",
-						prop: "moneylog_money"
+						title: "层级",
+						prop: "cenji"
 					},
 					{
-						title: "时间",
+						title: "注册时间",
 						prop: "date",
 					}
 				]
 			};
 		},
 		onLoad() {
+			this.getList()
 		},
-		methods: {},
+		onReachBottom() {
+			this.page = this.page + 1
+			this.getList()
+		},
+		methods: {
+			getList(){
+				let that = this
+				uni.showLoading({
+					title: '加载中...',
+					mask: true
+				});
+				invitelist({
+					page: this.page
+				}).then(res=>{
+					if(res.status == 0){
+						const { data } = res.data;
+						if(data.length > 0){
+							that.list = that.list.concat(data)
+						}else{
+							that.page = that.page - 1
+						}
+						that.data = res.show
+					}
+				})
+			}
+		},
 	};
 </script>
 

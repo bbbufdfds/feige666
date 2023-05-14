@@ -52,3 +52,16 @@ export function prizeList(data) {
 		data
 	})
 }
+export function winclick(data) {
+	return request({
+		url: 'my/winclick',
+		method: 'POST',
+		data
+	})
+}
+export function winlist() {
+	return request({
+		url: 'my/winlist',
+		method: 'POST',
+	})
+}

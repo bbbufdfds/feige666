@@ -1,17 +1,41 @@
 <template>
-	<view class="almost-lottery">
-		<!-- lottery -->
-		<view class="almost-lottery__wheel">
-			<almost-lottery :lottery-size="lotteryConfig.lotterySize" :action-size="lotteryConfig.actionSize"
-				:ring-count="2" :duration="1" :img-circled="true" :canvasCached="true" :prize-list="prizeList"
-				:prize-index="prizeIndex" @reset-index="prizeIndex = -1" @draw-start="handleDrawStart"
-				@draw-end="handleDrawEnd" @finish="handleDrawFinish" :lotteryBg="lotteryBg" :actionBg="actionBg"
-				v-if="prizeList.length" />
-			<view class="almost-lottery__count">
-				<text class="text">剩余免费抽奖 {{ freeNum }} 次</text>
+	<view class="container">
+		<view class="bgImg">
+			<image src="../../static/image/drawPrizeBg.png" mode="widthFix"></image>
+			<view class="almost-lottery-turntable">
+				<view class="almost-lottery__wheel">
+					<almost-lottery :lottery-size="lotteryConfig.lotterySize" :action-size="lotteryConfig.actionSize"
+						:ring-count="2" :duration="1" :img-circled="true" :canvasCached="true" :prize-list="prizeList"
+						:prize-index="prizeIndex" @reset-index="prizeIndex = -1" @draw-start="handleDrawStart"
+						@draw-end="handleDrawEnd" @finish="handleDrawFinish" :lotteryBg="lotteryBg" :actionBg="actionBg"
+						v-if="prizeList.length" />
+					<view class="almost-lottery__count">
+						<text class="text">剩余免费抽奖 <text class="number">{{ freeNum }}</text> 次</text>
+					</view>
+				</view>
+			</view>
+			<view class="almost-lottery-main">
+				<view class="lottery-list">
+					<swiper class="swiper" circular :indicator-dots="false" :autoplay="true" :interval='2000' :vertical="true">
+						<swiper-item v-for="(item,i) in config.winlist">
+							<view>{{item.moneylog_notice}}</view>
+						</swiper-item>
+					</swiper>
+				</view>
+				<view class="rule">
+					<view class="rule-title">
+						活动规则
+					</view>
+					<view class="rule-content">
+						<view class="" v-for="(item, index) in config.Memberlevel" :key="index">
+							{{item.name}}每日可以抽奖{{item.num}}次
+						</view>
+					</view>
+				</view>
 			</view>
 		</view>
 	</view>
+	
 </template>
 
 <script>
@@ -24,7 +48,6 @@
 		},
 		data() {
 			return {
-
 				// 以下是转盘配置相关数据
 				lotteryConfig: {
 					// 抽奖转盘的整体尺寸，单位rpx
@@ -59,9 +82,8 @@
 				prizeWeightArr: [],
 
 				// 当日免费抽奖次数余额
-				freeNum: 3,
-				// 每天免费抽奖次数
-				freeNumDay: 3
+				freeNum: 0,
+				config: {}
 			}
 		},
 		computed: {
@@ -69,6 +91,7 @@
 				return uni.getSystemInfoSync().platform === 'ios'
 			}
 		},
+		
 		methods: {
 			// 重新生成
 			handleInitCanvas() {
@@ -103,7 +126,6 @@
 								prizeWeight: item.winningrate,
 								prizeDesc: item.prize,
 							})
-							console.log(item)
 						})
 						
 						that.prizeList = list
@@ -160,33 +182,23 @@
 			// 远程请求接口获取中奖下标
 			// 大哥，这里只是模拟，别告诉我你不会对接自己的接口
 			remoteGetPrizeIndex() {
-				console.warn('###当前处于模拟的请求接口，并返回了中奖信息###')
-				// 模拟请求接口获取中奖信息
-				let stoTimer = setTimeout(() => {
-					stoTimer = null
-
-					let list = [...this.prizeList]
-
-					// 这里随机产生的 prizeId 是模拟后端返回的 prizeId
-					let prizeId = Math.floor(Math.random() * list.length + 1)
-
-					// 拿到后端返回的 prizeId 后，开始循环比对得出那个中奖的数据
-					for (let i = 0; i < list.length; i++) {
-						let item = list[i]
-						if (item.prizeId === prizeId) {
-							// 中奖下标
-							this.prizeIndex = i
-							break
+				let that = this
+				Api.winclick().then(res=>{
+					if(res.status == 0){
+						let prizeId = res.index
+						let list = [...that.prizeList]
+						
+						for (let i = 0; i < list.length; i++) {
+							let item = list[i]
+							if (item.prizeId === prizeId) {
+								// 中奖下标
+								that.prizeIndex = i
+								break
+							}
 						}
+						console.log('本次抽中奖品 =>', that.prizeList[that.prizeIndex])
 					}
-
-					console.log('本次抽中奖品 =>', this.prizeList[this.prizeIndex])
-
-					// 如果奖品设有库存
-					if (this.onStock) {
-						console.log('本次奖品库存 =>', this.prizeList[this.prizeIndex].prizeStock)
-					}
-				}, 200)
+				})
 			},
 			// 本次抽奖结束
 			handleDrawEnd() {
@@ -221,11 +233,19 @@
 						icon: 'none'
 					})
 				}, 50)
+			},
+			getWinlist(){
+				let that = this
+				Api.winlist().then(res=>{
+					that.config = res.data
+					that.freeNum = res.data.mynum
+				})
 			}
 		},
 		onLoad() {
 			this.prizeList = []
 			this.getPrizeList()
+			this.getWinlist()
 		},
 		onUnload() {
 			uni.hideLoading()
@@ -234,27 +254,80 @@
 </script>
 
 <style lang="scss" scoped>
-	.almost-lottery {
-		flex: 1;
-		background-color: #FF893F;
-	}
-
-
-	.almost-lottery__wheel {
-		text-align: center;
-
-		.almost-lottery__count {
-			display: flex;
-			flex-direction: column;
-			justify-content: center;
-			align-items: center;
-			text-align: center;
-			padding: 40rpx 0;
+	.bgImg{
+		position: relative;
+		image{
+			width: 100vw;
+			height: 100%;
 		}
-
-		.text {
-			color: #FFFFFF;
-			font-size: 24rpx;
+		
+		.almost-lottery-turntable {
+			position: absolute;
+			top: 22%;
+			left: 0;
+			right: 0;
+			.almost-lottery__wheel {
+				text-align: center;
+			
+				.almost-lottery__count {
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+					align-items: center;
+					text-align: center;
+					padding: 40rpx 0;
+					.text {
+						color: #000000;
+						font-size: 30rpx;
+						.number{
+							color: red;
+							font-size: 36rpx;
+							font-weight: bold;
+							margin: 0 10rpx;
+						}
+					}
+				}
+			}
+		}
+		.almost-lottery-main{
+			position: absolute;
+			top: 56%;
+			width: 100%;
+			.lottery-list{
+				width: 80%;
+				margin: 40rpx auto 50rpx;
+				background-color: #cb8653;
+				padding: 15rpx 40rpx;
+				border-radius: 50rpx;
+				color: #ffffff;
+				text-align: center;
+				.swiper, view{
+					height: 55rpx;
+					line-height: 55rpx;
+				}
+			}
+			.rule{
+				width: 80%;
+				margin: 0 auto;
+				background-color: #ffffff;
+				border-radius: 20rpx;
+				overflow: hidden;
+				padding: 40rpx;
+				.rule-title{
+					font-size: 32rpx;
+					font-weight: bold;
+					text-align: center;
+				}
+				.rule-content{
+					margin-top: 35rpx;
+					letter-spacing: 2px;
+					word-spacing: 10px;
+					view{
+						margin-bottom: 15rpx;
+					}
+				}
+			}
 		}
 	}
+	
 </style>

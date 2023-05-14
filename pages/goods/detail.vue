@@ -59,7 +59,7 @@
 							<text>￥</text>{{price}}
 						</view>
 						<view class="estimate">
-							<text class="">分红({{data.day}}):{{data.dividends}}</text>
+							<text class="">分红({{data.day}}):{{dividendsP}}</text>
 						</view>
 					</view>
 				</view>
@@ -123,11 +123,12 @@
 		data() {
 			return {
 				data: {
-					remaining_balance:0,
-					start_balance:0,
+					remaining_balance: 0,
+					start_balance: 0,
 					time: "xx",
-					pwdPay:""
+					pwdPay: "",
 				},
+				dividendsP: 0,
 				num: 1,
 				price: 0,
 				coupon_2: [],
@@ -155,6 +156,7 @@
 					if(res.status == 0){
 						that.data = that.$utils.handleFile(res.data, "image")
 						that.price = res.data.start_balance
+						that.dividendsP= res.data.dividends
 						that.numPrice = that.price
 						that.coupon_2 = res.data.cash_coupon
 						uni.setNavigationBarTitle({
@@ -232,6 +234,7 @@
 					this.num = num
 				}
 				this.price = data.start_balance * num
+				this.dividendsP = data.dividends * num
 				this.$forceUpdate()
 			},
 			numBlur(res){

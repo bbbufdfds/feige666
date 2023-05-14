@@ -264,9 +264,17 @@
 			}
 		},
 		{
+			"path": "pages/common/appDownload",
+			"style": {
+				"navigationBarTitleText": "APP下载",
+				"navigationStyle": "default",
+				"enablePullDownRefresh": false
+			}
+		},
+		{
 			"path": "pages/news/list",
 			"style": {
-				"navigationBarTitleText": "新闻列表",
+				"navigationBarTitleText": "公告",
 				"navigationStyle": "default",
 				"enablePullDownRefresh": false
 			}
@@ -274,7 +282,7 @@
 		{
 			"path": "pages/news/detail",
 			"style": {
-				"navigationBarTitleText": "新闻详情",
+				"navigationBarTitleText": "公告详情",
 				"navigationStyle": "default",
 				"enablePullDownRefresh": false
 			}
