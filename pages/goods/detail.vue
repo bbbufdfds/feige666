@@ -47,7 +47,7 @@
 			</view>
 		</view>
 		<view class="bottomBlock"></view>
-		<view class="submit" @click="submit">立即投资</view>
+		<view class="submit" :class="data.xmjd >= 100?'end':''" @click="submit">{{data.xmjd >= 100?"投资结束":"立即投资"}}</view>
 		<uni-popup type="bottom" ref="popup" @change="popupDetailChange">
 			<view class="popupDetail">
 				<view class="product viewFlex">
@@ -127,6 +127,7 @@
 					start_balance: 0,
 					time: "xx",
 					pwdPay: "",
+					xmjd: 0
 				},
 				dividendsP: 0,
 				num: 1,
@@ -172,7 +173,10 @@
 			submit(){
 				let that= this
 					,data = this.data
-					
+				
+				if(data.xmjd >= 100){
+					return false
+				}
 				if(this.popupDetail){
 					this.popupDetail = false
 					this.$refs.popup.open()
@@ -408,5 +412,8 @@
 		width: 100%;
 		text-align: center;
 		z-index: 999;
+	}
+	.submit.end{
+		background-color: #c7b5b5;
 	}
 </style>

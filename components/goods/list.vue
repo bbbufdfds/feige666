@@ -48,8 +48,8 @@
 							</view>
 						</view>
 					</view>
-					<view @click="nav('/pages/goods/detail?id='+item.id)" class="good-submit">
-						立即投资
+					<view @click="nav(item)" class="good-submit" :class="item.xmjd >= 100?'end':''">
+						{{item.xmjd >= 100?"投资结束":"立即投资"}}
 					</view>
 				</view>
 			</view>
@@ -90,9 +90,12 @@
 					uni.hideLoading()
 				})
 			},
-			nav(url){
+			nav(item){
+				if(item.xmjd >= 100){
+					return false
+				}
 				this.$utils.handleVerifyPath({
-					url: url,
+					url: "/pages/goods/detail?id=" + item.id,
 					isrealname: true
 				});
 			}
@@ -207,6 +210,9 @@
 			padding: 15rpx 0;
 			width: 60%;
 			background-color: #e03e27;
+		}
+		.good-submit.end{
+			background-color: #c7b5b5;
 		}
 	}
 </style>
