@@ -3,9 +3,9 @@
 		<view class="nav"></view>
 		<view class="container">
 			<navigator hover-class="none" :url="'/pages/common/aboutDetail?id=' + item.id" class="item viewFlex" v-for="(item, index) in list">
-				<view class="img viewFlex">
+			<!-- 	<view class="img viewFlex">
 					<image :src="item.thumb_url" mode=""></image>
-				</view>
+				</view> -->
 				<view class="name">
 					<view class="viewFlex">
 						<view class="nameBlock">
@@ -61,11 +61,17 @@
 				width: 50rpx;
 				height: 50rpx;
 			}
-			.nameBlock{
-				width: 90%;
-			}
+			// .nameBlock{
+			// 	width: 90%;
+			// }
+			// .name{
+			// 	width: 90%;
+			// }
 			.name{
-				width: 90%;
+				width: 100%;
+				.nameBlock{
+					width: 100%;
+				}
 			}
 		}
 	}

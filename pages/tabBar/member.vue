@@ -15,7 +15,7 @@
 					<view>等级</view>
 				</view>
 				<!-- viewFlex -->
-				<view class="priceInfo ">
+				<view class="priceInfo viewFlex">
 					<view class="priceInfo-item">
 						<view class="priceSize">
 							{{infoData.Balance}}
@@ -25,11 +25,11 @@
 						</view>
 					</view>
 					<view class="priceInfo-item right">
-						<view class="">
-							<!-- 待投资金额：{{infoData.Balance}} -->
+						<view class="ellipsis">
+							待投资金额：{{infoData.Balance}}
 						</view>
-						<view class="" >
-							<!-- 可提现金额：{{infoData.Balance}} -->
+						<view class="ellipsis" >
+							可提现金额：{{infoData.Balance}}
 						</view>
 					</view>
 				</view>
@@ -63,7 +63,7 @@
 							{{infoData.Reputation_points}}
 						</view>
 						<view class="">
-							荣誉积分
+							积分
 						</view>
 					</view>
 				</view>
@@ -256,7 +256,9 @@
 			background-color: #ff7949;
 			color: #ffffff;
 			padding: 40rpx;
-			height: 30vh;
+			padding-bottom: 100rpx;
+			// height: 30vh;
+			height: 30%;
 			position: relative;
 			.userInfo{
 				margin-bottom: 40rpx;
@@ -269,6 +271,11 @@
 				}
 				.priceInfo-item.right view{
 					margin-top: 15rpx;
+				}
+				.priceInfo-item view{
+					overflow: hidden;
+					text-overflow: ellipsis;
+					white-space: nowrap;
 				}
 			}
 			

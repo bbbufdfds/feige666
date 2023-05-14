@@ -15,36 +15,25 @@ getters = {
 	}
 },
 mutations = {
-	changeData(state, info) {
+	setUserInfo(state, info) {
 		let data = Object.assign(infoHistory, info)
 		uni.setStorageSync('userInfo', data)
 		state.info = data;
 	}, 
-	login(state, info) { 
-		login(info).then(response => {
-			if(response.status == 0){
-				const { data } = response
-					, info = {
-						phone: data.phone,
-						isrealname: data.isrealname,
-						isbank: data.isbank,
-					};
-				state.hasLogin = true;
-				state.info = info;
-				setToken(data.token)
-				uni.setStorageSync('userInfo',info)
-				uni.reLaunch({
-					url: "/pages/tabBar/index",
-				})
-				return
-			}
-			uni.showToast({
-				title: response.msg,
-				icon: 'error',
-			}) 
-			
-		}).catch(error => {
-		    console.log(error)
+	login(state, data) { 
+		let reg = /^(\d{3})\d{4}(\d{4})$/
+			, phone = data.phone.replace(reg, "$1****$2");
+		let info = {
+			phone: phone,
+			isrealname: data.isrealname,
+			isbank: data.isbank,
+		}
+		state.hasLogin = true;
+		state.info = info;
+		setToken(data.token)
+		uni.setStorageSync('userInfo',info)
+		uni.reLaunch({
+			url: "/pages/tabBar/index",
 		})
 	},
 	logout(state) {
@@ -64,7 +53,20 @@ mutations = {
 }
 , actions = {
 	login({ commit }, param) {
-	    
+	    login(param).then(response => {
+	    	if(response.status == 0){
+	    		const { data } = response
+	    			
+	    		commit("login",data)
+	    	}else{
+				uni.showToast({
+					title: response.msg,
+					icon: 'error',
+				}) 
+			}
+	    }).catch(error => {
+	        console.log(error)
+	    })
 	}
 };
 

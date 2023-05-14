@@ -256,14 +256,6 @@
 			}
 		},
 		{
-			"path": "pages/common/inviteFriends",
-			"style": {
-				"navigationBarTitleText": "邀请好友",
-				"navigationStyle": "default",
-				"enablePullDownRefresh": false
-			}
-		},
-		{
 			"path": "pages/common/aboutDetail",
 			"style": {
 				"navigationBarTitleText": "关于我们",

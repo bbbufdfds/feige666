@@ -59,7 +59,7 @@
 					mask: true
 				});
 				
-				that.$store.commit("user/login",formdata)
+				that.$store.dispatch("user/login",formdata)
 			}
 		}
 	};

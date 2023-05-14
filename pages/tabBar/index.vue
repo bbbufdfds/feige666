@@ -111,67 +111,10 @@
 			menu(){
 				let that = this
 				
-				let buttonList = [
-					{
-						name: "每日签到",
-						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
-					},
-					{
-						name: "邀请好友",
-						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
-						url: "/pages/common/inviteFriends"
-					},
-					{
-						name: "充值",
-						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
-						url: "/pages/finance/recharge",
-						isrealname: true,
-					},
-					{
-						name: "提现",
-						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
-						url: "/pages/finance/withdrawal",
-						isrealname: true,
-						isbank: true
-					},
-					{
-						name: "余额宝",
-						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
-						url: "/pages/member/yuebao",
-						isrealname: true,
-					},
-					{
-						name: "APP下载",
-						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
-					},
-					{
-						name: "在线客服",
-						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
-						url: "/pages/tabBar/call",
-						switch: true,
-					},
-					{
-						name: "幸运大转盘",
-						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
-						url: "/pages/common/drawPrize"
-					},
-					{
-						name: "积分商城",
-						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
-						url: "/pages/integral/mall"
-					},
-					{
-						name: "新闻中心",
-						thumb_url: "/static/image/index/15853768245e7eee3801a74.png",
-						url: "/pages/news/list"
-					}
-				];
-				that.buttonList = buttonList
-				
-				// Api.menu().then(res=>{
-				// 	if(res.status == 0)
-				// 		that.buttonList = that.$utils.handleFile(res.data, "thumb_url")
-				// })
+				Api.menu().then(res=>{
+					if(res.status == 0)
+						that.buttonList = that.$utils.handleFile(res.data, "thumb_url")
+				})
 			},
 			
 			video(){

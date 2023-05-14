@@ -21,14 +21,14 @@
 					转入
 				</view>
 			</view>
-			<view class="priceInfo-item">
+			<!-- <view class="priceInfo-item">
 				<view class="text">
 					{{data.YuBaoLv}}
 				</view>
 				<view class="text bt">
 					万份收益(%)
 				</view>
-			</view>
+			</view> -->
 			<view class="priceInfo-item">
 				<view class="text">
 					{{data.day7}}

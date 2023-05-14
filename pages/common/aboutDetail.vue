@@ -6,7 +6,6 @@
 
 <script>
 	import * as Api from "@/api/common.js"
-	import uParse from '@/components/u-parse/u-parse.vue'
 	export default {
 		data() {
 			return {
