@@ -161,13 +161,10 @@
 
 					this.tryLotteryDraw()
 				} else {
-					uni.showModal({
-						title: '金币不足',
-						content: '是否前往赚取金币？',
-						success: (res) => {
-							// 这里需要根据业务需求处理，一般情况下会引导用户前往赚取金币的页面
-							console.log('金币不足', res)
-						},
+					uni.showToast({
+						title: '次数已用尽',
+						mask: true,
+						icon: 'none',
 						complete: () => {
 							this.prizeing = false
 						}
@@ -197,6 +194,13 @@
 							}
 						}
 						console.log('本次抽中奖品 =>', that.prizeList[that.prizeIndex])
+					}else{
+						uni.showToast({
+							title: res.msg,
+							mask: true,
+							icon: 'none'
+						})
+						this.prizeing = false
 					}
 				})
 			},
