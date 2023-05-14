@@ -1,12 +1,14 @@
 <template>
 	<view class="container">
-		<image src="@/static/image/inviteBg.png" mode="widthFix"></image>
-		<view class="qrcode" >
-			<view class="code">
-				邀请码:
-			</view>
-			<view class="">
-				<image :src="qrcodeUrl" mode="widthFix"></image>
+		<view class="qrcodeBlock">
+			<image src="@/static/image/inviteBg.png" mode="widthFix"></image>
+			<view class="qrcode" >
+				<view class="code">
+					邀请码:
+				</view>
+				<view class="">
+					<image :src="qrcodeUrl" mode="widthFix"></image>
+				</view>
 			</view>
 		</view>
 		<Itable :column="column" :list="list" />
@@ -45,28 +47,31 @@
 
 <style lang="scss">
 	.container{
-		position: relative;
 		height: 100%;
 		image{
 			width: 100vw;
 		}
-		.qrcode{
-			position: absolute;
-			top: 55%;
-			z-index: 99;
-			view{
-				text-align: center;
-				width: 100vw;
-			}
-			.code{
-				font-size: 32rpx;
-				font-weight: bold;
-			}
-			image{
-				width: 37vh;
-				height: 37vh;
+		.qrcodeBlock{
+			position: relative;
+			.qrcode{
+				position: absolute;
+				top: 55%;
+				z-index: 99;
+				view{
+					text-align: center;
+					width: 100vw;
+				}
+				.code{
+					font-size: 32rpx;
+					font-weight: bold;
+				}
+				image{
+					width: 37vh;
+					height: 37vh;
+				}
 			}
 		}
+		
 		.table{
 			margin-top: 0;
 			padding-bottom: 20rpx;
