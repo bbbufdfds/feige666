@@ -138,11 +138,10 @@
 					}
 				}).catch(res=>{
 					uni.hideLoading()
-					uni.showToast({
-						title: '获取奖品失败',
-						mask: true,
-						icon: 'none'
-					})
+					that.$utils.handleShowToast({
+						status: 1,
+						mag: "获取奖品失败",
+					}) 
 				})
 			},
 			// 本次抽奖开始
@@ -195,11 +194,7 @@
 						}
 						console.log('本次抽中奖品 =>', that.prizeList[that.prizeIndex])
 					}else{
-						uni.showToast({
-							title: res.msg,
-							mask: true,
-							icon: 'none'
-						})
+						that.$utils.handleShowToast(res) 
 						this.prizeing = false
 					}
 				})
