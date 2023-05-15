@@ -26,10 +26,10 @@
 					</view>
 					<view class="priceInfo-item right">
 						<view class="ellipsis">
-							待投资金额：{{infoData.Balance}}
+							待投资金额：{{infoData.investedBalance}}
 						</view>
 						<view class="ellipsis" >
-							可提现金额：{{infoData.Balance}}
+							可提现金额：{{infoData.withdrawalBalance}}
 						</view>
 					</view>
 				</view>
