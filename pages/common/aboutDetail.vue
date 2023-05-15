@@ -25,6 +25,9 @@
 				}).then(res=>{
 					if(res.status == 0){
 						that.data = res.data
+						uni.setNavigationBarTitle({
+							title: res.title
+						});
 					}
 				})
 			}
