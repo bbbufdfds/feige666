@@ -27,6 +27,7 @@ mutations = {
 			phone: phone,
 			isrealname: data.isrealname,
 			isbank: data.isbank,
+			Invitation_code: data.Invitation_code,
 		}
 		state.hasLogin = true;
 		state.info = info;

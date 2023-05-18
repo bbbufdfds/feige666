@@ -4,7 +4,7 @@
 			<image src="@/static/image/inviteBg.png" mode="widthFix"></image>
 			<view class="qrcode" >
 				<view class="code">
-					邀请码:
+					邀请码: {{user.info.Invitation_code}}
 				</view>
 				<view class="">
 					<image :src="qrcodeUrl" mode="widthFix"></image>
@@ -16,6 +16,7 @@
 </template>
 
 <script>
+	import {mapState} from "vuex";
 	import env from "@/utils/env.js"
 	import { invitelist } from "@/api/user.js"
 	export default {
@@ -39,6 +40,11 @@
 					}
 				]
 			};
+		},
+		computed: {
+		   ...mapState([ 
+				'user' 
+		   ]),
 		},
 		onLoad() {
 			this.getList()
