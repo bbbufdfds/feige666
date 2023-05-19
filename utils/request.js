@@ -17,6 +17,7 @@ function service(options = {}) {
 
 	return new Promise((resolved, rejected) => {
 		options.success = (res) => {
+			
 			uni.hideLoading()
 			if (res.data.status !== 0) {
 				

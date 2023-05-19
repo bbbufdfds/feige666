@@ -37,7 +37,7 @@
 			return {
 				data:{},
 				infoData:{},
-				amount: ""
+				amount: "",
 			}
 		},
 		onLoad() {
@@ -61,6 +61,11 @@
 				let that = this
 					, data = that.data
 					, amount = Number(this.amount)
+					, clickCountName = "transferCount"
+					
+				
+				this.$utils.handleClickCount(clickCountName)
+				
 				
 				if(!data.phone){
 					that.$utils.handleShowToast({
@@ -92,6 +97,7 @@
 				transfer(data).then(res=>{
 					that.$utils.handleShowToast(res)
 					if (res.status == 0) {
+						that.$utils.handleSaveClickCount(clickCountName)
 						that.$utils.handleNavigateTo("/pages/finance/transferlog")
 					}
 				})

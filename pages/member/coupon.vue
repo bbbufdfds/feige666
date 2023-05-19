@@ -5,8 +5,11 @@
 				{{item.title}}
 			</view>
 		</view>
-		<view class="">
-			<view class="empty">
+		<view class="content">
+			<block class=""  v-if="list.length > 0">
+				<coupon v-for="(item, index) in list" :key="index" v-bind:item="item" theme="#ff6c00" color="#ffffff" solid="#ff6c00"></coupon>
+			</block>
+			<view class="empty" v-else>
 				<image src="../../static/img/coupon.png"></image>
 				<view class="">
 					没有优惠券
@@ -17,8 +20,12 @@
 </template>
 
 <script>
-	import { coupon } from "@/api/user.js"
+	import { coupon as couponApi } from "@/api/user.js"
+	import coupon from '@/components/coolc-coupon/coolc-coupon';
 	export default {
+		components: {
+			coupon
+		},
 		data(){
 			return{
 				tabList:[
@@ -45,7 +52,7 @@
 		methods:{
 			getList(){
 				let that = this
-				coupon({
+				couponApi({
 					pid: that.tabIndex + 1
 				}).then(res=>{
 					if(res.status == 0){
@@ -54,6 +61,7 @@
 				})
 			},
 			tabClick(index){
+				this.list = []
 				this.tabIndex = index
 				this.getList()
 			}
@@ -63,7 +71,6 @@
 
 <style lang="scss">
 	.container{
-		background-color: #f9f9f9;
 		.tab-list{
 			background-color: #ffffff;
 			.tab-item{
@@ -86,6 +93,10 @@
 				border-radius: 20rpx;
 				overflow: hidden;
 			}
+		}
+		.content{
+			width: 90%;
+			margin: 0 auto;
 		}
 		.empty{
 			text-align: center;

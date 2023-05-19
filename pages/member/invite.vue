@@ -11,7 +11,13 @@
 				</view>
 			</view>
 		</view>
-		<Itable :column="column" :list="list" />
+		
+		<view class="">
+			<Itable :column="column" :list="list" />
+			<view class="pagination">
+				<uni-pagination @change="pagination" :total="total" :pageSize="limit"></uni-pagination>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -38,7 +44,9 @@
 						title: "注册时间",
 						prop: "date",
 					}
-				]
+				],
+				total: 0,
+				limit: 10,
 			};
 		},
 		computed: {
@@ -47,10 +55,6 @@
 		   ]),
 		},
 		onLoad() {
-			this.getList()
-		},
-		onReachBottom() {
-			this.page = this.page + 1
 			this.getList()
 		},
 		methods: {
@@ -65,14 +69,15 @@
 				}).then(res=>{
 					if(res.status == 0){
 						const { data } = res.data;
-						if(data.length > 0){
-							that.list = that.list.concat(data)
-						}else{
-							that.page = that.page - 1
-						}
-						that.data = res.show
+						that.list = data
+						that.total = res.data.total
+						that.limit = res.data.per_page
 					}
 				})
+			},
+			pagination(e){
+				this.page = e.current
+				this.getList()
 			}
 		},
 	};
@@ -110,5 +115,8 @@
 			padding-bottom: 20rpx;
 		}
 	}
-	
+	.pagination{
+		width: 90%;
+		margin: 0 auto;
+	}
 </style>

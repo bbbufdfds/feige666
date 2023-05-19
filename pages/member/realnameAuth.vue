@@ -11,7 +11,7 @@
 			<span class="item-title">身份证号:</span>
 			<view class="item-centent">
 				<input type="text" class="weui-input"  v-model="data.card"
-					placeholder="请输入身份证号" maxlength="16"/>
+					placeholder="请输入身份证号" maxlength="18"/>
 			</view>
 		</view>
 		<view v-if="!user.info.isrealname" class="submit" @click="submit">确定修改</view>

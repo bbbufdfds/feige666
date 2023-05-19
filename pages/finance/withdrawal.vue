@@ -80,7 +80,11 @@
 				}
 				
 				let that = this
-					, data = e.detail.value;
+					, data = e.detail.value
+					, clickCountName = "withdrawalCount"
+				
+				this.$utils.handleClickCount(clickCountName)
+
 				if (data.amount == '') {
 					that.$utils.handleShowToast({
 						msg:"请输入提现金额",
@@ -115,8 +119,10 @@
 				
 				Api.withdraw(data).then(res=>{
 					that.$utils.handleShowToast(res) 
-					if(res.status == 0)
+					if(res.status == 0){
+						that.$utils.handleSaveClickCount(clickCountName)
 						that.$utils.handleNavigateTo("/pages/finance/withdrawallog")
+					}
 				})
 			}
 		}

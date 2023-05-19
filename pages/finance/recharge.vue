@@ -70,6 +70,9 @@
 			submit(){
 				let that = this
 					, data = that.data
+					, clickCountName = "rechargeCount"
+					
+				this.$utils.handleClickCount(clickCountName)
 				
 				if(!data.amount){
 					that.$utils.handleShowToast({
@@ -81,8 +84,10 @@
 				
 				Api.recharge(that.data).then(res=>{
 					that.$utils.handleShowToast(res)
-					if(res.status == 0)
+					if(res.status == 0){
+						that.$utils.handleSaveClickCount(clickCountName)
 						that.$utils.handleNavigateTo("/pages/finance/rechargelog")
+					}
 				})
 			}
 		}

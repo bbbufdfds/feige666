@@ -104,6 +104,7 @@
 			},
 			click(t){
 				let that = this
+				
 				uni.showModal({
 					title: '金额',
 					confirmColor:'#3A3A3A',
@@ -114,6 +115,15 @@
 					placeholderText:"请输入金额",
 					success: function (res) {
 						if(res.confirm){
+							let clickCountName
+							
+							if(t == "-"){
+								clickCountName = "yuebaoDecCount"
+							}else{
+								clickCountName = "yuebaoIncCount"
+							}
+							console.log(clickCountName)
+							that.$utils.handleClickCount(clickCountName)
 							if(t == "-"){
 								res.content = Number(res.content)
 								if(res.content > that.data.yuamount){
@@ -129,7 +139,10 @@
 									act: t,
 									amount: res.content
 								}).then(res=>{
-									that.$utils.handleShowToast(res) 
+									if(res.status == 0){
+										that.$utils.handleSaveClickCount(clickCountName)
+									}
+									that.$utils.handleShowToast(res)
 								})
 							}else{
 								that.$utils.handleShowToast({

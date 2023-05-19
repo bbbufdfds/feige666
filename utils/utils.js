@@ -72,3 +72,19 @@ export function handleVerifyPath(obj) {
 		url: url
 	})
 }
+
+export function handleClickCount(name) {
+	let clickCount = Number(uni.getStorageSync(name))
+	if (clickCount >= 3) {
+		handleShowToast({
+			msg:"您的操作频繁,请稍后再试",
+			status: 1
+		}) 
+		throw "您的操作频繁,请稍后再试"
+	}
+}
+
+export function handleSaveClickCount(name) {
+	let clickCount = Number(uni.getStorageSync(name))
+	uni.setStorageSync(name, clickCount + 1)
+}

@@ -1,6 +1,21 @@
 <script>
 	export default {
 		onLaunch: function(options) {
+			// 每分钟重置计数器
+			setInterval(() => {
+				console.log("重置计数器")
+				// 转账
+				uni.removeStorageSync("transferCount")
+				// 充值
+				uni.removeStorageSync("rechargeCount")
+				// 提现
+				uni.removeStorageSync("withdrawalCount")
+				// 余额宝转入
+				uni.removeStorageSync("yuebaoIncCount")
+				// 余额宝转出
+				uni.removeStorageSync("yuebaoDecCount")
+			}, 1000 * 60 * 1);
+			
 			let paths
 			if(!this.$store.state.user.hasLogin){
 				// 无需验证登录的页面
