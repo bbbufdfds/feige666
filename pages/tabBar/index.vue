@@ -26,7 +26,8 @@
 			</view>
 			<!-- 金刚区 start -->
 			<view class="button-list" v-if="buttonList.length > 0">
-				<view class="button-list-item" v-for="(item, index) in buttonList" :key="index" @click="buttonClick(item)">
+				<view class="button-list-item" v-for="(item, index) in buttonList" :key="index"
+					@click="buttonClick(item)">
 					<view class="button-list-item_icon">
 						<image :src="item.thumb_url" mode="widthFix"></image>
 					</view>
@@ -36,13 +37,13 @@
 				</view>
 			</view>
 			<view class="video" v-if="videoObj.open == 1">
-				<video  :src="videoObj.videourl"></video>
+				<video :src="videoObj.videourl"></video>
 			</view>
-		
+
 			<goods-category @changeClassify="changeClassify"></goods-category>
-			
+
 			<goods-list ref="goodsRef"></goods-list>
-			
+
 			<uni-popup ref="popup">
 				<image :src="popupData.thumb_url" mode="widthFix"></image>
 				<view class="popup-close" @click="$refs.popup.close()">
@@ -70,7 +71,7 @@
 				imgList: [],
 				notices: [],
 				videoObj: "",
-				popupData:{}
+				popupData: {}
 			}
 		},
 		mounted() {
@@ -80,72 +81,72 @@
 			let that = this
 			this.banner()
 			this.video()
-			
+
 			this.placard()
-			
-			that.$nextTick(function(){
-				Api.homepopups().then(res=>{
-					if(res.data.open == "开启"){
+
+			that.$nextTick(function() {
+				Api.homepopups().then(res => {
+					if (res.data.open == "开启") {
 						that.popupData = that.$utils.handleFile(res.data.data, "thumb_url")
 						that.$refs.popup.open()
 					}
 				})
 			})
-			
+
 		},
 		methods: {
-			banner(){
+			banner() {
 				let that = this
-				Api.banner().then(res=>{
-					if(res.status == 0)
+				Api.banner().then(res => {
+					if (res.status == 0)
 						that.imgList = that.$utils.handleFile(res.data, "thumb_url")
 				})
 			},
-			placard(){
+			placard() {
 				let that = this
-				Api.placard().then(res=>{
-					if(res.status == 0)
+				Api.placard().then(res => {
+					if (res.status == 0)
 						that.notices = res.data
 				})
 			},
-			menu(){
+			menu() {
 				let that = this
-				
-				Api.menu().then(res=>{
-					if(res.status == 0)
+
+				Api.menu().then(res => {
+					if (res.status == 0)
 						that.buttonList = that.$utils.handleFile(res.data, "thumb_url")
 				})
 			},
-			
-			video(){
+
+			video() {
 				let that = this
-				Api.video().then(res=>{
-					if(res.status == 0){
+				Api.video().then(res => {
+					if (res.status == 0) {
 						that.videoObj = that.$utils.handleFile(res.data, "videourl")
 					}
 				})
 			},
-			changeClassify(item){
+			changeClassify(item) {
 				this.$refs.goodsRef.product(item.id)
 			},
-			
+
 			selectedBanner(item, index) {
 				console.log('🥒', item, index)
 			},
-			buttonClick(item){
+			buttonClick(item) {
 				let that = this
-				if(item.url){
-					if(item.switch){
+				if (item.url) {
+					if (item.switch) {
 						uni.switchTab({
 							url: item.url
 						})
-					}else{
+					} else {
 						this.$utils.handleVerifyPath(item);
 					}
-				}else{
-					if(item.name == "每日签到"){
-						Api.qiandao().then(res=>{
-							that.$utils.handleShowToast(res)  
+				} else {
+					if (item.name == "每日签到") {
+						Api.qiandao().then(res => {
+							that.$utils.handleShowToast(res)
 						})
 					}
 				}
@@ -159,9 +160,11 @@
 		width: 95%;
 		margin: 0 auto;
 	}
-	.nav{
+
+	.nav {
 		background-color: #ffffff;
 	}
+
 	.swiper {
 		height: 80rpx;
 		font-size: 28rpx;
@@ -251,13 +254,14 @@
 	}
 
 
-	.video,.video video {
+	.video,
+	.video video {
 		height: 30vh;
 		margin: 20rpx auto;
 		width: 100%;
 	}
 
-	.popup-close{
+	.popup-close {
 		position: absolute;
 		top: 10rpx;
 		right: 10rpx;
@@ -270,5 +274,4 @@
 		color: #ffffff;
 		font-size: 20rpx;
 	}
-
 </style>

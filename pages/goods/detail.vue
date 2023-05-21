@@ -35,7 +35,7 @@
 					</view>
 				</view>
 			</view>
-			
+
 			<view class="detail">
 				<view class="title">
 					项目详情
@@ -47,22 +47,43 @@
 			</view>
 		</view>
 		<view class="bottomBlock"></view>
-		<view class="submit" :class="data.xmjd >= 100?'end':''" @click="submit">{{data.xmjd >= 100?"投资结束":"立即投资"}}</view>
+		<view class="submit" :class="data.xmjd >= 100?'end':''" @click="submit">{{data.xmjd >= 100?"投资结束":"立即投资"}}
+		</view>
 		<uni-popup type="bottom" ref="popup" @change="popupDetailChange">
 			<view class="popupDetail">
-				<view class="product viewFlex">
-					<view class="product-img">
-						<image :src="data.image" mode="aspectFill"></image>
-					</view>
-					<view class="product-info">
-						<view class="symbol">
-							<text>￥</text>{{price}}
-						</view>
-						<view class="estimate">
-							<text class="">分红({{data.day}}):{{dividendsP}}</text>
-						</view>
-					</view>
+
+				<view class="box">
+					<radio-group @change="radioChange" class="radioGroup">
+
+						<label class="cell-box">
+							<radio value="1" checked="checked" />
+							<span class="item-title">组合投资:</span>
+							<view class="item-centent">
+								￥<text class="flag">{{data.mybalance}}</text>元
+							</view>
+						</label>
+
+						<label class="cell-box">
+							<radio value="2" />
+							<span class="item-title">待投资金额:</span>
+							<view class="item-centent">
+								￥<text class="flag">{{data.myinvestbalance}}</text>元
+							</view>
+						</label>
+
+
+						<label class="cell-box">
+							<radio value="3" />
+							<span class="item-title">可提现金额:</span>
+							<view class="item-centent">
+								￥<text class="flag">{{data.mywithdrawbalance}}</text>元
+							</view>
+						</label>
+
+					</radio-group>
+
 				</view>
+
 				<view class="box">
 					<view class="cell-box">
 						<span class="item-title">项目可投金额:</span>
@@ -88,7 +109,7 @@
 							<view class="dec" @click="dec">
 								-
 							</view>
-							<input type="number" v-model="num" @blur="numBlur" >
+							<input type="number" v-model="num" @blur="numBlur">
 							<view class="inc" @click="inc">
 								+
 							</view>
@@ -97,8 +118,9 @@
 					<view class="cell-box">
 						<span class="item-title">优惠券:</span>
 						<view class="item-centent">
-							<picker @change="bindPickerChange" data-index="index_2" range-key="name" :value="index_2" :range="coupon_2">
-								<view class="uni-input" >{{index_2>-1?coupon_2[index_2].name:"请选择"}}</view>
+							<picker @change="bindPickerChange" data-index="index_2" range-key="name" :value="index_2"
+								:range="coupon_2">
+								<view class="uni-input">{{index_2>-1?coupon_2[index_2].name:"请选择"}}</view>
 							</picker>
 						</view>
 					</view>
@@ -118,7 +140,10 @@
 
 <script>
 	import uParse from '@/components/u-parse/u-parse.vue'
-	import { detail, pay } from "@/api/product.js"
+	import {
+		detail,
+		pay
+	} from "@/api/product.js"
 	export default {
 		data() {
 			return {
@@ -135,13 +160,14 @@
 				coupon_2: [],
 				index_2: -1,
 				id: 0,
-				popupDetail: true
+				popupDetail: true,
+				priceType: 1
 			}
 		},
 		onLoad(options) {
-			if(!options.id){
+			if (!options.id) {
 				uni.switchTab({
-					url:"/pages/tabBar/index"
+					url: "/pages/tabBar/index"
 				})
 				return
 			}
@@ -149,15 +175,15 @@
 			this.init()
 		},
 		methods: {
-			init(){
+			init() {
 				let that = this
 				detail({
 					id: this.id
-				}).then(res=>{
-					if(res.status == 0){
+				}).then(res => {
+					if (res.status == 0) {
 						that.data = that.$utils.handleFile(res.data, "image")
 						that.price = res.data.start_balance
-						that.dividendsP= res.data.dividends
+						that.dividendsP = res.data.dividends
 						that.numPrice = that.price
 						that.coupon_2 = res.data.cash_coupon
 						uni.setNavigationBarTitle({
@@ -170,70 +196,71 @@
 			bindPickerChange(e) {
 				this[e.currentTarget.dataset.index] = e.detail.value
 			},
-			submit(){
-				let that= this
-					,data = this.data
-				
-				if(data.xmjd >= 100){
+			submit() {
+				let that = this,
+					data = this.data
+
+				if (data.xmjd >= 100) {
 					return false
 				}
-				if(this.popupDetail){
+				if (this.popupDetail) {
 					this.popupDetail = false
 					this.$refs.popup.open()
 					return
 				}
 				this.popupDetail = !this.popupDetail
-				
-				if(that.price > data.remaining_balance){
+
+				if (that.price > data.remaining_balance) {
 					that.$utils.handleShowToast({
-						msg:"不可大于项目可投金额",
+						msg: "不可大于项目可投金额",
 						status: 1
-					}) 
+					})
 					this.popupDetail = true
 					return;
 				}
-				if(!data.pwdPay){
+				if (!data.pwdPay) {
 					that.$utils.handleShowToast({
-						msg:"请输入支付密码",
+						msg: "请输入支付密码",
 						status: 1
-					}) 
+					})
 					this.popupDetail = true
 					return;
 				}
-				
+
 				let field = {
 					idPay: that.id,
 					num: that.num,
 					pwdPay: data.pwdPay,
+					priceType: that.priceType
 				}
-				if(that.index_2 > -1){
+				if (that.index_2 > -1) {
 					field.cashcoupon = that.coupon_2[that.index_2].id
 				}
-				pay(field).then(res=>{
-					that.$utils.handleShowToast(res) 
+				pay(field).then(res => {
+					that.$utils.handleShowToast(res)
 					if (res.status == 0) {
 						that.$utils.handleNavigateTo("/pages/finance/investlog")
 					}
-				}).finally(res=>{
+				}).finally(res => {
 					that.popupDetail = false
 				})
 			},
-			inc(){
+			inc() {
 				this.num = Number(this.num) + 1
 				this.verifyPrice()
 			},
-			dec(){
+			dec() {
 				this.num = Number(this.num) - 1
-				if(this.num < 1){
+				if (this.num < 1) {
 					this.num = 1
 				}
 				this.verifyPrice()
 			},
-			verifyPrice(){
-				let data = this.data
-					, num = Number(this.num)
-					, price = data.start_balance * num
-				if(price > data.remaining_balance){
+			verifyPrice() {
+				let data = this.data,
+					num = Number(this.num),
+					price = data.start_balance * num
+				if (price > data.remaining_balance) {
 					num = Math.ceil(data.remaining_balance / data.start_balance)
 					this.num = num
 				}
@@ -241,110 +268,140 @@
 				this.dividendsP = data.dividends * num
 				this.$forceUpdate()
 			},
-			numBlur(res){
+			numBlur(res) {
 				this.verifyPrice()
 			},
-			popupDetailChange(e){
+			popupDetailChange(e) {
 				this.popupDetail = !e.show
+			},
+			radioChange(e){
+				this.priceType = e.detail.value
 			}
 		}
 	}
 </script>
 
 <style lang="scss">
-	.main{
+	.main {
 		.header {
 			width: 95%;
 			margin: 0 auto;
 			margin-top: 20rpx;
 			border-radius: 10rpx;
-			.img{
+
+			.img {
 				width: 100%;
 				height: 30vh;
 				overflow: hidden;
 				border-radius: 5rpx;
-				image{
+
+				image {
 					width: 100%;
 					height: 100%;
 					display: block;
 				}
 			}
-			.title{
+
+			.title {
 				margin-top: 20rpx;
 				font-size: 30rpx;
 				font-weight: bold;
 			}
-			.box{
+
+			.box {
 				border: 1rpx solid #ebebeb;
 				padding: 20rpx;
 				text-align: center;
 				margin-top: 30rpx;
 				color: #9f8080;
-				.box-item{
+
+				.box-item {
 					width: 30%;
-					.price{
+
+					.price {
 						color: #000000;
 						margin-top: 10rpx;
-						text{
+
+						text {
 							color: red;
 						}
 					}
 				}
-				.box-item:nth-child(2){
-					border-left: 1rpx  solid #ebebeb;
-					border-right: 1rpx  solid #ebebeb;
+
+				.box-item:nth-child(2) {
+					border-left: 1rpx solid #ebebeb;
+					border-right: 1rpx solid #ebebeb;
 					width: 40%;
 				}
 			}
 		}
-		.detail{
+
+		.detail {
 			margin-top: 40rpx;
-			.title{
+
+			.title {
 				text-align: center;
 			}
-			.line{
+
+			.line {
 				margin-top: 20rpx;
 				height: 10rpx;
 				background-color: #fe8113;
 			}
 		}
 	}
-	
-	.popupDetail{
+
+	.popupDetail {
 		border-top-left-radius: 20rpx;
 		border-top-right-radius: 20rpx;
 		background-color: #ffffff;
 		padding-top: 30rpx;
-		.box, .product{
+
+		.radioGroup{
+			border: 1rpx solid rgba(0, 0, 0, .1);
+			padding: 15rpx;
+			border-radius: 10rpx;
+		}
+		
+		.box,
+		.product {
 			width: 90%;
 			margin: 0 auto;
 		}
-		.product{
+
+		.product {
 			margin-bottom: 50rpx;
-			.product-img{
+
+			.product-img {
 				width: 40%;
 				overflow: hidden;
 				border-radius: 20rpx;
 				height: 220rpx;
-				image{
+
+				image {
 					width: 100%;
 					height: 100%;
 					display: block;
 				}
 			}
-			.product-info{
+
+			.product-info {
 				width: 58%;
 				margin-left: 2%;
 				color: #fe8113;
-				.symbol{
+
+				.symbol {
 					font-weight: bold;
-					text{
+
+					text {
 						font-size: 50rpx;
 					}
 				}
-				.estimate{
+
+				.estimate {
 					margin-top: 20rpx;
-					text{
+
+					text {
 						padding: 5rpx 30rpx;
 						border-radius: 50rpx;
 						background-color: #fe8113;
@@ -354,7 +411,12 @@
 				}
 			}
 		}
-		.box{
+
+		.box {
+			.cell-box1 {
+				display: block;
+			}
+
 			.cell-box {
 				display: flex;
 				align-items: center;
@@ -362,31 +424,33 @@
 				box-sizing: border-box;
 				background-color: #fff;
 				border-bottom: 1px solid #f8f8f8;
-					
+
+
+
 				.item-title {
 					font-size: 30rpx;
 					color: #333;
 					width: 35%;
 					font-weight: bold;
 				}
-					
+
 				.item-centent {
 					width: 65%;
 					text-align: right;
 				}
-					
+
 				.price {
 					background-color: #fafafa;
 					width: 35%;
 					justify-content: space-between;
-					
+
 					input {
 						width: 100rpx;
 						text-align: center;
 						height: 50rpx;
 						line-height: 50rpx;
 					}
-					
+
 					.dec,
 					.inc {
 						width: 50rpx;
@@ -400,10 +464,14 @@
 			}
 		}
 	}
-	.bottomBlock, .submit,.popupDetail .cell-box {
+
+	.bottomBlock,
+	.submit,
+	.popupDetail .cell-box {
 		height: 100rpx;
 		line-height: 100rpx;
 	}
+
 	.submit {
 		position: fixed;
 		bottom: 0;
@@ -413,7 +481,8 @@
 		text-align: center;
 		z-index: 999;
 	}
-	.submit.end{
+
+	.submit.end {
 		background-color: #c7b5b5;
 	}
 </style>

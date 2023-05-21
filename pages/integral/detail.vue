@@ -29,29 +29,35 @@
 				<view class="cell-box">
 					<span class="item-title">收件人名字:</span>
 					<view class="item-centent">
-						<input type="text" maxlength="5" class="weui-input" v-model="data.name" placeholder="请输入收件人名字" />
+						<input type="text" maxlength="5" class="weui-input" v-model="data.name"
+							placeholder="请输入收件人名字" />
 					</view>
 				</view>
 				<view class="cell-box">
 					<span class="item-title">联系电话:</span>
 					<view class="item-centent">
-						<input type="text" maxlength="11" class="weui-input" v-model="data.phone" placeholder="请输入联系电话" />
+						<input type="text" maxlength="11" class="weui-input" v-model="data.phone"
+							placeholder="请输入联系电话" />
 					</view>
 				</view>
 				<view class="cell-box">
 					<span class="item-title">收货地址:</span>
 					<view class="item-centent">
-						<input type="text" maxlength="11" class="weui-input" v-model="data.address" placeholder="请输入收货地址" />
+						<input type="text" maxlength="11" class="weui-input" v-model="data.address"
+							placeholder="请输入收货地址" />
 					</view>
 				</view>
 			</view>
 		</view>
-		<view class="submit" @click="submit">立即投资</view>
+		<view class="submit" @click="submit">立即兑换</view>
 	</view>
 </template>
 
 <script>
-	import { detail, jifenexchange} from "@/api/integral.js";
+	import {
+		detail,
+		jifenexchange
+	} from "@/api/integral.js";
 	export default {
 		data() {
 			return {
@@ -67,9 +73,9 @@
 			}
 		},
 		onLoad(options) {
-			if(!options.id){
+			if (!options.id) {
 				uni.navigateTo({
-					url:"/pages/integral/mall"
+					url: "/pages/integral/mall"
 				})
 				return
 			}
@@ -77,69 +83,69 @@
 			this.init()
 		},
 		methods: {
-			init(){
+			init() {
 				let that = this
 				detail({
 					id: this.id
-				}).then(res=>{
-					if(res.status == 0){
+				}).then(res => {
+					if (res.status == 0) {
 						that.data = res.data
 					}
 				})
 			},
-			inc(){
+			inc() {
 				this.number = this.number + 1
 			},
-			dec(){
+			dec() {
 				let number = this.number - 1
-				if(this.number < 2){
+				if (this.number < 2) {
 					number = 1
 				}
 				this.number = number
 			},
-			submit(){
-				let that= this
-					,data = this.data
-					
-				if(!data.name){
+			submit() {
+				let that = this,
+					data = this.data
+
+				if (!data.name) {
 					that.$utils.handleShowToast({
-						msg:"请输入姓名",
+						msg: "请输入姓名",
 						status: 1
-					}) 
+					})
 					return;
 				}
-				if(!data.phone){
+				if (!data.phone) {
 					that.$utils.handleShowToast({
-						msg:"请输入手机号",
+						msg: "请输入手机号",
 						status: 1
-					}) 
+					})
 					return;
 				}
-				if(!data.address){
+				if (!data.address) {
 					that.$utils.handleShowToast({
-						msg:"请输入地址",
+						msg: "请输入地址",
 						status: 1
-					}) 
+					})
 					return;
 				}
-				if(data.integral * that.number > data.userintegral){
+				if (data.integral * that.number > data.userintegral) {
 					that.$utils.handleShowToast({
-						msg:"积分不足",
+						msg: "积分不足",
 						status: 1
-					}) 
+					})
 					return;
 				}
 				data.number = that.number
-				jifenexchange(data).then(res=>{
-					that.$utils.handleShowToast(res) 
+				jifenexchange(data).then(res => {
+					that.$utils.handleShowToast(res)
 					if (res.status == 0) {
 						that.$utils.handleNavigateTo("/pages/integral/exchangelog")
 					}
 				})
 			},
-			numberBlur(res){
+			numberBlur(res) {
 				console.log(res)
-				if(this.number < 0){
+				if (this.number < 0) {
 					this.number = 1
 				}
 				this.$forceUpdate()

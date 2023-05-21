@@ -1,7 +1,7 @@
 <template>
 	<view class="container">
 		<view class="bgImg">
-			<image src="../../static/image/drawPrizeBg.png" mode="widthFix"></image>
+			<image src="../../static/image/drawPrizeBg.jpg" mode="widthFix"></image>
 			<view class="almost-lottery-turntable">
 				<view class="almost-lottery__wheel">
 					<almost-lottery :lottery-size="lotteryConfig.lotterySize" :action-size="lotteryConfig.actionSize"
@@ -16,7 +16,8 @@
 			</view>
 			<view class="almost-lottery-main">
 				<view class="lottery-list">
-					<swiper class="swiper" circular :indicator-dots="false" :autoplay="true" :interval='2000' :vertical="true">
+					<swiper class="swiper" circular :indicator-dots="false" :autoplay="true" :interval='2000'
+						:vertical="true">
 						<swiper-item v-for="(item,i) in config.winlist">
 							<view>{{item.moneylog_notice}}</view>
 						</swiper-item>
@@ -35,7 +36,7 @@
 			</view>
 		</view>
 	</view>
-	
+
 </template>
 
 <script>
@@ -91,7 +92,7 @@
 				return uni.getSystemInfoSync().platform === 'ios'
 			}
 		},
-		
+
 		methods: {
 			// 重新生成
 			handleInitCanvas() {
@@ -115,10 +116,10 @@
 			// 大哥，这里只是模拟，别告诉我你不会对接自己的接口
 			requestApiGetPrizeList() {
 				let that = this
-				Api.prizeList().then(res=>{
+				Api.prizeList().then(res => {
 					let list = [];
-					if(res.status == 0){
-						res.data.forEach(item=>{
+					if (res.status == 0) {
+						res.data.forEach(item => {
 							list.push({
 								prizeId: item.id,
 								prizeImage: that.$utils.handleFile(item, "img").img,
@@ -127,21 +128,21 @@
 								prizeDesc: item.prize,
 							})
 						})
-						
+
 						that.prizeList = list
 						console.log('已获取到奖品列表数据，开始绘制抽奖转盘')
-						console.log('获取奖品列表',list)
+						console.log('获取奖品列表', list)
 						// 计算开始绘制的时间
 						if (console.time) {
 							console.time('绘制转盘用时')
 						}
 					}
-				}).catch(res=>{
+				}).catch(res => {
 					uni.hideLoading()
 					that.$utils.handleShowToast({
 						status: 1,
 						mag: "获取奖品失败",
-					}) 
+					})
 				})
 			},
 			// 本次抽奖开始
@@ -156,7 +157,7 @@
 					// 更新免费次数或金币余额
 					if (this.freeNum > 0) {
 						this.freeNum--
-					} 
+					}
 
 					this.tryLotteryDraw()
 				} else {
@@ -179,11 +180,11 @@
 			// 大哥，这里只是模拟，别告诉我你不会对接自己的接口
 			remoteGetPrizeIndex() {
 				let that = this
-				Api.winclick().then(res=>{
-					if(res.status == 0){
+				Api.winclick().then(res => {
+					if (res.status == 0) {
 						let prizeId = res.index
 						let list = [...that.prizeList]
-						
+
 						for (let i = 0; i < list.length; i++) {
 							let item = list[i]
 							if (item.prizeId === prizeId) {
@@ -193,8 +194,8 @@
 							}
 						}
 						console.log('本次抽中奖品 =>', that.prizeList[that.prizeIndex])
-					}else{
-						that.$utils.handleShowToast(res) 
+					} else {
+						that.$utils.handleShowToast(res)
 						this.prizeing = false
 					}
 				})
@@ -233,9 +234,9 @@
 					})
 				}, 50)
 			},
-			getWinlist(){
+			getWinlist() {
 				let that = this
-				Api.winlist().then(res=>{
+				Api.winlist().then(res => {
 					that.config = res.data
 					that.freeNum = res.data.mynum
 				})
@@ -253,21 +254,23 @@
 </script>
 
 <style lang="scss" scoped>
-	.bgImg{
+	.bgImg {
 		position: relative;
-		image{
+
+		image {
 			width: 100vw;
 			height: 100%;
 		}
-		
+
 		.almost-lottery-turntable {
 			position: absolute;
 			top: 22%;
 			left: 0;
 			right: 0;
+
 			.almost-lottery__wheel {
 				text-align: center;
-			
+
 				.almost-lottery__count {
 					display: flex;
 					flex-direction: column;
@@ -275,10 +278,12 @@
 					align-items: center;
 					text-align: center;
 					padding: 40rpx 0;
+
 					.text {
 						color: #000000;
 						font-size: 30rpx;
-						.number{
+
+						.number {
 							color: red;
 							font-size: 36rpx;
 							font-weight: bold;
@@ -288,11 +293,13 @@
 				}
 			}
 		}
-		.almost-lottery-main{
+
+		.almost-lottery-main {
 			position: absolute;
 			top: 56%;
 			width: 100%;
-			.lottery-list{
+
+			.lottery-list {
 				width: 80%;
 				margin: 40rpx auto 50rpx;
 				background-color: #cb8653;
@@ -300,33 +307,38 @@
 				border-radius: 50rpx;
 				color: #ffffff;
 				text-align: center;
-				.swiper, view{
+
+				.swiper,
+				view {
 					height: 55rpx;
 					line-height: 55rpx;
 				}
 			}
-			.rule{
+
+			.rule {
 				width: 80%;
 				margin: 0 auto;
 				background-color: #ffffff;
 				border-radius: 20rpx;
 				overflow: hidden;
 				padding: 40rpx;
-				.rule-title{
+
+				.rule-title {
 					font-size: 32rpx;
 					font-weight: bold;
 					text-align: center;
 				}
-				.rule-content{
+
+				.rule-content {
 					margin-top: 35rpx;
 					letter-spacing: 2px;
 					word-spacing: 10px;
-					view{
+
+					view {
 						margin-bottom: 15rpx;
 					}
 				}
 			}
 		}
 	}
-	
 </style>

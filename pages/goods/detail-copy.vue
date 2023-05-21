@@ -49,16 +49,18 @@
 				<view class="cell-box">
 					<span class="item-title">加息券:</span>
 					<view class="item-centent">
-						<picker @change="bindPickerChange" data-index="index_1" range-key="name" :value="index_1" :range="coupon_1">
-							<view class="uni-input" >{{index_1>-1?coupon_1[index_1].name:"请选择"}}</view>
+						<picker @change="bindPickerChange" data-index="index_1" range-key="name" :value="index_1"
+							:range="coupon_1">
+							<view class="uni-input">{{index_1>-1?coupon_1[index_1].name:"请选择"}}</view>
 						</picker>
 					</view>
 				</view>
 				<view class="cell-box">
 					<span class="item-title">现金券:</span>
 					<view class="item-centent">
-						<picker @change="bindPickerChange" data-index="index_2" range-key="name" :value="index_2" :range="coupon_2">
-							<view class="uni-input" >{{index_2>-1?coupon_2[index_2].name:"请选择"}}</view>
+						<picker @change="bindPickerChange" data-index="index_2" range-key="name" :value="index_2"
+							:range="coupon_2">
+							<view class="uni-input">{{index_2>-1?coupon_2[index_2].name:"请选择"}}</view>
 						</picker>
 					</view>
 				</view>
@@ -75,16 +77,18 @@
 </template>
 
 <script>
-	
-	import { detail, pay } from "@/api/product.js"
+	import {
+		detail,
+		pay
+	} from "@/api/product.js"
 	export default {
 		data() {
 			return {
 				data: {
-					remaining_balance:0,
-					start_balance:0,
+					remaining_balance: 0,
+					start_balance: 0,
 					time: "xx",
-					pwdPay:""
+					pwdPay: ""
 				},
 				price: 0,
 				coupon_1: [],
@@ -97,9 +101,9 @@
 			}
 		},
 		onLoad(options) {
-			if(!options.id){
+			if (!options.id) {
 				uni.switchTab({
-					url:"/pages/tabBar/index"
+					url: "/pages/tabBar/index"
 				})
 				return
 			}
@@ -107,12 +111,12 @@
 			this.init()
 		},
 		methods: {
-			init(){
+			init() {
 				let that = this
 				detail({
 					id: this.id
-				}).then(res=>{
-					if(res.status == 0){
+				}).then(res => {
+					if (res.status == 0) {
 						that.data = res.data
 						that.price = res.data.start_balance
 						that.coupon_1 = res.data.interest_coupon
@@ -124,62 +128,62 @@
 			bindPickerChange(e) {
 				this[e.currentTarget.dataset.index] = e.detail.value
 			},
-			inc(){
+			inc() {
 				this.price = this.price + this.incNum
 				this.verifyPrice()
 			},
-			dec(){
+			dec() {
 				this.price = this.price - this.decNum
 				this.verifyPrice()
 			},
-			submit(){
-				let that= this
-					,data = this.data
-					
-				if(that.price > data.remaining_balance){
+			submit() {
+				let that = this,
+					data = this.data
+
+				if (that.price > data.remaining_balance) {
 					that.$utils.handleShowToast({
-						msg:"不可大于项目可投金额",
+						msg: "不可大于项目可投金额",
 						status: 1
-					}) 
+					})
 					return;
 				}
-				if(!data.pwdPay){
+				if (!data.pwdPay) {
 					that.$utils.handleShowToast({
-						msg:"请输入支付密码",
+						msg: "请输入支付密码",
 						status: 1
-					}) 
+					})
 					return;
 				}
-				
+
 				let field = {
 					idPay: that.id,
 					amountPay: that.price,
 					pwdPay: data.pwdPay,
 				}
-				if(that.index_1 > -1){
+				if (that.index_1 > -1) {
 					field.ratecoupon = that.coupon_1[that.index_1].id
 				}
-				if(that.index_2 > -1){
+				if (that.index_2 > -1) {
 					field.cashcoupon = that.coupon_2[that.index_2].id
 				}
-				pay(field).then(res=>{
-					that.$utils.handleShowToast(res) 
+				pay(field).then(res => {
+					that.$utils.handleShowToast(res)
 					if (res.status == 0) {
 						that.$utils.handleNavigateTo("/pages/finance/investlog")
 					}
 				})
 			},
-			verifyPrice(){
+			verifyPrice() {
 				let data = this.data
-				if(this.price > data.remaining_balance){
+				if (this.price > data.remaining_balance) {
 					this.price = data.remaining_balance
 				}
-				if(this.price < data.start_balance){
+				if (this.price < data.start_balance) {
 					this.price = data.start_balance
 				}
 				this.$forceUpdate()
 			},
-			priceBlur(res){
+			priceBlur(res) {
 				this.verifyPrice()
 			}
 		}

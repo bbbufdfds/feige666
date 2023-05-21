@@ -44,6 +44,16 @@ export function yeboperation(data) {
 		data
 	})
 }
+
+export function yeboprice(data) {
+	return request({
+		url: 'my/yeboprice',
+		method: 'POST',
+		data
+	})
+}
+
+
 export function addbank(data) {
 	return request({
 		url: 'my/addbank',

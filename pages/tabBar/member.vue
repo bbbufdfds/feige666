@@ -28,7 +28,7 @@
 						<view class="ellipsis">
 							待投资金额：{{infoData.investedBalance}}
 						</view>
-						<view class="ellipsis" >
+						<view class="ellipsis">
 							可提现金额：{{infoData.withdrawalBalance}}
 						</view>
 					</view>
@@ -67,22 +67,23 @@
 						</view>
 					</view>
 				</view>
-				
+
 				<view class="btnInfo viewFlex">
 					<view class="btn" @click="navClick_1(1)">
 						提现
-					</view> 
+					</view>
 					<view class="line"></view>
 					<view class="btn" @click="navClick_1(2)">
 						充值
-					</view> 
+					</view>
 				</view>
 			</view>
-			
+
 			<view class="content">
 				<view style="height: 90rpx;"></view>
 				<view class="list viewFlex">
-					<view @click="navClick(item)" class="list-item viewFlex" :class="(index+1)%3 == 0?'right-border-none':''" v-for="(item, index) in btnList">
+					<view @click="navClick(item)" class="list-item viewFlex"
+						:class="(index+1)%3 == 0?'right-border-none':''" v-for="(item, index) in btnList">
 						<view class="">
 							<view class="">
 								<i class="iconfont" :style="'color:#' + item.color" :class="'icon-' +item.icon"></i>
@@ -95,7 +96,7 @@
 					</view>
 				</view>
 			</view>
-			
+
 			<view class="logout" @click="logout">
 				退出
 			</view>
@@ -104,14 +105,17 @@
 </template>
 
 <script>
-	import {mapState} from "vuex";
-	import { bankcardbinding } from "@/api/finance.js"
+	import {
+		mapState
+	} from "vuex";
+	import {
+		bankcardbinding
+	} from "@/api/finance.js"
 	import * as userApi from "@/api/user.js"
 	export default {
-		data(){
-			return{
-				btnList:[
-					{
+		data() {
+			return {
+				btnList: [{
 						title: "转账",
 						icon: "yinhangqia",
 						color: "53aaed",
@@ -195,8 +199,8 @@
 		},
 		onShow() {
 			let that = this
-			userApi.mymsg().then(res=>{
-				if(res.status == 0){
+			userApi.mymsg().then(res => {
+				if (res.status == 0) {
 					that.notice = res.num
 				}
 			})
@@ -210,37 +214,37 @@
 			})
 			that.info()
 		},
-		computed: { 
-		   ...mapState([ 
-				'user' 
-		   ]),
+		computed: {
+			...mapState([
+				'user'
+			]),
 		},
-		methods:{
-			info(){
+		methods: {
+			info() {
 				let that = this
-				that.$utils.handleUserInfo().then(res=>{
-					if(res.status == 0){
+				that.$utils.handleUserInfo().then(res => {
+					if (res.status == 0) {
 						that.infoData = res.data
 					}
 				})
 			},
-			logout(){
+			logout() {
 				let that = this
 				that.$store.commit("user/logout")
 			},
-			navClick_1(t){
+			navClick_1(t) {
 				let item = {}
-				if(t == 1){
-					item.url= "/pages/finance/withdrawal"
+				if (t == 1) {
+					item.url = "/pages/finance/withdrawal"
 					item.isrealname = true
 					item.isbank = true
-				}else{
+				} else {
 					item.url = "/pages/finance/recharge"
 					item.isrealname = true
 				}
 				this.navClick(item)
 			},
-			navClick(item){
+			navClick(item) {
 				this.$utils.handleVerifyPath(item);
 			},
 		}
@@ -248,11 +252,12 @@
 </script>
 
 <style lang="scss">
-	.nav{
+	.nav {
 		background-color: #ff7949;
 	}
-	.container{
-		.header{
+
+	.container {
+		.header {
 			background-color: #ff7949;
 			color: #ffffff;
 			padding: 40rpx;
@@ -260,45 +265,57 @@
 			// height: 30vh;
 			height: 30%;
 			position: relative;
-			.userInfo{
+
+			.userInfo {
 				margin-bottom: 40rpx;
 			}
-			.priceInfo{
+
+			.priceInfo {
 				margin-bottom: 40rpx;
-				.priceSize{
+
+				.priceSize {
 					font-size: 50rpx;
 					font-weight: bold;
 				}
-				.priceInfo-item.right view{
+
+				.priceInfo-item.right view {
 					margin-top: 15rpx;
 				}
-				.priceInfo-item view{
+
+				.priceInfo-item view {
 					overflow: hidden;
 					text-overflow: ellipsis;
 					white-space: nowrap;
 				}
 			}
-			
-			.priceInfo-item, .userInfo-info-item{
+
+			.priceInfo-item,
+			.userInfo-info-item {
 				width: 50%;
 			}
-			.userInfo-info-item:nth-child(2), .priceInfo-item:nth-child(2){
+
+			.userInfo-info-item:nth-child(2),
+			.priceInfo-item:nth-child(2) {
 				text-align: right;
 			}
 		}
-		.priceUl{
+
+		.priceUl {
 			text-align: center;
-			.priceUl-li{
+
+			.priceUl-li {
 				width: 25%;
 				font-size: 28rpx;
-				view{
+
+				view {
 					overflow: hidden;
 					white-space: nowrap;
 					text-overflow: ellipsis;
 				}
 			}
 		}
-		.btnInfo{
+
+		.btnInfo {
 			position: absolute;
 			bottom: -50rpx;
 			border-radius: 20rpx;
@@ -313,36 +330,42 @@
 			text-align: center;
 			-moz-box-shadow: 2px 2px 10px #909090;
 			-webkit-box-shadow: 2px 2px 10px #909090;
-			box-shadow:2px 2px 10px #909090;
+			box-shadow: 2px 2px 10px #909090;
 			align-items: center;
-			.line{
+
+			.line {
 				height: 40%;
 				border-left: 2rpx solid #a4a4a4;
 			}
-			.btn{
+
+			.btn {
 				width: 50%;
 			}
 		}
-		.list{
+
+		.list {
 			text-align: center;
 			flex-wrap: wrap;
 			border-top: 1rpx solid #eee;
-			.list-item{
+
+			.list-item {
 				border-right: 1rpx solid #eee;
 				border-bottom: 1rpx solid #eee;
 				align-items: center;
 				justify-content: center;
 				width: 33%;
-				aspect-ratio: 1/1; 
+				aspect-ratio: 1/1;
 				position: relative;
-				.iconfont{
+
+				.iconfont {
 					font-size: 60rpx;
 					width: 80rpx;
 					height: 80rpx;
 					line-height: 80rpx;
 					display: inline-block;
 				}
-				.notice{
+
+				.notice {
 					position: absolute;
 					top: 20rpx;
 					right: 20rpx;
@@ -355,17 +378,19 @@
 					color: #ffffff;
 				}
 			}
-			.right-border-none{
+
+			.right-border-none {
 				border-right: 0;
 			}
 		}
 	}
-	.logout{
+
+	.logout {
 		margin-top: 50rpx;
 		width: 100%;
 		text-align: center;
 		background-color: #fe8113;
 		color: #ffffff;
-		padding: 20rpx;
+		padding: 20rpx 0;
 	}
 </style>
