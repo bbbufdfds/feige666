@@ -41,8 +41,8 @@
 						</span>
 					</view>
 				</view>
-				<navigator class="btn maigin-top-15" :class="'btn' + item.status" :url="status==0?'detail?id=' + item.id:''">
-					{{item.status == 1?'兑换完成':'立即兑换'}}
+				<navigator class="btn maigin-top-15" :class="'btn' + item.isexchange" :url="item.isexchange==0?'detail?id=' + item.id:''">
+					{{item.isexchange == 1?'兑换完成':'立即兑换'}}
 				</navigator>
 			</view>
 		</view>
